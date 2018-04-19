@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.GalaxyWars;
+import com.mygdx.game.model.GameModel;
 
 public class GameView extends ScreenAdapter{
 	
@@ -54,5 +55,12 @@ public class GameView extends ScreenAdapter{
 		Texture background = game.getAssetManager().get("space.png", Texture.class);
         background.setWrap(Texture.TextureWrap.Repeat, Texture.TextureWrap.Repeat);
         game.getBatch().draw(background, 0, 0, 0, 0, (int)(ARENA_WIDTH / PIXEL_TO_METER), (int) (ARENA_HEIGHT / PIXEL_TO_METER));
+	}
+	
+	private void drawEntities(){
+        ShipModel ship = GameModel.getInstance().getShip();
+        EntityView view = ViewFactory.makeView(game, ship);
+        view.update(ship);
+        view.draw(game.getBatch());
 	}
 }

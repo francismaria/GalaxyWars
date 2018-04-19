@@ -1,6 +1,7 @@
 package com.mygdx.game.view.entities;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.game.model.entities.GameEntity;
 import com.mygdx.game.view.GameView;
