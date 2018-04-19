@@ -15,6 +15,10 @@ public abstract class EntityView {
 	
 	public abstract Sprite createSprite(GalaxyWars game);
 
+    public void draw(SpriteBatch batch) {
+        sprite.draw(batch);
+    }
+    
 	public void update(GameEntity model){
         sprite.setCenter(model.getPosition().getXCoordinate() / GameView.PIXEL_TO_METER,
         		model.getPosition().getYCoordinate() / GameView.PIXEL_TO_METER);
