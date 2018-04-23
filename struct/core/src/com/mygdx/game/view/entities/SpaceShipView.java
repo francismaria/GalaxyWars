@@ -28,7 +28,8 @@ public class SpaceShipView extends EntityView {
 	
     @Override
     public void draw(SpriteBatch batch) {
-    	sprite.setSize(100, 68);
+    	sprite.setScale((float)0.1);
+    	sprite.setRotation(-90);
         sprite.draw(batch);
     }
 	
