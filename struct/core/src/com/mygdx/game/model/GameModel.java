@@ -9,13 +9,17 @@ public class GameModel {
 	private SpaceShip spaceShip;
 	
 	private GameModel(){
-		
+		spaceShip = new SpaceShip();
 	}
 	
     public static GameModel getInstance() {
         if (instance == null)
             instance = new GameModel();
         return instance;
+    }
+    
+    public SpaceShip getSpaceShip(){
+    	return spaceShip;
     }
     
     

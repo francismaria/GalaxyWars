@@ -4,4 +4,7 @@ import com.mygdx.gamestructs.Position;
 
 public abstract class Enemy extends GameEntity{
 	
+	public Enemy(){
+		super(0, 0);
+	}
 }

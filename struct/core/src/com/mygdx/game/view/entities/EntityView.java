@@ -21,7 +21,7 @@ public abstract class EntityView {
     }
     
 	public void update(GameEntity model){
-        sprite.setCenter(model.getPosition().getXCoordinate() / GameView.PIXEL_TO_METER,
-        		model.getPosition().getYCoordinate() / GameView.PIXEL_TO_METER);
+        sprite.setCenter(model.getPosition().getXCoordinate(),
+        		model.getPosition().getYCoordinate());
 	}
 }
