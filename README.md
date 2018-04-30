@@ -1,5 +1,9 @@
 # GalaxyWars
 
+## Introduction
+
+**Galaxy Wars** is a game that consists in a space ship that continuosly tries to reach further distance until it reaches the ultimate BOSS who it shall fight and destroys it.
+
 ## Architecture Design
 
 Below is a representation of the diagram representing our program structure.
