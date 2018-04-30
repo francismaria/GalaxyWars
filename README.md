@@ -28,6 +28,8 @@ This first image is a representation of the first "level" of the game.
 
 ![alt text](imgs/Cave.png)
 
+This image represents the obstacles in the game.
+
 ![alt text](imgs/Boss.png)
 
 This last image is the representation of the last "level" of the game.
