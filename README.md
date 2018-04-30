@@ -2,7 +2,8 @@
 
 ## Introduction
 
-**Galaxy Wars** is a game that consists in a space ship that continuosly tries to reach further distance until it reaches the ultimate BOSS who it shall fight and destroys it.
+**Galaxy Wars** is a game that consists in a space ship that continuously tries to reach further distance until it reaches the ultimate BOSS who it shall fight and destroy it.
+Throughout the game the player will find himself surrounded by enemies which he has to kill to reach the final stage of the game.
 
 ## Architecture Design
 
