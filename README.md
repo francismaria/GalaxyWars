@@ -12,7 +12,7 @@ Below is a representation of the diagram representing our program structure.
 ![alt text](imgs/first-uml.JPG)
 
 ### Design Patterns
-* Singleton : for GameModel, GameController an GameView
+* Singleton : for GameModel, GameController and GameView
 
 ---
 
