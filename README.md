@@ -12,10 +12,11 @@ Below is a representation of the diagram representing our program structure.
 
 ## GUI Design
 
-* Main functionalities
+* **Main functionalities**
+
 The game will keep the record of the highest records (points). When starting a new game the player has to choose the difficulty of the game (easy/medium/hard) in which will influence the speed and the number of enemies in the game. It will have a volume controller in which the player may adjust the volume to its choice.
 
-* GUI mock-ups
+* **GUI mock-ups**
 
 ---
 
