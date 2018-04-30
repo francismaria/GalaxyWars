@@ -24,9 +24,13 @@ The next images are just a sketch of what the game interface should be as we hav
 
 ![alt text](imgs/StandardGame.png)
 
+This first image is a representation of the first "level" of the game.
+
 ![alt text](imgs/Cave.png)
 
 ![alt text](imgs/Boss.png)
+
+This last image is the representation of the last "level" of the game.
 
 ---
 
