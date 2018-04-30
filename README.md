@@ -4,7 +4,7 @@
 
 Below is a representation of the diagram representing our program structure.
 
-![alt text](imgs/first-uml.JPG "Description goes here")
+![alt text](imgs/first-uml.JPG)
 
 ### Design Patterns
 
@@ -19,6 +19,14 @@ Below is a representation of the diagram representing our program structure.
   * Volume mixer
 
 * **GUI mock-ups**
+
+The next images are just a sketch of what the game interface should be as we haven't defined a gui that we find appropriate. 
+
+![alt text](imgs/StandardGame.png)
+
+![alt text](imgs/Cave.png)
+
+![alt text](imgs/Boss.png)
 
 ---
 
