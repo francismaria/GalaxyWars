@@ -16,13 +16,13 @@ Below is a representation of the diagram representing our program structure.
 
 ## Test Designs
 
-* Button testing
+* **Button testing**
   * Galaxy "jumps" when space bar is pressed
   * Galaxy "fires" bullet when right button is clicked
-* Enemy testing
+* **Enemy testing**
   * "Boss" enemy dies when its health is "0"
   * Galaxy wins game when "BOSS" enemy is defeated
-* Collision testing
+* **Collision testing**
   * Galaxy "dies" when it colides with the floor
   * Galaxy loses health when bullet hits it
   * Galaxy "dies" when enemy collides with it
