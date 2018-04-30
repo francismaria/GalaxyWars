@@ -4,7 +4,7 @@
 
 Below is a representation of the diagram representing our program structure.
 
-![alt text](https://raw.githubusercontent.com/francismaria/GalaxyWars/master/imgs/first-uml.jpeg)
+![alt text](https://github.com/francismaria/GalaxyWars/tree/master/imgs/first-uml.JPG)
 
 ### Design Patterns
 
