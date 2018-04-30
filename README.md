@@ -1,12 +1,18 @@
 # GalaxyWars
 
+## Introduction
+
+**Galaxy Wars** is a game that consists in a space ship that continuously tries to reach further distance until it reaches the ultimate BOSS who it shall fight and destroy it.
+Throughout the game the player will find himself surrounded by enemies which he has to kill to reach the final stage of the game.
+
 ## Architecture Design
 
 Below is a representation of the diagram representing our program structure.
 
-//AQUI
+![alt text](imgs/first-uml.JPG)
 
 ### Design Patterns
+* Singleton : for GameModel, GameController and GameView
 
 ---
 
@@ -19,6 +25,20 @@ Below is a representation of the diagram representing our program structure.
   * Volume mixer
 
 * **GUI mock-ups**
+
+The next images are just a sketch of what the game interface should be as we haven't defined a gui that we find appropriate. 
+
+![alt text](imgs/StandardGame.png)
+
+This first image is a representation of the first "level" of the game.
+
+![alt text](imgs/Cave.png)
+
+This image represents the obstacles in the game.
+
+![alt text](imgs/Boss.png)
+
+This last image is the representation of the last "level" of the game.
 
 ---
 
