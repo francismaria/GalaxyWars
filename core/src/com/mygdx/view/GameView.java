@@ -12,7 +12,7 @@ import com.mygdx.model.entities.SpaceShipModel;
 public class GameView extends ScreenAdapter {
 	
 	private GalaxyWars game;
-	
+
 	public GameView(GalaxyWars game){
 		this.game = game;
 	}
@@ -48,6 +48,7 @@ public class GameView extends ScreenAdapter {
 	
 	private void drawSpaceShip(){
 		SpaceShipModel model = GameModel.getInstance().getSpaceShipModel();
+		model.update();
 		SpaceShipView ship = new SpaceShipView(game, model);
 		ship.draw(game.getSpriteBatch());
 	}

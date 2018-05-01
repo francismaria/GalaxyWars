@@ -8,14 +8,13 @@ public class GameModel {
 	
 	private SpaceShipModel spaceship;
 	
-	
 	private GameModel(){
 		spaceship = new SpaceShipModel(); 
 	}
 	
 	public static GameModel getInstance(){
 		if(instance == null){
-			return new GameModel();
+			instance = new GameModel();
 		}
 		return instance;
 	}

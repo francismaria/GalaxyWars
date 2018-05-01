@@ -6,6 +6,8 @@ public class SpaceShipModel extends EntityModel {
 		super(50,50);
 	}
 	
-
+	public void update(){
+		setYCoord(getYCoord()-1);
+	}
 
 }

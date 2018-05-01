@@ -18,7 +18,7 @@ public class GameController implements ContactListener{
 	private final SpaceShipBody spaceshipBody;
 	
 	private GameController(){
-		world = new World(new Vector2(0, -98f), true);
+		world = new World(new Vector2(0, -9.8f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		

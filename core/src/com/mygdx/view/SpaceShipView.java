@@ -9,13 +9,18 @@ import com.mygdx.model.entities.SpaceShipModel;
 public class SpaceShipView {
 	
 	private Sprite sprite;
+	private SpaceShipModel model;
 	
 	public SpaceShipView(GalaxyWars game, SpaceShipModel model){
+		this.model = model;
 		Texture spaceshipTxt = game.getAssetManager().get("space-ship.png");
 		sprite = new Sprite(spaceshipTxt);
 	}
 	
 	public void draw(SpriteBatch batch){
+		sprite.setX(model.getXCoord());
+		sprite.setY(model.getYCoord());
 		sprite.draw(batch);
 	}
+	
 }
