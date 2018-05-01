@@ -6,6 +6,8 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.mygdx.game.GalaxyWars;
+import com.mygdx.model.GameModel;
+import com.mygdx.model.entities.SpaceShipModel;
 
 public class GameView extends ScreenAdapter {
 	
@@ -27,7 +29,7 @@ public class GameView extends ScreenAdapter {
         drawBackground();
         
         if(!game.isPaused())
-        	showRunningGame();
+        	showRunningGame(delta);
         else
         	showPausedScreen();	
         
@@ -38,14 +40,22 @@ public class GameView extends ScreenAdapter {
 		System.out.println("Paused screen");
 	}
 	
-	private void showRunningGame(){
+	private void showRunningGame(float delta){ 
 		System.out.println("Running screen");
 		
+		drawSpaceShip();
+	}
+	
+	private void drawSpaceShip(){
+		SpaceShipModel model = GameModel.getInstance().getSpaceShipModel();
+		SpaceShipView ship = new SpaceShipView(game, model);
+		ship.draw(game.getSpriteBatch());
 	}
 	
 	private void drawBackground(){
 		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
-		game.getSpriteBatch().draw(background, 50, 50, 50, 50, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
+	
+		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
 	}
 	
 	private void handleInputs(){
