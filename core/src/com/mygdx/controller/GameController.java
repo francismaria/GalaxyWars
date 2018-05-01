@@ -52,11 +52,14 @@ public class GameController implements ContactListener{
 	@Override
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	public World getWorld(){
+		return world;
 	}
 	
 	public void update(float delta){
-		world.step(delta, 6, 2);
+		world.step(1f/60f, 6, 2);
 		spaceshipBody.update();
 		//GameModel.getInstance().update(delta);
 	}

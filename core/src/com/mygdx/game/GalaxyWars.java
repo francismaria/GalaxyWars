@@ -26,6 +26,7 @@ public class GalaxyWars extends Game {
 	
 	public static final int WIDTH = 720;
 	public static final int HEIGHT = 480;
+	public static final float PIXEL_TO_METER = 100;
 	
 	@Override 
 	public void create () {
@@ -39,6 +40,7 @@ public class GalaxyWars extends Game {
 	
 	public void startGame(Difficulty difficulty){
 		this.difficulty = difficulty;
+		setRunning();
 		setScreen(new GameView(this));
 	}
 	
