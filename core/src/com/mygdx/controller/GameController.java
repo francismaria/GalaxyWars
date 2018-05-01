@@ -25,9 +25,9 @@ public class GameController implements ContactListener{
 		world.setContactListener(this);
 	}
 	
-	public GameController getInstance(){
+	public static GameController getInstance(){
 		if(instance == null)
-			return new GameController();
+			instance = new GameController();
 		return instance;
 	}
 
@@ -53,5 +53,15 @@ public class GameController implements ContactListener{
 	public void postSolve(Contact contact, ContactImpulse impulse) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void update(float delta){
+		world.step(delta, 6, 2);
+		spaceshipBody.update();
+		//GameModel.getInstance().update(delta);
+	}
+	
+	public void jumpSpaceShip(){
+		spaceshipBody.jump();
 	}
 }

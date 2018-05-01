@@ -1,5 +1,6 @@
 package com.mygdx.controller.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.model.entities.SpaceShipModel;
 
@@ -14,6 +15,10 @@ public class SpaceShipBody extends EntityBody{
 	
 	public void update(){
 		model.setYCoord(body.getPosition().y);
+	}
+	
+	public void jump(){
+		body.applyLinearImpulse(new Vector2(0, 1), body.getWorldCenter(), true);
 	}
 
 }

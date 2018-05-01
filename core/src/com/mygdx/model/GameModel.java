@@ -23,4 +23,8 @@ public class GameModel {
 		return spaceship;
 	}
 	
+	public void update(float delta){
+		spaceship.updatePosition();
+	}
+	
 }
