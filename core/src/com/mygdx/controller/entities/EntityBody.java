@@ -32,5 +32,6 @@ public abstract class EntityBody {
 		shape.dispose();
 	}
 	
+	
 	//public final void createFixture(Body body, float[] vertexes,)
 }

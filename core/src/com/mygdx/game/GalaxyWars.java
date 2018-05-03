@@ -66,6 +66,10 @@ public class GalaxyWars extends Game {
 		return batch;
 	}
 	
+	public Difficulty getDifficulty(){
+		return difficulty;
+	}
+	
 	public boolean isRunning(){
 		return running;
 	}

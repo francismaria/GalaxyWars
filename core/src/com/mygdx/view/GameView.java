@@ -26,8 +26,6 @@ public class GameView extends ScreenAdapter {
 	
 	private void initCamera(){
 		box2DCamera = new OrthographicCamera(GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER, GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
-		/*box2DCamera.setToOrtho(false, GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER, GalaxyWars.HEIGHT / GalaxyWars.PIXEL_TO_METER);
-		box2DCamera.position.set(GalaxyWars.WIDTH / 2f, GalaxyWars.HEIGHT / 2f, 0);*/
 		box2DCamera.position.set(box2DCamera.viewportWidth / 2f, box2DCamera.viewportHeight / 2f, 0);
 		box2DCamera.update();
 		debugRenderer = new Box2DDebugRenderer();
@@ -97,5 +95,8 @@ public class GameView extends ScreenAdapter {
 	
 	private void handlePausedGameInputs(){
 		
+		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
+			game.setRunning();
+		}
 	}
 }

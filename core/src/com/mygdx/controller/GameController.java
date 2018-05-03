@@ -18,7 +18,7 @@ public class GameController implements ContactListener{
 	private final SpaceShipBody spaceshipBody;
 	
 	private GameController(){
-		world = new World(new Vector2(0, -9.8f), true);
+		world = new World(new Vector2(0, -1), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		
@@ -60,8 +60,8 @@ public class GameController implements ContactListener{
 	
 	public void update(float delta){
 		world.step(1f/60f, 6, 2);
+		
 		spaceshipBody.update();
-		//GameModel.getInstance().update(delta);
 	}
 	
 	public void jumpSpaceShip(){

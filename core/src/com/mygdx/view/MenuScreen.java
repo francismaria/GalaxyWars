@@ -36,10 +36,17 @@ public class MenuScreen implements Screen {
         
         game.getSpriteBatch().begin();
         
-        game.getSpriteBatch().draw(playButtonTxt, 275, 250, PLAY_BUTTON_DIM, PLAY_BUTTON_DIM);
+        //game.getSpriteBatch().draw(playButtonTxt, 275, 250, PLAY_BUTTON_DIM, PLAY_BUTTON_DIM);
+        drawBackground();
+        //drawMenu();
         
         game.getSpriteBatch().end();
 		
+	}
+
+	private void drawBackground(){	
+		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
+		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
 	}
 	
 	private void handleInputs(){
