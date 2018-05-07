@@ -16,7 +16,6 @@ public class SpaceShipBody extends EntityBody{
 	public void update(){
 		model.setYCoord(body.getPosition().y);
 		model.setXCoord(body.getPosition().x);
-		System.out.println("BODY: Y: "  + body.getPosition().y);
 	}
 	
 	public void jump(){

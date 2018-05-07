@@ -58,6 +58,12 @@ public class GameView extends ScreenAdapter {
 	private void showRunningGame(float delta){
 		
 		drawSpaceShip(delta);
+		drawEnemies(delta);
+	}
+	
+	private void drawEnemies(float delta){
+		
+		
 	}
 	
 	private void drawSpaceShip(float delta){

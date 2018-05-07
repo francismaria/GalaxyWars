@@ -22,6 +22,8 @@ public abstract class EntityBody {
 		
 		PolygonShape shape = new PolygonShape();
 		shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
+		//isto tem de ser mudado pois está hard coded para um body de 50x50
+		//shape.set();
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
