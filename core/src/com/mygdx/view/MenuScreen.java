@@ -19,7 +19,6 @@ public class MenuScreen implements Screen {
 	
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
-		playButtonTxt = new Texture("play-button.png");
 	}
 	
 	@Override
@@ -38,6 +37,7 @@ public class MenuScreen implements Screen {
         
         //game.getSpriteBatch().draw(playButtonTxt, 275, 250, PLAY_BUTTON_DIM, PLAY_BUTTON_DIM);
         drawBackground();
+        drawButtons();
         //drawMenu();
         
         game.getSpriteBatch().end();
@@ -49,6 +49,13 @@ public class MenuScreen implements Screen {
 		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
 		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
 		game.getSpriteBatch().draw(gameTitle, 100, 300);
+	}
+	
+	private void drawButtons(){
+		Texture playButton = game.getAssetManager().get("play-button.png", Texture.class);
+		Texture quitButton = game.getAssetManager().get("quit-button.png", Texture.class);
+		game.getSpriteBatch().draw(playButton, 260, 200);
+		game.getSpriteBatch().draw(quitButton, 260, 50);
 	}
 	
 	private void handleInputs(){
