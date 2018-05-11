@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -14,6 +15,7 @@ import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.EnemyModel;
+import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
 public class GameController implements ContactListener{
@@ -59,7 +61,13 @@ public class GameController implements ContactListener{
 
 	@Override
 	public void beginContact(Contact contact) {
-		// TODO Auto-generated method stub
+		
+		Body bodyA = contact.getFixtureA().getBody();
+		Body bodyB = contact.getFixtureB().getBody();
+		
+		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
+			System.out.println("Enemies collision");
+		}
 		
 	}
 
@@ -88,6 +96,10 @@ public class GameController implements ContactListener{
 		world.step(1f/60f, 6, 2);
 		
 		spaceshipBody.update();
+		
+		for(EnemyBody enemy : enemiesBodies){
+			enemy.update();
+		}
 	}
 	
 	public void jumpSpaceShip(){

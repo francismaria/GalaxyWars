@@ -9,7 +9,8 @@ public class SpaceShipBody extends EntityBody{
 	private SpaceShipModel model;
 	
 	public SpaceShipBody(World world, SpaceShipModel model){
-		super(world, model);
+		super(world, model, "Dynamic");
+		createFixture(body);
 		this.model = model;
 	}
 	
