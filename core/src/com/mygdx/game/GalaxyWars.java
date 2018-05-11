@@ -24,8 +24,8 @@ public class GalaxyWars extends Game {
 	
 	private Difficulty difficulty;
 	
-	public static final int WIDTH = 720;
-	public static final int HEIGHT = 480;
+	public static final int WIDTH = 850;
+	public static final int HEIGHT = 500;
 	public static final float PIXEL_TO_METER = 100;
 	
 	@Override 

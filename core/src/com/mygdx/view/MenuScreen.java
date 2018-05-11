@@ -48,7 +48,7 @@ public class MenuScreen implements Screen {
 		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
 		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
 		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
-		game.getSpriteBatch().draw(gameTitle, 5, 280);
+		game.getSpriteBatch().draw(gameTitle, 100, 300);
 	}
 	
 	private void handleInputs(){
