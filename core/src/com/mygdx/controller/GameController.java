@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.controller.entities.EnemyBody;
 import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
+import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.SpaceShipModel;
@@ -67,6 +68,7 @@ public class GameController implements ContactListener{
 		
 		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
 			System.out.println("Enemies collision");
+			//take life from spaceship
 		}
 		
 	}
@@ -98,7 +100,32 @@ public class GameController implements ContactListener{
 		spaceshipBody.update();
 		
 		for(EnemyBody enemy : enemiesBodies){
+			checkLimitPositions(enemy);
 			enemy.update();
+		}
+	}
+	
+	private void checkLimitPositions(EnemyBody enemy){
+		
+		float x = enemy.getBody().getPosition().x;
+		float y = enemy.getBody().getPosition().y;
+		Vector2 restorePos = new Vector2();
+		
+		if(x < 0){
+			restorePos.x = GalaxyWars.WIDTH; restorePos.y = y;
+			enemy.getBody().setTransform(restorePos, 0);
+		}
+		else if(x > GalaxyWars.WIDTH){
+			restorePos.x = 0; restorePos.y = y;
+			enemy.getBody().setTransform(restorePos, 0);
+		}
+		else if(y < 0){
+			restorePos.x = x; restorePos.y = GalaxyWars.HEIGHT;
+			enemy.getBody().setTransform(restorePos, 0);
+		}
+		else if(y > GalaxyWars.HEIGHT){
+			restorePos.x = x; restorePos.y = 0;
+			enemy.getBody().setTransform(restorePos, 0);
 		}
 	}
 	

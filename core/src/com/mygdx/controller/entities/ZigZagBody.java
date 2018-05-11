@@ -9,7 +9,7 @@ public class ZigZagBody extends EnemyBody{
 	
 	public ZigZagBody(World world, ZigZagModel model){
 		super(world, model);
-		createFixture(body);
+		createFixture(body, 0);
 		body.setLinearVelocity(-0.8f, 0f);
 		this.model = model;
 	}

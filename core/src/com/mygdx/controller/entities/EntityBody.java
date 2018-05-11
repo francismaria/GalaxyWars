@@ -42,7 +42,7 @@ public abstract class EntityBody {
 		shape.dispose();*/
 	}
 	
-	public final void createFixture(Body body/*, float[] vertexes, int width,  int height*/){
+	public final void createFixture(Body body/*, float[] vertexes, int width,  int height*/, float restitution){
 		PolygonShape shape = new PolygonShape();
 		
 		shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
@@ -52,10 +52,15 @@ public abstract class EntityBody {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1;
+		fixtureDef.restitution = restitution;
 		
 		Fixture fixture = body.createFixture(fixtureDef);
 		//fixture.setUserData(body);
 		
 		shape.dispose();
+	}
+	
+	public Body getBody(){
+		return body;
 	}
 }
