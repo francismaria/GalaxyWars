@@ -13,10 +13,6 @@ public class MenuScreen implements Screen {
 	
 	private GalaxyWars game;
 	
-	private Texture playButtonTxt;
-	
-	private static final int PLAY_BUTTON_DIM = 150;
-	
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
 	}
@@ -35,10 +31,8 @@ public class MenuScreen implements Screen {
         
         game.getSpriteBatch().begin();
         
-        //game.getSpriteBatch().draw(playButtonTxt, 275, 250, PLAY_BUTTON_DIM, PLAY_BUTTON_DIM);
         drawBackground();
         drawButtons();
-        //drawMenu();
         
         game.getSpriteBatch().end();
 		
