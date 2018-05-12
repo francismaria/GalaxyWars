@@ -29,7 +29,7 @@ public class GameController implements ContactListener{
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
 	
 	private GameController(){
-		world = new World(new Vector2(0, -1), true);
+		world = new World(new Vector2(0, -1f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		createEnemiesBodies();

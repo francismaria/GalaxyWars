@@ -27,27 +27,17 @@ public abstract class EntityBody {
 		
 		body = world.createBody(bodyDef);
 		body.setUserData(model);
-		/*
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
-		//isto tem de ser mudado pois está hard coded para um body de 50x50
-		//shape.set();
-		
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = shape;
-		fixtureDef.density = 1;
-		
-		Fixture fixture = body.createFixture(fixtureDef);
-		
-		shape.dispose();*/
 	}
 	
-	public final void createFixture(Body body/*, float[] vertexes, int width,  int height*/, float restitution){
+	public final void createFixture(Body body, float[] vertices, int width,  int height, float restitution){
 		PolygonShape shape = new PolygonShape();
 		
-		shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
-		//isto tem de ser mudado pois está hard coded para um body de 50x50
-		//shape.set();
+		for(int i = 0; i < vertices.length; i++){
+			vertices[i] /= GalaxyWars.PIXEL_TO_METER;
+		}
+		
+        shape.set(vertices);
+		//shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
@@ -55,7 +45,6 @@ public abstract class EntityBody {
 		fixtureDef.restitution = restitution;
 		
 		Fixture fixture = body.createFixture(fixtureDef);
-		//fixture.setUserData(body);
 		
 		shape.dispose();
 	}
