@@ -3,6 +3,7 @@ package com.mygdx.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
@@ -11,22 +12,20 @@ public class GameModel {
 	
 	private static GameModel instance;
 	
-	private static final int ENEMIES_COUNT = 6;
-	
 	private SpaceShipModel spaceship;
 	
 	private List<EnemyModel> enemies = new ArrayList<EnemyModel>();
 	
-	private GameModel(){
-		spaceship = new SpaceShipModel(); 
-		createEnemies();
-	}
+	private List<BulletModel> bullets = new ArrayList<BulletModel>();
 	
-	private void createEnemies(){
-		
-		enemies.add(new ZigZagModel());
-		
-		//criar outros
+	private static final int ENEMIES_COUNT = 6;
+	
+	private static final int BULLET_COUNT = 50;
+	
+	private GameModel(){
+		spaceship = new SpaceShipModel();
+		createBullets();
+		createEnemies();
 	}
 	
 	public static GameModel getInstance(){
@@ -34,6 +33,20 @@ public class GameModel {
 			instance = new GameModel();
 		}
 		return instance;
+	}
+	
+	private void createBullets(){
+		
+		for(int i = 0; i < BULLET_COUNT; i++){
+			bullets.add(new BulletModel());
+		}
+	}
+	
+	private void createEnemies(){
+		
+		enemies.add(new ZigZagModel());
+		
+		//criar outros
 	}
 	
 	public SpaceShipModel getSpaceShipModel(){
@@ -44,8 +57,7 @@ public class GameModel {
 		return enemies;
 	}
 	
-	public void update(float delta){
-		spaceship.updatePosition();
+	public List<BulletModel> getBullets(){
+		return bullets;
 	}
-	
 }

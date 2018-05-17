@@ -8,9 +8,5 @@ public class SpaceShipModel extends EntityModel {
 	public SpaceShipModel(){
 		super(INITIAL_X_COORD, INITIAL_Y_COORD);
 	}
-	
-	public void updatePosition(){
-		setYCoord(getYCoord()-1);
-	}
 
 }

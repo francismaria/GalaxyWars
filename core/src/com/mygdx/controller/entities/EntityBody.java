@@ -45,11 +45,25 @@ public abstract class EntityBody {
 		fixtureDef.restitution = restitution;
 		
 		Fixture fixture = body.createFixture(fixtureDef);
+		shape.dispose();
+	}
+	
+	public final void createBoxFixture(Body body, int width, int height){
 		
+		PolygonShape shape = new PolygonShape();
+		shape.setAsBox(width / GalaxyWars.PIXEL_TO_METER, height / GalaxyWars.PIXEL_TO_METER);
+		
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = shape;
+		fixtureDef.density = 1;
+		
+		Fixture fixture = body.createFixture(fixtureDef);
 		shape.dispose();
 	}
 	
 	public Body getBody(){
 		return body;
 	}
+	
+	public abstract void update();
 }

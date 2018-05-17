@@ -5,6 +5,8 @@ public abstract class EntityModel {
 	private float xCoord;
 	private float yCoord;
 	
+	public EntityModel(){}
+	
 	public EntityModel(float xCoord, float yCoord){
 		this.xCoord = xCoord; this.yCoord = yCoord;
 	}

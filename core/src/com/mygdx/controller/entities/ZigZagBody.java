@@ -15,6 +15,7 @@ public class ZigZagBody extends EnemyBody{
 		this.model = model;
 	}
 	
+	@Override
 	public void update(){
 		model.setYCoord(body.getPosition().y);
 		model.setXCoord(body.getPosition().x);

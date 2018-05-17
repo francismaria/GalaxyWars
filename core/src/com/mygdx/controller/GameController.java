@@ -10,11 +10,14 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.controller.entities.BulletBody;
 import com.mygdx.controller.entities.EnemyBody;
+import com.mygdx.controller.entities.EntityBody;
 import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
+import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
@@ -27,14 +30,25 @@ public class GameController implements ContactListener{
 	
 	private final SpaceShipBody spaceshipBody;
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
+	private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();
 	
 	private GameController(){
 		world = new World(new Vector2(0, -1f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
+		createBulletsBodies();
 		createEnemiesBodies();
 		
 		world.setContactListener(this);
+	}
+	
+	private void createBulletsBodies(){
+		
+		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
+	
+		for(BulletModel model : bulletsModels){
+			bulletsBodies.add(new BulletBody(world, model));
+		}
 	}
 	
 	private void createEnemiesBodies(){
@@ -97,6 +111,7 @@ public class GameController implements ContactListener{
 	public void update(float delta){
 		world.step(1f/60f, 6, 2);
 		
+		checkLimitPositions(spaceshipBody);
 		spaceshipBody.update();
 		
 		for(EnemyBody enemy : enemiesBodies){
@@ -105,31 +120,52 @@ public class GameController implements ContactListener{
 		}
 	}
 	
-	private void checkLimitPositions(EnemyBody enemy){
+	private void checkLimitPositions(EntityBody body){
 		
-		float x = enemy.getBody().getPosition().x;
-		float y = enemy.getBody().getPosition().y;
+		float x = body.getBody().getPosition().x;
+		float y = body.getBody().getPosition().y;
 		Vector2 restorePos = new Vector2();
+		float limitWidth = GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER;
+		float limitHeight = GalaxyWars.HEIGHT / GalaxyWars.PIXEL_TO_METER;
 		
-		if(x < 0){
-			restorePos.x = GalaxyWars.WIDTH; restorePos.y = y;
-			enemy.getBody().setTransform(restorePos, 0);
+		if(body instanceof EnemyBody){
+			if(x < 0){
+				restorePos.x = limitWidth; restorePos.y = y;
+				body.getBody().setTransform(restorePos, 0);
+			}
+			else if(x > limitWidth){
+				restorePos.x = 0; restorePos.y = y;
+				body.getBody().setTransform(restorePos, 0);
+			}
+			else if(y < 0){
+				restorePos.x = x; restorePos.y = limitHeight;
+				body.getBody().setTransform(restorePos, 0);
+			}
+			else if(y > limitHeight){
+				restorePos.x = x; restorePos.y = 0;
+				body.getBody().setTransform(restorePos, 0);
+			}
 		}
-		else if(x > GalaxyWars.WIDTH){
-			restorePos.x = 0; restorePos.y = y;
-			enemy.getBody().setTransform(restorePos, 0);
+		else if(body instanceof SpaceShipBody){
+			if(y < 0){
+				restorePos.x = x; restorePos.y = limitHeight;
+				body.getBody().setTransform(restorePos, 0);
+			}
+			else if(y > 4){
+				restorePos.x = x; restorePos.y = 4-0.01f;
+				body.getBody().setTransform(restorePos, 0);
+				body.getBody().applyLinearImpulse(new Vector2(0, -0.05f), body.getBody().getWorldCenter(), true);
+			}
 		}
-		else if(y < 0){
-			restorePos.x = x; restorePos.y = GalaxyWars.HEIGHT;
-			enemy.getBody().setTransform(restorePos, 0);
-		}
-		else if(y > GalaxyWars.HEIGHT){
-			restorePos.x = x; restorePos.y = 0;
-			enemy.getBody().setTransform(restorePos, 0);
-		}
+
 	}
 	
 	public void jumpSpaceShip(){
 		spaceshipBody.jump();
+	}
+	
+	public void shootSpaceShipBullet(){
+		//BulletBody bullet = new BulletBody(world, GameModel.getInstance().);
+		//bulletsBodies.get(0).launch(GameModel.getInstance().getSpaceShipModel().getYCoord());
 	}
 }

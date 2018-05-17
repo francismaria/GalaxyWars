@@ -24,13 +24,15 @@ public class SpaceShipBody extends EntityBody{
 		this.model = model;
 	}
 	
+	@Override
 	public void update(){
 		model.setYCoord(body.getPosition().y);
 		model.setXCoord(body.getPosition().x);
 	}
 	
 	public void jump(){
-		body.applyLinearImpulse(new Vector2(0, 0.2f), body.getWorldCenter(), true);
+		
+		body.applyLinearImpulse(new Vector2(0, 0.05f), body.getWorldCenter(), true);
 	}
 
 }
