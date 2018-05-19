@@ -7,6 +7,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GalaxyWars;
+import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EntityModel;
 
 public abstract class EntityBody {

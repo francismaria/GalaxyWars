@@ -31,6 +31,7 @@ public class GameController implements ContactListener{
 	private final SpaceShipBody spaceshipBody;
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
 	private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();
+	private List<Body> removeBodies = new ArrayList<Body>();
 	
 	private GameController(){
 		world = new World(new Vector2(0, -1f), true);
@@ -86,7 +87,7 @@ public class GameController implements ContactListener{
 		}
 		else if(bodyA.getUserData() instanceof BulletModel &&
 				bodyB.getUserData() instanceof EnemyModel){
-			System.out.println("Bullet/enemy Collision");
+			removeBodies.add(bodyB); removeBodies.add(bodyA);
 		}
 		
 	}
@@ -123,6 +124,8 @@ public class GameController implements ContactListener{
 			checkLimitPositions(enemy);
 			enemy.update();
 		}
+		
+		removeBodies();
 	}
 	
 	private void checkLimitPositions(EntityBody body){
@@ -194,6 +197,13 @@ public class GameController implements ContactListener{
 			}
 			i++;
 		}
-	///bulletsBodies.get(0).launch(GameModel.getInstance().getSpaceShipModel().getYCoord());
+	}
+	
+	public void removeBodies(){
+		
+		for(Body body : removeBodies){
+			world.destroyBody(body);
+		}
+		removeBodies.clear();
 	}
 }

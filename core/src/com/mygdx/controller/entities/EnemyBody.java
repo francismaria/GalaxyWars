@@ -6,7 +6,7 @@ import com.mygdx.model.entities.EntityModel;
 public abstract class EnemyBody extends EntityBody{
 	
 	public EnemyBody(World world, EntityModel model){
-		super(world, model, "Kinematic");	
+		super(world, model, "Dynamic");	
 	}
 	
 	public abstract void update();
