@@ -50,6 +50,7 @@ public class GalaxyWars extends Game {
 		assetManager.load("space-background.png", Texture.class);
 		assetManager.load("space-ship.png", Texture.class);
 		assetManager.load("title.png", Texture.class);
+		assetManager.load("menu-title.png", Texture.class);
 		
 		assetManager.finishLoading();
 	}

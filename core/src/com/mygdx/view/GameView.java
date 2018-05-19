@@ -52,7 +52,8 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	private void showPausedScreen(){
-		System.out.println("Paused screen");
+		Texture menuTitle = game.getAssetManager().get("menu-title.png", Texture.class);
+		game.getSpriteBatch().draw(menuTitle, 290, 300);
 	}
 	
 	private void showRunningGame(float delta){
