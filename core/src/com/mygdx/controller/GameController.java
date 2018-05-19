@@ -28,11 +28,31 @@ public class GameController implements ContactListener{
 	
 	private final World world;
 	
+	/**
+	 * The body representing the spaceship (user)
+	 */
 	private final SpaceShipBody spaceshipBody;
+	
+	/**
+	 * All of the bodies representing the enemies
+	 */
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
+	
+	/**
+	 * All of the bodies representing the bullets
+	 */
 	private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();
+	
+	/**
+	 * Represents all of the bodies that upon collision have to be removed in the next step.
+	 */
 	private List<Body> removeBodies = new ArrayList<Body>();
 	
+	/**
+	 * Constructor of the class.
+	 * Initializes the world with -9.8N of gravity.
+	 * It also creates all the bodies present in the game.
+	 */
 	private GameController(){
 		world = new World(new Vector2(0, -1f), true);
 		
@@ -125,7 +145,7 @@ public class GameController implements ContactListener{
 			enemy.update();
 		}
 		
-		removeBodies();
+		removeBodies();	
 	}
 	
 	private void checkLimitPositions(EntityBody body){
