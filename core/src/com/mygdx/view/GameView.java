@@ -98,7 +98,7 @@ public class GameView extends ScreenAdapter {
 			GameController.getInstance().jumpSpaceShip();
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-			//GameController.getInstance().shoot();
+			GameController.getInstance().shootSpaceShipBullet();
 			System.out.println("SHOOOT");
 		}
 	}

@@ -3,6 +3,7 @@ package com.mygdx.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.SpaceShipModel;
@@ -22,12 +23,29 @@ public class GameModel {
 	
 	private static final int BULLET_COUNT = 50;
 	
+	/**
+	 * Game window in meters
+	 */
+	public static final float HEIGHT_LIMIT = GalaxyWars.HEIGHT / GalaxyWars.PIXEL_TO_METER;
+	
+	/**
+	 * Game window in meters
+	 */
+	public static final float WIDTH_LIMIT = GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER;
+	
+	/**
+	 * Class constructor
+	 */
 	private GameModel(){
 		spaceship = new SpaceShipModel();
 		createBullets();
 		createEnemies();
 	}
 	
+	/**
+	 * Singleton implementation of the class
+	 * @return the singleton model
+	 */
 	public static GameModel getInstance(){
 		if(instance == null){
 			instance = new GameModel();
@@ -35,6 +53,9 @@ public class GameModel {
 		return instance;
 	}
 	
+	/**
+	 * Creates the bullets used by the spaceship model
+	 */
 	private void createBullets(){
 		
 		for(int i = 0; i < BULLET_COUNT; i++){
@@ -42,6 +63,9 @@ public class GameModel {
 		}
 	}
 	
+	/**
+	 * Creates the game enemies (the models)
+	 */
 	private void createEnemies(){
 		
 		enemies.add(new ZigZagModel());

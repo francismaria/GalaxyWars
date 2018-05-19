@@ -14,9 +14,14 @@ public class BulletBody extends EntityBody {
 		this.model = model;
 	}
 	
-	public void launch(float initialPosX, float initialPosY){
-		
-		body.applyLinearImpulse(new Vector2(0.2f, 0), body.getWorldCenter(), true);
+	public void launch(Vector2 initialPos){
+		moveToSpaceshipPos(initialPos); 
+		body.setLinearVelocity(new Vector2(4f, 0));
+	}
+	
+	private void moveToSpaceshipPos(Vector2 spaceshipPos){
+		body.setTransform(spaceshipPos, 0);
+		update();
 	}
 
 	@Override

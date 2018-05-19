@@ -80,9 +80,13 @@ public class GameController implements ContactListener{
 		Body bodyA = contact.getFixtureA().getBody();
 		Body bodyB = contact.getFixtureB().getBody();
 		
-		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
+		if(bodyA.getUserData() instanceof SpaceShipModel &&
+				bodyB.getUserData() instanceof EnemyModel){
 			System.out.println("Enemies collision");
-			//take life from spaceship
+		}
+		else if(bodyA.getUserData() instanceof BulletModel &&
+				bodyB.getUserData() instanceof EnemyModel){
+			System.out.println("Bullet/enemy Collision");
 		}
 		
 	}
@@ -109,6 +113,7 @@ public class GameController implements ContactListener{
 	}
 	
 	public void update(float delta){
+		
 		world.step(1f/60f, 6, 2);
 		
 		checkLimitPositions(spaceshipBody);
@@ -124,40 +129,51 @@ public class GameController implements ContactListener{
 		
 		float x = body.getBody().getPosition().x;
 		float y = body.getBody().getPosition().y;
-		Vector2 restorePos = new Vector2();
-		float limitWidth = GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER;
-		float limitHeight = GalaxyWars.HEIGHT / GalaxyWars.PIXEL_TO_METER;
 		
-		if(body instanceof EnemyBody){
-			if(x < 0){
-				restorePos.x = limitWidth; restorePos.y = y;
-				body.getBody().setTransform(restorePos, 0);
-			}
-			else if(x > limitWidth){
-				restorePos.x = 0; restorePos.y = y;
-				body.getBody().setTransform(restorePos, 0);
-			}
-			else if(y < 0){
-				restorePos.x = x; restorePos.y = limitHeight;
-				body.getBody().setTransform(restorePos, 0);
-			}
-			else if(y > limitHeight){
-				restorePos.x = x; restorePos.y = 0;
-				body.getBody().setTransform(restorePos, 0);
-			}
+		if(body instanceof SpaceShipBody){
+			checkSpaceshipLimits((SpaceShipBody)body, x, y);
 		}
-		else if(body instanceof SpaceShipBody){
-			if(y < 0){
-				restorePos.x = x; restorePos.y = limitHeight;
-				body.getBody().setTransform(restorePos, 0);
-			}
-			else if(y > 4){
-				restorePos.x = x; restorePos.y = 4-0.01f;
-				body.getBody().setTransform(restorePos, 0);
-				body.getBody().applyLinearImpulse(new Vector2(0, -0.05f), body.getBody().getWorldCenter(), true);
-			}
+		else if(body instanceof EnemyBody){
+			checkEnemyLimits((EnemyBody)body, x, y);
 		}
-
+	}
+	
+	private void checkEnemyLimits(EnemyBody body, float x, float y){
+		
+		Vector2 restorePos = new Vector2();
+		float limitWidth = GameModel.WIDTH_LIMIT, limitHeight = GameModel.HEIGHT_LIMIT;
+		
+		if(x < 0){
+			restorePos.x = limitWidth; restorePos.y = y;
+			body.getBody().setTransform(restorePos, 0);
+		}
+		else if(x > limitWidth){
+			restorePos.x = 0; restorePos.y = y;
+			body.getBody().setTransform(restorePos, 0);
+		}
+		else if(y < 0){
+			restorePos.x = x; restorePos.y = limitHeight;
+			body.getBody().setTransform(restorePos, 0);
+		}
+		else if(y > limitHeight){
+			restorePos.x = x; restorePos.y = 0;
+			body.getBody().setTransform(restorePos, 0);
+		}
+	}
+	
+	private void checkSpaceshipLimits(SpaceShipBody body, float x, float y){
+		
+		Vector2 restorePos = new Vector2();
+		
+		if(y < 0){
+			restorePos.x = x; restorePos.y = 0.2f;
+			body.getBody().setTransform(restorePos, 0);
+		}
+		else if(y > 4){
+			restorePos.x = x; restorePos.y = 4-0.01f;
+			body.getBody().setTransform(restorePos, 0);
+			body.getBody().applyLinearImpulse(new Vector2(0, -0.05f), body.getBody().getWorldCenter(), true);
+		} 
 	}
 	
 	public void jumpSpaceShip(){
@@ -165,7 +181,19 @@ public class GameController implements ContactListener{
 	}
 	
 	public void shootSpaceShipBullet(){
-		//BulletBody bullet = new BulletBody(world, GameModel.getInstance().);
-		//bulletsBodies.get(0).launch(GameModel.getInstance().getSpaceShipModel().getYCoord());
+		
+		int i = 0;
+		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
+		
+		for(BulletModel model : bulletsModels){
+			if(!model.wasFired()){
+				bulletsBodies.get(i).launch(new Vector2(spaceshipBody.getBody().getPosition().x+1,
+						spaceshipBody.getBody().getPosition().y+0.5f));
+				model.setFired();
+				break;
+			}
+			i++;
+		}
+	///bulletsBodies.get(0).launch(GameModel.getInstance().getSpaceShipModel().getYCoord());
 	}
 }

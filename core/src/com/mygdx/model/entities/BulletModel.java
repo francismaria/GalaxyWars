@@ -13,5 +13,7 @@ public class BulletModel extends EntityModel{
 		return fired;
 	}
 	
-	
+	public void setFired(){
+		fired = true;
+	}
 }
