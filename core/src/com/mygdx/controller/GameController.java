@@ -69,6 +69,9 @@ public class GameController implements ContactListener{
 		world.setContactListener(this);
 	}
 	
+	/**
+	 * Creates the bodies of the bullets given its models
+	 */
 	private void createBulletsBodies(){
 		
 		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
@@ -78,6 +81,9 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Creates the bodies of the enemies given its models
+	 */
 	private void createEnemiesBodies(){
 		
 		List<EnemyModel> enemiesModels = GameModel.getInstance().getEnemies();
@@ -113,7 +119,8 @@ public class GameController implements ContactListener{
 		}
 		else if(bodyA.getUserData() instanceof BulletModel &&
 				bodyB.getUserData() instanceof EnemyModel){
-			removeBodies.add(bodyB); removeBodies.add(bodyA);
+			removeBodies.add(bodyB);
+			removeBodies.add(bodyA);
 		}
 		
 	}
@@ -163,7 +170,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * @brief Redirects the given body to its specific treatment
+	 * Redirects the given body to its specific treatment
 	 * @param body 
 	 */
 	private void checkLimitPositions(EntityBody body){
@@ -180,7 +187,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * @brief Checks if the given enemy body is inside the game window. If not restores its position
+	 * Checks if the given enemy body is inside the game window. If not restores its position
 	 * @param body
 	 * @param x width position of the body in the window
 	 * @param y height position of the body in the window
@@ -208,6 +215,12 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Checks if the spaceship body is inside the game window. If not restores its position
+	 * @param body
+	 * @param x width position of the body in the window
+	 * @param y height position of the body in the window
+	 */
 	private void checkSpaceshipLimits(SpaceShipBody body, float x, float y){
 		
 		Vector2 restorePos = new Vector2();
@@ -223,10 +236,17 @@ public class GameController implements ContactListener{
 		} 
 	}
 	
+	/**
+	 * Calls the _jump function of the spaceship body
+	 */
 	public void jumpSpaceShip(){
 		spaceshipBody.jump();
 	}
 	
+	/**
+	 * This function fires a bullet through the space ship. 
+	 * It searches for the next bullet that was not yet fired and fires it.
+	 */
 	public void shootSpaceShipBullet(){
 		
 		int i = 0;
@@ -243,6 +263,9 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Removes the bodies that are waiting to be destroyed.
+	 */
 	public void removeBodies(){
 		
 		for(Body body : removeBodies){
