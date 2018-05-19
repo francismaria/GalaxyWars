@@ -24,8 +24,14 @@ import com.mygdx.model.entities.ZigZagModel;
 
 public class GameController implements ContactListener{
 	
+	/**
+	 * Singleton instance for the class
+	 */
 	private static GameController instance;
 	
+	/**
+	 * The world of the game
+	 */
 	private final World world;
 	
 	/**
@@ -129,10 +135,18 @@ public class GameController implements ContactListener{
 		// TODO Auto-generated method stub
 	}
 	
+	/**
+	 * @brief Returns the world of the game
+	 * @return world
+	 */
 	public World getWorld(){
 		return world;
 	}
 	
+	/**
+	 * @brief Updates world and its bodies
+	 * @param delta
+	 */
 	public void update(float delta){
 		
 		world.step(1f/60f, 6, 2);
@@ -143,11 +157,15 @@ public class GameController implements ContactListener{
 		for(EnemyBody enemy : enemiesBodies){
 			checkLimitPositions(enemy);
 			enemy.update();
-		}
+		} 
 		
 		removeBodies();	
 	}
 	
+	/**
+	 * @brief Redirects the given body to its specific treatment
+	 * @param body 
+	 */
 	private void checkLimitPositions(EntityBody body){
 		
 		float x = body.getBody().getPosition().x;
@@ -161,6 +179,12 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * @brief Checks if the given enemy body is inside the game window. If not restores its position
+	 * @param body
+	 * @param x width position of the body in the window
+	 * @param y height position of the body in the window
+	 */
 	private void checkEnemyLimits(EnemyBody body, float x, float y){
 		
 		Vector2 restorePos = new Vector2();
