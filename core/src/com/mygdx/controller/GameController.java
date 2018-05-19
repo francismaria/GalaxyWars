@@ -226,8 +226,9 @@ public class GameController implements ContactListener{
 		Vector2 restorePos = new Vector2();
 		
 		if(y < 0){
-			restorePos.x = x; restorePos.y = 0.2f;
+			restorePos.x = x; restorePos.y = 0+0.01f;
 			body.getBody().setTransform(restorePos, 0);
+			body.getBody().applyLinearImpulse(new Vector2(0, 0.1f), body.getBody().getWorldCenter(), true);
 		}
 		else if(y > 4){
 			restorePos.x = x; restorePos.y = 4-0.01f;

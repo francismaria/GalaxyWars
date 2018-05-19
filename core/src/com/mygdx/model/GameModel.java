@@ -70,6 +70,7 @@ public class GameModel {
 		
 		enemies.add(new ZigZagModel());
 		
+		
 		//criar outros
 	}
 	
