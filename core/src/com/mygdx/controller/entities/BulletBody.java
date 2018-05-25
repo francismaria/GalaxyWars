@@ -12,10 +12,15 @@ public class BulletBody extends EntityBody {
 		super(world, model, "Kinematic");
 		createBoxFixture(body, 25, 25);
 		this.model = model;
+		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
 	public void launch(Vector2 initialPos){
 		moveToSpaceshipPos(initialPos); 
+		body.setLinearVelocity(new Vector2(4f, 0));
+	}
+	
+	public void launch(){
 		body.setLinearVelocity(new Vector2(4f, 0));
 	}
 	

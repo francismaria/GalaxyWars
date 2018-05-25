@@ -11,8 +11,18 @@ import com.mygdx.game.GalaxyWars.Difficulty;
 
 public class MenuScreen implements Screen {
 	
+	/**
+	 * The game itself
+	 */
 	private GalaxyWars game;
 	
+	//private static final 
+	
+	
+	/**
+	 * Creates the menu screen
+	 * @param game the game class
+	 */
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
 	}

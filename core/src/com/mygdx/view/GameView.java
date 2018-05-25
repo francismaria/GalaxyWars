@@ -1,5 +1,8 @@
 package com.mygdx.view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,7 +13,10 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.mygdx.controller.GameController;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
+import com.mygdx.model.entities.ExplosionModel;
 import com.mygdx.model.entities.SpaceShipModel;
+import com.mygdx.view.entities.ExplosionView;
+import com.mygdx.view.entities.SpaceShipView;
 
 public class GameView extends ScreenAdapter {
 	
@@ -18,6 +24,8 @@ public class GameView extends ScreenAdapter {
 	
 	private OrthographicCamera box2DCamera;
 	private Box2DDebugRenderer debugRenderer;
+	
+	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 
 	public GameView(GalaxyWars game){
 		this.game = game;
@@ -60,6 +68,22 @@ public class GameView extends ScreenAdapter {
 		
 		drawSpaceShip(delta);
 		drawEnemies(delta);
+		getExplosions();
+		drawExplosions(delta);
+	}
+	
+	private void drawExplosions(float delta){
+		// DESENHAR 
+	}
+	
+	private void getExplosions(){
+		
+		List<ExplosionModel> explosionsModel = GameController.getInstance().getExplosions();
+		
+		for(ExplosionModel model : explosionsModel){
+			explosions.add(new ExplosionView(game, model));
+		}
+		
 	}
 	
 	private void drawEnemies(float delta){

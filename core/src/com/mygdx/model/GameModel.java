@@ -3,6 +3,8 @@ package com.mygdx.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
@@ -15,13 +17,25 @@ public class GameModel {
 	
 	private SpaceShipModel spaceship;
 	
+	/**
+	 * List of the current enemies flying through the air
+	 */
 	private List<EnemyModel> enemies = new ArrayList<EnemyModel>();
 	
+	/**
+	 * Pool of bullets
+	 */
+	Pool<BulletModel> bulletPool = new Pool<BulletModel>(){
+		@Override
+		protected BulletModel newObject(){
+			return new BulletModel();
+		}
+	};
+	
+	/**
+	 * List of the current bullets flying through the air
+	 */
 	private List<BulletModel> bullets = new ArrayList<BulletModel>();
-	
-	private static final int ENEMIES_COUNT = 6;
-	
-	private static final int BULLET_COUNT = 50;
 	
 	/**
 	 * Game window in meters
@@ -38,7 +52,6 @@ public class GameModel {
 	 */
 	private GameModel(){
 		spaceship = new SpaceShipModel();
-		createBullets();
 		createEnemies();
 	}
 	
@@ -54,13 +67,17 @@ public class GameModel {
 	}
 	
 	/**
-	 * Creates the bullets used by the spaceship model
+	 * Pool model function which gets/creates a bullet everytime the user fires 
+	 * @param initialPos
 	 */
-	private void createBullets(){
+	public BulletModel createBullet(Vector2 initialPos){
 		
-		for(int i = 0; i < BULLET_COUNT; i++){
-			bullets.add(new BulletModel());
-		}
+		BulletModel bullet = bulletPool.obtain();
+		
+		bullet.setInitialPosition(initialPos);
+		bullets.add(bullet);
+		
+		return bullet;
 	}
 	
 	/**
@@ -74,14 +91,26 @@ public class GameModel {
 		//criar outros
 	}
 	
+	/**
+	 * Gets the spaceship model
+	 * @return spaceship model
+	 */
 	public SpaceShipModel getSpaceShipModel(){
 		return spaceship;
 	}
 	
+	/**
+	 * Gets the enemies models
+	 * @return list of enemies models
+	 */
 	public List<EnemyModel> getEnemies(){
 		return enemies;
 	}
 	
+	/**
+	 * Gets the current flying bullets models
+	 * @return list of the current flying bullets models
+	 */
 	public List<BulletModel> getBullets(){
 		return bullets;
 	}

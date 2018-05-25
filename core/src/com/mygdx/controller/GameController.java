@@ -19,6 +19,7 @@ import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
+import com.mygdx.model.entities.ExplosionModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
@@ -47,7 +48,7 @@ public class GameController implements ContactListener{
 	/**
 	 * All of the bodies representing the bullets
 	 */
-	private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();
+	/*private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();*/
 	
 	/**
 	 * Represents all of the bodies that upon collision have to be removed in the next step.
@@ -55,31 +56,37 @@ public class GameController implements ContactListener{
 	private List<Body> removeBodies = new ArrayList<Body>();
 	
 	/**
+	 * List of all explosions occurring at an exact time
+	 */
+	private List<ExplosionModel> explosions = new ArrayList<ExplosionModel>();
+	
+	/**
 	 * Constructor of the class.
 	 * Initializes the world with -9.8N of gravity.
 	 * It also creates all the bodies present in the game.
 	 */
 	private GameController(){
+		
 		world = new World(new Vector2(0, -1f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
-		createBulletsBodies();
+		//createBulletsBodies();
 		createEnemiesBodies();
 		
 		world.setContactListener(this);
 	}
-	
+	/*
 	/**
 	 * Creates the bodies of the bullets given its models
 	 */
-	private void createBulletsBodies(){
+	/*private void createBulletsBodies(){
 		
 		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
 	
 		for(BulletModel model : bulletsModels){
 			bulletsBodies.add(new BulletBody(world, model));
 		}
-	}
+	}*/
 	
 	/**
 	 * Creates the bodies of the enemies given its models
@@ -121,6 +128,7 @@ public class GameController implements ContactListener{
 				bodyB.getUserData() instanceof EnemyModel){
 			removeBodies.add(bodyB);
 			removeBodies.add(bodyA);
+			//explosions.add(new ExplosionModel(posX, posY));
 		}
 		
 	}
@@ -165,6 +173,11 @@ public class GameController implements ContactListener{
 			checkLimitPositions(enemy);
 			enemy.update();
 		} 
+		/*
+		for(BulletBody bullet : bulletsBodies){
+			checkLimitPositions(bullet);
+			bullet.update();
+		}*/
 		
 		removeBodies();	
 	}
@@ -183,6 +196,9 @@ public class GameController implements ContactListener{
 		}
 		else if(body instanceof EnemyBody){
 			checkEnemyLimits((EnemyBody)body, x, y);
+		}
+		else if(body instanceof BulletBody){
+			//checkBulletLimits((BulletBody)body, x, y);
 		}
 	}
 	
@@ -216,6 +232,20 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
+	 * Checks if the bullet body is inside the game window. If not removes it from the game.
+	 * @param body the bullet body
+	 * @param x width position of the body in the window
+	 * @param y height position of the body in the window
+	 */
+	/*private void checkBulletLimits(BulletBody body, float x, float y){
+		System.out.println("BULLET LIMIT + " + x);
+		if(x > GameModel.WIDTH_LIMIT){
+			System.out.println("REMOVED");
+			removeBodies.add(body.getBody());
+		}
+	}*/
+	
+	/**
 	 * Checks if the spaceship body is inside the game window. If not restores its position
 	 * @param body
 	 * @param x width position of the body in the window
@@ -246,22 +276,17 @@ public class GameController implements ContactListener{
 	
 	/**
 	 * This function fires a bullet through the space ship. 
-	 * It searches for the next bullet that was not yet fired and fires it.
+	 * Gets the bullet model from the GameModel pool of BulletModel objects
 	 */
 	public void shootSpaceShipBullet(){
 		
-		int i = 0;
-		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
+		BulletModel model = GameModel.getInstance().createBullet(new Vector2
+				(spaceshipBody.getBody().getPosition().x+1,
+				spaceshipBody.getBody().getPosition().y+0.5f));
 		
-		for(BulletModel model : bulletsModels){
-			if(!model.wasFired()){
-				bulletsBodies.get(i).launch(new Vector2(spaceshipBody.getBody().getPosition().x+1,
-						spaceshipBody.getBody().getPosition().y+0.5f));
-				model.setFired();
-				break;
-			}
-			i++;
-		}
+		BulletBody bullet = new BulletBody(world, model);
+		bullet.launch();
+		
 	}
 	
 	/**
@@ -273,5 +298,20 @@ public class GameController implements ContactListener{
 			world.destroyBody(body);
 		}
 		removeBodies.clear();
+	}
+	
+	/**
+	 * Gets explosions
+	 * @return list of models of the explosions
+	 */
+	public List<ExplosionModel> getExplosions(){
+		return explosions;
+	}
+	
+	/**
+	 * Clears out explosions
+	 */
+	public void removeExplosions(){
+		explosions.clear();
 	}
 }

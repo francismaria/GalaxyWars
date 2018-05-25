@@ -1,4 +1,4 @@
-package com.mygdx.view;
+package com.mygdx.view.entities;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
