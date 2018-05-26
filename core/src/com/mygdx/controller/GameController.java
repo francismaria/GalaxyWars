@@ -96,7 +96,7 @@ public class GameController implements ContactListener{
 			instance = new GameController();
 		return instance;
 	}
-	
+	 
 	@Override
 	public void beginContact(Contact contact) {
 		
@@ -255,7 +255,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Redirects the given body to its specific treatment
+	 * Redirects the given body to its specific treatment.
 	 * @param body 
 	 */
 	private void checkLimitPositions(EntityBody body){
@@ -275,7 +275,8 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Checks if the given enemy body is inside the game window. If not restores its position
+	 * Checks if the given enemy body is inside the game window.
+	 * If not restores its position.
 	 * @param body
 	 * @param x width position of the body in the window
 	 * @param y height position of the body in the window
@@ -364,7 +365,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Gets explosions
+	 * Gets explosions.
 	 * @return list of models of the explosions
 	 */
 	public List<ExplosionModel> getExplosions(){
@@ -372,7 +373,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Clears out explosions
+	 * Clears out explosions.
 	 */
 	public void removeExplosions(){
 		explosions.clear();
