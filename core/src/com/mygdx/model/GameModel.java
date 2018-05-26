@@ -2,6 +2,7 @@ package com.mygdx.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
@@ -19,6 +20,8 @@ public class GameModel {
 	 */
 	private static GameModel instance;
 	
+	public static int MAX_INTERVAL;
+	
 	/**
 	 * The user (spaceship) model
 	 */
@@ -32,11 +35,10 @@ public class GameModel {
 	/**
 	 * Pool of enemies 
 	 */
-	Pool<EnemyModel> enemyPool = new Pool<EnemyModel>(){
+	Pool<ZigZagModel> zigzagPool = new Pool<ZigZagModel>(){
 		@Override
-		protected EnemyModel newObject(){
-			//switch()
-			return null;
+		protected ZigZagModel newObject(){
+			return new ZigZagModel();
 		}
 	};
 	
@@ -70,7 +72,6 @@ public class GameModel {
 	 */
 	private GameModel(){
 		spaceship = new SpaceShipModel();
-		createEnemies();
 	}
 	
 	/**
@@ -83,11 +84,6 @@ public class GameModel {
 		}
 		return instance;
 	}
-	
-	/*public EnemyModel createEnemy(){
-		
-	}*/
-	
 	
 	/**
 	 * Pool model function which gets/creates a bullet everytime the user fires 
@@ -105,23 +101,30 @@ public class GameModel {
 	}
 	
 	public EnemyModel createEnemy(){
+		EnemyModel enemy = null;
+		int index = 1;//getRandomNumber(3); 
+		Vector2 initialPos = new Vector2(WIDTH_LIMIT, getRandomNumber((int)HEIGHT_LIMIT));
 		
-		Vector2 initialPos = new Vector2();
-		EnemyModel enemy = enemyPool.obtain();
+		switch(index){
+			case 1:
+				enemy = zigzagPool.obtain();
+				break;
+			/*case 2:
+				// enemy = new KamikazeModel();
+				break;
+			case 3:
+				// enemy = new ShooterModel();
+				break;*/
+			default:
+				//break;
+				return null;
+		}
 		
-		//enemy.setInitialPosition(initialPos);
-		return null;
-	}
-	
-	/**
-	 * Creates the game enemies (the models)
-	 */
-	private void createEnemies(){
+		enemy.setInitialPos(initialPos);
+		enemy.setToNotRemove();
+		enemies.add(enemy);
 		
-		enemies.add(new ZigZagModel());
-		
-		
-		//criar outros
+		return enemy;
 	}
 	
 	/**
@@ -161,5 +164,10 @@ public class GameModel {
 	 */
 	public List<BulletModel> getBullets(){
 		return bullets;
+	}
+	
+	public static int getRandomNumber(int maxLimit){
+		Random rand = new Random();
+		return rand.nextInt(maxLimit) + 1;
 	}
 }

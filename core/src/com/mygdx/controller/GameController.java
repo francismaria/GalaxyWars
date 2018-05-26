@@ -2,6 +2,7 @@ package com.mygdx.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -57,9 +58,13 @@ public class GameController implements ContactListener{
 	 */
 	private List<ExplosionModel> explosions = new ArrayList<ExplosionModel>();
 	
+	private float nextEnemyCreation;
+	
+	private float timePassedEnemyCreation;
+	
 	/**
 	 * Constructor of the class.
-	 * Initializes the world with -9.8N of gravity.
+	 * Initializes the world with gravity.
 	 * It also creates all the bodies present in the game.
 	 */
 	private GameController(){
@@ -67,7 +72,9 @@ public class GameController implements ContactListener{
 		world = new World(new Vector2(0, -1f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
-		createEnemiesBodies();
+		timePassedEnemyCreation = 0;
+		nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_INTERVAL);
+		//createEnemiesBodies();
 		
 		world.setContactListener(this);
 	}
@@ -75,7 +82,7 @@ public class GameController implements ContactListener{
 	/**
 	 * Creates the bodies of the enemies given its models
 	 */
-	private void createEnemiesBodies(){
+	/*private void createEnemiesBodies(){
 		
 		List<EnemyModel> enemiesModels = GameModel.getInstance().getEnemies();
 		
@@ -90,7 +97,7 @@ public class GameController implements ContactListener{
 				
 			}
 		}
-	}
+	}*/
 	
 	/**
 	 * Singleton implementation of the class
@@ -164,18 +171,35 @@ public class GameController implements ContactListener{
 		world.getBodies(bodies);
 		
 		checkBodiesPositionWindow(bodies);
+		checkLimitPositions(spaceshipBody);
 		
 		//updateBodies(bodies);
-		
-		checkLimitPositions(spaceshipBody);
 		spaceshipBody.update();
-		/*
-		for(EnemyBody enemy : enemiesBodies){
-			checkLimitPositions(enemy);
-			enemy.update();
-		}*/
-		
+		createRandomEnemy(delta);
+
 		removeBodies();	
+	}
+	
+	private void createRandomEnemy(float delta){
+		
+		timePassedEnemyCreation += delta*1000;  //in ms
+		
+		if(timePassedEnemyCreation >= nextEnemyCreation){
+			createEnemyBody();
+			timePassedEnemyCreation = 0;
+			nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_INTERVAL);
+		}
+	}
+	
+	private void createEnemyBody(){
+		System.out.println("CREATE");
+		
+		EnemyModel model = GameModel.getInstance().createEnemy();
+		
+		if(model instanceof ZigZagModel){
+			ZigZagBody enemy = new ZigZagBody(world, (ZigZagModel)model);
+		}
+
 	}
 	
 	private void checkBodiesPositionWindow(Array<Body> bodies){

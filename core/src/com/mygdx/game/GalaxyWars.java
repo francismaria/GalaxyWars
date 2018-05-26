@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.mygdx.model.GameModel;
 import com.mygdx.view.GameView;
 import com.mygdx.view.MenuScreen;
 
@@ -102,5 +103,9 @@ public class GalaxyWars extends Game {
 	public void setRunning(){
 		this.running = true;
 		this.paused = false;
+									//Interval of the enemies created in ms
+		if(this.difficulty.equals(Difficulty.EASY)){
+			GameModel.MAX_INTERVAL = 10000;
+		}
 	}
 }

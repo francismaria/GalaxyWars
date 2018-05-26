@@ -10,6 +10,10 @@ public abstract class EnemyModel extends EntityModel{
 	
 	private EnemyType type;
 	
+	public EnemyModel(EnemyType type){
+		this.type = type;
+	}
+	
 	public EnemyModel(EnemyType type, float initialXCoord, float initialYCoord){
 		super(initialXCoord, initialYCoord);
 		this.type = type;
@@ -19,5 +23,8 @@ public abstract class EnemyModel extends EntityModel{
 		return type;
 	}
 	
-	//public abstract setInitialPos();
+	public void setInitialPos(Vector2 initialPos){
+		setXCoord(initialPos.x);
+		setYCoord(initialPos.y);
+	}
 }

@@ -14,6 +14,7 @@ public class ZigZagBody extends EnemyBody{
 		body.setGravityScale(0);
 		body.setLinearVelocity(-0.8f, 0f);
 		this.model = model;
+		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
 	@Override
