@@ -16,11 +16,19 @@ import com.mygdx.model.entities.ZigZagModel;
 public class GameModel {
 	
 	/**
-	 * Singleton instance for the class
+	 * Singleton instance for the class.
 	 */
 	private static GameModel instance;
 	
-	public static int MAX_INTERVAL;
+	/**
+	 * Duration of each level of the game. 
+	 */
+	private static int LEVEL_INTERVAL;
+	
+	/**
+	 * Maximum interval of time between the creation of enemies
+	 */
+	public static int MAX_ENEMY_INTERVAL;
 	
 	/**
 	 * The user (spaceship) model
@@ -134,13 +142,30 @@ public class GameModel {
 	public void removeEntity(EntityModel model){
 		
 		if(model instanceof EnemyModel){
-			enemies.remove((EnemyModel)model);
+			//enemies.remove((EnemyModel)model);
+			//enemiesPool.free()
+			removeEnemy((EnemyModel)model);
 		}
 		else if(model instanceof BulletModel){
-			bullets.remove((BulletModel)model);
-			bulletPool.free((BulletModel)model);
+			/*bullets.remove((BulletModel)model);
+			bulletPool.free((BulletModel)model);*/
+			removeBullet((BulletModel)model);
 		}
 	}
+	
+	private void removeEnemy(EnemyModel enemy){
+		enemies.remove(enemy);
+		
+		if(enemy instanceof ZigZagModel){
+			zigzagPool.free((ZigZagModel)enemy);
+		}
+	}
+	
+	private void removeBullet(BulletModel bullet){
+		bullets.remove(bullet);
+		bulletPool.free(bullet);
+	}
+	
 	
 	/**
 	 * Gets the spaceship model

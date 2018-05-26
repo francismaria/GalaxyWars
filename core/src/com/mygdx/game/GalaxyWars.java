@@ -105,7 +105,7 @@ public class GalaxyWars extends Game {
 		this.paused = false;
 									//Interval of the enemies created in ms
 		if(this.difficulty.equals(Difficulty.EASY)){
-			GameModel.MAX_INTERVAL = 10000;
+			GameModel.MAX_ENEMY_INTERVAL = 10000;
 		}
 	}
 }

@@ -79,7 +79,7 @@ public class GameController implements ContactListener{
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		timePassedEnemyCreation = 0;
-		nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_INTERVAL);
+		nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_ENEMY_INTERVAL);
 
 		world.setContactListener(this);
 	}
@@ -177,12 +177,11 @@ public class GameController implements ContactListener{
 		if(timePassedEnemyCreation >= nextEnemyCreation){
 			createEnemyBody();
 			timePassedEnemyCreation = 0;
-			nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_INTERVAL);
+			nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_ENEMY_INTERVAL);
 		}
 	}
 	
 	private void createEnemyBody(){
-		System.out.println("CREATE");
 		
 		EnemyModel model = GameModel.getInstance().createEnemy();
 		
@@ -203,12 +202,18 @@ public class GameController implements ContactListener{
 				checkBulletPosition(body, (BulletModel)model);
 			}
 			else if(model instanceof EnemyModel){
-				
+				checkEnemyPosition(body, (EnemyModel)model);
 			}
 			
 			model.setXCoord(body.getPosition().x);
 			model.setYCoord(body.getPosition().y);
 		}
+	}
+	
+	private void checkEnemyPosition(Body body, EnemyModel model){
+		
+		if(body.getPosition().x < 0)
+			((EnemyModel)body.getUserData()).setToRemove();
 	}
 	
 	private void checkBulletPosition(Body body, BulletModel model){
