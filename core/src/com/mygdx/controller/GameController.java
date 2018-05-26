@@ -19,7 +19,6 @@ import com.mygdx.controller.entities.KamikazeBody;
 import com.mygdx.controller.entities.ShooterBody;
 import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
-import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
@@ -172,6 +171,18 @@ public class GameController implements ContactListener{
 		removeBodies();	
 	}
 	
+	private void updateBodies(Array<Body> bodies){
+		
+		for(Body body : bodies){
+			
+		}
+	}
+	
+	/**
+	 * Checks if the interval between the creation of the enemies is passed.
+	 * If true it generates a new enemy whose type is generated randomly. 
+	 * @param delta
+	 */
 	private void createRandomEnemy(float delta){
 		
 		timePassedEnemyCreation += delta*1000;  //in ms
@@ -183,6 +194,9 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Creates the body of the enemy given the model that was randomly generated.
+	 */
 	private void createEnemyBody(){
 		
 		EnemyModel model = GameModel.getInstance().createEnemy();
@@ -198,6 +212,11 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Goes through all the bodies in the world and checks if they are inside the game window.
+	 * If not flags them to be removed.
+	 * @param bodies all of the bodies in th world
+	 */
 	private void checkBodiesPositionWindow(Array<Body> bodies){
 		
 		for(Body body : bodies){
@@ -217,6 +236,11 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Checks if the enemy is inside the game window.
+	 * @param body the enemy body
+	 * @param model the enemy model
+	 */
 	private void checkEnemyPosition(Body body, EnemyModel model){
 		
 		if(body.getPosition().x < 0)
