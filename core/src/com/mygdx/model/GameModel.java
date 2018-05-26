@@ -10,6 +10,8 @@ import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.EntityModel;
+import com.mygdx.model.entities.KamikazeModel;
+import com.mygdx.model.entities.ShooterModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
@@ -41,12 +43,32 @@ public class GameModel {
 	private List<EnemyModel> enemies = new ArrayList<EnemyModel>();
 	
 	/**
-	 * Pool of enemies 
+	 * Pool of "zig-zag" enemies 
 	 */
 	Pool<ZigZagModel> zigzagPool = new Pool<ZigZagModel>(){
 		@Override
 		protected ZigZagModel newObject(){
 			return new ZigZagModel();
+		}
+	};
+	
+	/**
+	 * Pool of "kamikaze" enemies
+	 */
+	Pool<KamikazeModel> kamikazePool = new Pool<KamikazeModel>(){
+		@Override
+		protected KamikazeModel newObject(){
+			return new KamikazeModel();
+		}
+	};
+	
+	/**
+	 * Pool of "shooter" enemies
+	 */
+	Pool<ShooterModel> shooterPool = new Pool<ShooterModel>(){
+		@Override
+		protected ShooterModel newObject(){
+			return new ShooterModel();
 		}
 	};
 	
@@ -110,21 +132,22 @@ public class GameModel {
 	
 	public EnemyModel createEnemy(){
 		EnemyModel enemy = null;
-		int index = 1;//getRandomNumber(3); 
-		Vector2 initialPos = new Vector2(WIDTH_LIMIT, getRandomNumber((int)HEIGHT_LIMIT));
+		Vector2 initialPos = new Vector2(WIDTH_LIMIT, getRandomNumberFloat(HEIGHT_LIMIT));
 		
-		switch(index){
+		switch(getRandomNumberInt(3)){
 			case 1:
+				System.out.println("ZIGZAG");
 				enemy = zigzagPool.obtain();
 				break;
-			/*case 2:
-				// enemy = new KamikazeModel();
+			case 2:
+				System.out.println("KAMIKAZE");
+				enemy = kamikazePool.obtain();
 				break;
 			case 3:
-				// enemy = new ShooterModel();
-				break;*/
+				System.out.println("SHOOTER");
+				enemy = shooterPool.obtain();
+				break;
 			default:
-				//break;
 				return null;
 		}
 		
@@ -142,13 +165,9 @@ public class GameModel {
 	public void removeEntity(EntityModel model){
 		
 		if(model instanceof EnemyModel){
-			//enemies.remove((EnemyModel)model);
-			//enemiesPool.free()
 			removeEnemy((EnemyModel)model);
 		}
 		else if(model instanceof BulletModel){
-			/*bullets.remove((BulletModel)model);
-			bulletPool.free((BulletModel)model);*/
 			removeBullet((BulletModel)model);
 		}
 	}
@@ -158,6 +177,12 @@ public class GameModel {
 		
 		if(enemy instanceof ZigZagModel){
 			zigzagPool.free((ZigZagModel)enemy);
+		}
+		else if(enemy instanceof KamikazeModel){
+			kamikazePool.free((KamikazeModel)enemy);
+		}
+		else if(enemy instanceof ShooterModel){
+			shooterPool.free((ShooterModel)enemy);
 		}
 	}
 	
@@ -191,8 +216,13 @@ public class GameModel {
 		return bullets;
 	}
 	
-	public static int getRandomNumber(int maxLimit){
+	public static int getRandomNumberInt(int maxLimit){
 		Random rand = new Random();
 		return rand.nextInt(maxLimit) + 1;
+	}
+	
+	public static float getRandomNumberFloat(float maxLimit){
+		Random rand = new Random();
+		return 1 + rand.nextFloat() * (maxLimit - 1);
 	}
 }

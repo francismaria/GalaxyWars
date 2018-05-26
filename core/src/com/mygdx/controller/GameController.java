@@ -15,6 +15,8 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.controller.entities.BulletBody;
 import com.mygdx.controller.entities.EnemyBody;
 import com.mygdx.controller.entities.EntityBody;
+import com.mygdx.controller.entities.KamikazeBody;
+import com.mygdx.controller.entities.ShooterBody;
 import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
 import com.mygdx.game.GalaxyWars;
@@ -23,6 +25,8 @@ import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.EntityModel;
 import com.mygdx.model.entities.ExplosionModel;
+import com.mygdx.model.entities.KamikazeModel;
+import com.mygdx.model.entities.ShooterModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
@@ -79,7 +83,7 @@ public class GameController implements ContactListener{
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		timePassedEnemyCreation = 0;
-		nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_ENEMY_INTERVAL);
+		nextEnemyCreation = GameModel.getRandomNumberInt(GameModel.MAX_ENEMY_INTERVAL);
 
 		world.setContactListener(this);
 	}
@@ -134,8 +138,6 @@ public class GameController implements ContactListener{
 	}
 	
 	private void enemyBulletCollision(EnemyModel enemy, BulletModel bullet){
-		//((EntityModel) bodyA.getUserData()).setToRemove();
-		//((EntityModel) bodyB.getUserData()).setToRemove();
 		enemy.setToRemove();
 		bullet.setToRemove();
 		explosions.add(new ExplosionModel(enemy.getXCoord(), enemy.getYCoord()));
@@ -177,7 +179,7 @@ public class GameController implements ContactListener{
 		if(timePassedEnemyCreation >= nextEnemyCreation){
 			createEnemyBody();
 			timePassedEnemyCreation = 0;
-			nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_ENEMY_INTERVAL);
+			nextEnemyCreation = GameModel.getRandomNumberInt(GameModel.MAX_ENEMY_INTERVAL);
 		}
 	}
 	
@@ -186,9 +188,14 @@ public class GameController implements ContactListener{
 		EnemyModel model = GameModel.getInstance().createEnemy();
 		
 		if(model instanceof ZigZagModel){
-			ZigZagBody enemy = new ZigZagBody(world, (ZigZagModel)model);
+			ZigZagBody zigzag = new ZigZagBody(world, (ZigZagModel)model);
 		}
-
+		else if(model instanceof KamikazeModel){
+			KamikazeBody kamikaze = new KamikazeBody(world, (KamikazeModel)model);
+		}
+		else if(model instanceof ShooterModel){
+			ShooterBody shooter = new ShooterBody(world, (ShooterModel)model);
+		}
 	}
 	
 	private void checkBodiesPositionWindow(Array<Body> bodies){
