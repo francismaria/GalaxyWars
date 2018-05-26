@@ -8,19 +8,37 @@ import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
+import com.mygdx.model.entities.EntityModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
 public class GameModel {
 	
+	/**
+	 * Singleton instance for the class
+	 */
 	private static GameModel instance;
 	
+	/**
+	 * The user (spaceship) model
+	 */
 	private SpaceShipModel spaceship;
 	
 	/**
 	 * List of the current enemies flying through the air
 	 */
 	private List<EnemyModel> enemies = new ArrayList<EnemyModel>();
+	
+	/**
+	 * Pool of enemies 
+	 */
+	Pool<EnemyModel> enemyPool = new Pool<EnemyModel>(){
+		@Override
+		protected EnemyModel newObject(){
+			//switch()
+			return null;
+		}
+	};
 	
 	/**
 	 * Pool of bullets
@@ -66,6 +84,11 @@ public class GameModel {
 		return instance;
 	}
 	
+	/*public EnemyModel createEnemy(){
+		
+	}*/
+	
+	
 	/**
 	 * Pool model function which gets/creates a bullet everytime the user fires 
 	 * @param initialPos
@@ -75,9 +98,19 @@ public class GameModel {
 		BulletModel bullet = bulletPool.obtain();
 		
 		bullet.setInitialPosition(initialPos);
+		bullet.setToNotRemove();
 		bullets.add(bullet);
 		
 		return bullet;
+	}
+	
+	public EnemyModel createEnemy(){
+		
+		Vector2 initialPos = new Vector2();
+		EnemyModel enemy = enemyPool.obtain();
+		
+		//enemy.setInitialPosition(initialPos);
+		return null;
 	}
 	
 	/**
@@ -89,6 +122,21 @@ public class GameModel {
 		
 		
 		//criar outros
+	}
+	
+	/**
+	 * Removes a given entity object from its belonging pool.
+	 * @param model representing the entity
+	 */
+	public void removeEntity(EntityModel model){
+		
+		if(model instanceof EnemyModel){
+			enemies.remove((EnemyModel)model);
+		}
+		else if(model instanceof BulletModel){
+			bullets.remove((BulletModel)model);
+			bulletPool.free((BulletModel)model);
+		}
 	}
 	
 	/**

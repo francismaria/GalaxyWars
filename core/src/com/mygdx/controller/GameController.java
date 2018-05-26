@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.mygdx.controller.entities.BulletBody;
 import com.mygdx.controller.entities.EnemyBody;
 import com.mygdx.controller.entities.EntityBody;
@@ -19,6 +20,7 @@ import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
+import com.mygdx.model.entities.EntityModel;
 import com.mygdx.model.entities.ExplosionModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
@@ -46,14 +48,9 @@ public class GameController implements ContactListener{
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
 	
 	/**
-	 * All of the bodies representing the bullets
-	 */
-	/*private List<BulletBody> bulletsBodies = new ArrayList<BulletBody>();*/
-	
-	/**
 	 * Represents all of the bodies that upon collision have to be removed in the next step.
 	 */
-	private List<Body> removeBodies = new ArrayList<Body>();
+	private List<EntityBody> removeBodies = new ArrayList<EntityBody>();
 	
 	/**
 	 * List of all explosions occurring at an exact time
@@ -70,23 +67,10 @@ public class GameController implements ContactListener{
 		world = new World(new Vector2(0, -1f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
-		//createBulletsBodies();
 		createEnemiesBodies();
 		
 		world.setContactListener(this);
 	}
-	/*
-	/**
-	 * Creates the bodies of the bullets given its models
-	 */
-	/*private void createBulletsBodies(){
-		
-		List<BulletModel> bulletsModels = GameModel.getInstance().getBullets();
-	
-		for(BulletModel model : bulletsModels){
-			bulletsBodies.add(new BulletBody(world, model));
-		}
-	}*/
 	
 	/**
 	 * Creates the bodies of the enemies given its models
@@ -108,12 +92,16 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Singleton implementation of the class
+	 * @return te singleton model
+	 */
 	public static GameController getInstance(){
 		if(instance == null)
 			instance = new GameController();
 		return instance;
 	}
-
+	
 	@Override
 	public void beginContact(Contact contact) {
 		
@@ -124,11 +112,9 @@ public class GameController implements ContactListener{
 				bodyB.getUserData() instanceof EnemyModel){
 			System.out.println("Enemies collision");
 		}
-		else if(bodyA.getUserData() instanceof BulletModel &&
-				bodyB.getUserData() instanceof EnemyModel){
-			removeBodies.add(bodyB);
-			removeBodies.add(bodyA);
-			//explosions.add(new ExplosionModel(posX, posY));
+		else if(bodyA.getUserData() instanceof EnemyModel &&
+				bodyB.getUserData() instanceof BulletModel){
+			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
 		}
 		
 	}
@@ -150,6 +136,14 @@ public class GameController implements ContactListener{
 		// TODO Auto-generated method stub
 	}
 	
+	private void enemyBulletCollision(EnemyModel enemy, BulletModel bullet){
+		//((EntityModel) bodyA.getUserData()).setToRemove();
+		//((EntityModel) bodyB.getUserData()).setToRemove();
+		enemy.setToRemove();
+		bullet.setToRemove();
+		explosions.add(new ExplosionModel(enemy.getXCoord(), enemy.getYCoord()));
+	}
+	
 	/**
 	 * @brief Returns the world of the game
 	 * @return world
@@ -166,20 +160,48 @@ public class GameController implements ContactListener{
 		
 		world.step(1f/60f, 6, 2);
 		
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		checkBodiesPositionWindow(bodies);
+		
+		//updateBodies(bodies);
+		
 		checkLimitPositions(spaceshipBody);
 		spaceshipBody.update();
-		
+		/*
 		for(EnemyBody enemy : enemiesBodies){
 			checkLimitPositions(enemy);
 			enemy.update();
-		} 
-		/*
-		for(BulletBody bullet : bulletsBodies){
-			checkLimitPositions(bullet);
-			bullet.update();
 		}*/
 		
 		removeBodies();	
+	}
+	
+	private void checkBodiesPositionWindow(Array<Body> bodies){
+		
+		for(Body body : bodies){
+			EntityModel model = (EntityModel)body.getUserData();
+			
+			if(model instanceof SpaceShipModel){
+			}
+			else if(model instanceof BulletModel){
+				checkBulletPosition(body, (BulletModel)model);
+			}
+			else if(model instanceof EnemyModel){
+				
+			}
+			
+			model.setXCoord(body.getPosition().x);
+			model.setYCoord(body.getPosition().y);
+		}
+	}
+	
+	private void checkBulletPosition(Body body, BulletModel model){
+		
+		if(body.getPosition().x > GameModel.WIDTH_LIMIT){
+			((BulletModel)body.getUserData()).setToRemove();
+		}
 	}
 	
 	/**
@@ -232,20 +254,6 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Checks if the bullet body is inside the game window. If not removes it from the game.
-	 * @param body the bullet body
-	 * @param x width position of the body in the window
-	 * @param y height position of the body in the window
-	 */
-	/*private void checkBulletLimits(BulletBody body, float x, float y){
-		System.out.println("BULLET LIMIT + " + x);
-		if(x > GameModel.WIDTH_LIMIT){
-			System.out.println("REMOVED");
-			removeBodies.add(body.getBody());
-		}
-	}*/
-	
-	/**
 	 * Checks if the spaceship body is inside the game window. If not restores its position
 	 * @param body
 	 * @param x width position of the body in the window
@@ -294,10 +302,15 @@ public class GameController implements ContactListener{
 	 */
 	public void removeBodies(){
 		
-		for(Body body : removeBodies){
-			world.destroyBody(body);
-		}
-		removeBodies.clear();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		for(Body body : bodies){
+			if(((EntityModel)body.getUserData()).isToRemove()){ 
+				GameModel.getInstance().removeEntity((EntityModel) body.getUserData());
+				world.destroyBody(body);
+			}
+		}		
 	}
 	
 	/**

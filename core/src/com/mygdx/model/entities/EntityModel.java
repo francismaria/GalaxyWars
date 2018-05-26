@@ -4,11 +4,15 @@ public abstract class EntityModel {
 	
 	private float xCoord;
 	private float yCoord;
+	private boolean toRemove;
 	
-	public EntityModel(){}
+	public EntityModel(){
+		toRemove = false;
+	}
 	
 	public EntityModel(float xCoord, float yCoord){
 		this.xCoord = xCoord; this.yCoord = yCoord;
+		toRemove = false;
 	}
 	
 	public float getXCoord(){
@@ -27,6 +31,16 @@ public abstract class EntityModel {
 		this.yCoord = yCoord;
 	}
 	
+	public boolean isToRemove(){
+		return toRemove;
+	}
 	
+	public void setToRemove(){
+		toRemove = true;
+	}
+	
+	public void setToNotRemove(){
+		toRemove = false;
+	}
 
 }

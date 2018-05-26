@@ -21,6 +21,8 @@ public class GalaxyWars extends Game {
 	
 	private boolean running;
 	private boolean paused;
+	private boolean over;
+	private boolean win;
 	
 	private Difficulty difficulty;
 	
@@ -34,6 +36,8 @@ public class GalaxyWars extends Game {
 		assetManager = new AssetManager();
 		running = false;
 		paused = false;
+		over = false;
+		win = false;
 		loadAssets();
 		setScreen(new MenuScreen(this));
 	}
@@ -80,6 +84,14 @@ public class GalaxyWars extends Game {
 	
 	public boolean isPaused(){
 		return paused;
+	}
+	
+	public boolean isOver(){
+		return over;
+	}
+	
+	public boolean userWon(){
+		return win;
 	}
 	
 	public void setPaused(){

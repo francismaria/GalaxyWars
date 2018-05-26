@@ -1,5 +1,7 @@
 package com.mygdx.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
+
 public abstract class EnemyModel extends EntityModel{
 	
 	public enum EnemyType{
@@ -16,4 +18,6 @@ public abstract class EnemyModel extends EntityModel{
 	public EnemyType getType(){
 		return type;
 	}
+	
+	//public abstract setInitialPos();
 }

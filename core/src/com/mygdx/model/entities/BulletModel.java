@@ -8,6 +8,7 @@ public class BulletModel extends EntityModel{
 	
 	public BulletModel(){
 		super();
+		setToNotRemove();
 		fired = false;
 	}
 	
