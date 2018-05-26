@@ -58,8 +58,14 @@ public class GameController implements ContactListener{
 	 */
 	private List<ExplosionModel> explosions = new ArrayList<ExplosionModel>();
 	
+	/**
+	 * The time of the next enemy body creation
+	 */
 	private float nextEnemyCreation;
 	
+	/**
+	 * Time passed since the last enemy creation (diff time)
+	 */
 	private float timePassedEnemyCreation;
 	
 	/**
@@ -74,34 +80,13 @@ public class GameController implements ContactListener{
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		timePassedEnemyCreation = 0;
 		nextEnemyCreation = GameModel.getRandomNumber(GameModel.MAX_INTERVAL);
-		//createEnemiesBodies();
-		
+
 		world.setContactListener(this);
 	}
 	
 	/**
-	 * Creates the bodies of the enemies given its models
-	 */
-	/*private void createEnemiesBodies(){
-		
-		List<EnemyModel> enemiesModels = GameModel.getInstance().getEnemies();
-		
-		for(EnemyModel model : enemiesModels){
-			if(model.getType() == EnemyModel.EnemyType.ZIGZAG){
-				enemiesBodies.add(new ZigZagBody(world, (ZigZagModel)model));
-			}
-			else if(model.getType() == EnemyModel.EnemyType.KAMIKAZE){
-				
-			}
-			else if(model.getType() == EnemyModel.EnemyType.SHOOTER){
-				
-			}
-		}
-	}*/
-	
-	/**
 	 * Singleton implementation of the class
-	 * @return te singleton model
+	 * @return the singleton model
 	 */
 	public static GameController getInstance(){
 		if(instance == null)
@@ -122,6 +107,11 @@ public class GameController implements ContactListener{
 		else if(bodyA.getUserData() instanceof EnemyModel &&
 				bodyB.getUserData() instanceof BulletModel){
 			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
+		}
+		else if(bodyA.getUserData() instanceof BulletModel &&
+				bodyB.getUserData() instanceof EnemyModel){			//why????
+			((EntityModel) bodyA.getUserData()).setToRemove();
+			((EntityModel) bodyB.getUserData()).setToRemove();
 		}
 		
 	}
