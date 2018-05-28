@@ -12,10 +12,13 @@ import com.mygdx.game.GalaxyWars.Difficulty;
 public class MenuScreen implements Screen {
 	
 	/**
-	 * The game itself
+	 * The game itself.
 	 */
 	private GalaxyWars game;
 	
+	/**
+	 * Variable that acknowledges if user has or not passed the main menu.
+	 */
 	private boolean difficultyMenu;
 	
 	// -----------------------> [ xmin, xmax, ymin, ymax ]
@@ -67,7 +70,10 @@ public class MenuScreen implements Screen {
 	private void drawDifficultyButtons(){
 		
 	}
-
+	
+	/**
+	 * Draws the background and game title.
+	 */
 	private void drawBackground(){	
 		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
 		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
@@ -75,6 +81,9 @@ public class MenuScreen implements Screen {
 		game.getSpriteBatch().draw(gameTitle, 100, 300);
 	}
 	
+	/**
+	 * Draws the buttons of the main menu.
+	 */
 	private void drawMainButtons(){
 		Texture playButton, quitButton;
 		
@@ -94,6 +103,9 @@ public class MenuScreen implements Screen {
 		game.getSpriteBatch().draw(quitButton, 260, 50);
 	}
 	
+	/**
+	 * Redirects input-checking to correct screen handler.
+	 */
 	private void handleInputs(){
 		
 		if(!difficultyMenu){
@@ -103,6 +115,9 @@ public class MenuScreen implements Screen {
 		}
 	}
 	
+	/**
+	 * Handles inputs of the main screen
+	 */
 	private void handleMainInputs(){
 		
 		/*DEBUGGGGG
