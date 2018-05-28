@@ -28,8 +28,14 @@ public class MenuScreen implements Screen {
 	private static final int YMIN = 2;
 	private static final int YMAX = 3;
 	
+	/**
+	 * Array which defines the limits of the play button.
+	 */
 	private static final int[] playBtnLimits = new int[]{260, 565, GalaxyWars.HEIGHT-315, GalaxyWars.HEIGHT-200};
 	
+	/**
+	 * Array which defines the limits of the quit button.
+	 */
 	private static final int[] quitBtnLimits = new int[]{260, 565, GalaxyWars.HEIGHT-167, GalaxyWars.HEIGHT-50};
 	
 	/**
@@ -67,25 +73,21 @@ public class MenuScreen implements Screen {
 		
 	}
 	
-	private void drawDifficultyButtons(){
-		
-	}
-	
 	/**
-	 * Draws the background and game title.
+	 * Draws the background.
 	 */
 	private void drawBackground(){	
 		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
-		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
 		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
-		game.getSpriteBatch().draw(gameTitle, 100, 300);
+
 	}
 	
 	/**
-	 * Draws the buttons of the main menu.
+	 * Draws the buttons of the main menu and the game title.
 	 */
 	private void drawMainButtons(){
 		Texture playButton, quitButton;
+		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
 		
 		if(isPlayBtnArea()){
 			playButton = game.getAssetManager().get("play-button-hover.png", Texture.class);
@@ -99,8 +101,20 @@ public class MenuScreen implements Screen {
 			quitButton = game.getAssetManager().get("quit-button.png", Texture.class);
 		}
 		
+		game.getSpriteBatch().draw(gameTitle, 100, 300);
 		game.getSpriteBatch().draw(playButton, 260, 200);
 		game.getSpriteBatch().draw(quitButton, 260, 50);
+	}
+	
+	/**
+	 * Draws the difficulty menu buttons.
+	 */
+	private void drawDifficultyButtons(){
+		Texture easyButton, mediumButton, hardButton;
+		Texture difficultyTitle = game.getAssetManager().get("difficulty-title.png", Texture.class);
+		
+		game.getSpriteBatch().draw(difficultyTitle, 180, 300);
+		
 	}
 	
 	/**
@@ -116,7 +130,7 @@ public class MenuScreen implements Screen {
 	}
 	
 	/**
-	 * Handles inputs of the main screen
+	 * Handles inputs of the main screen.
 	 */
 	private void handleMainInputs(){
 		
@@ -125,14 +139,17 @@ public class MenuScreen implements Screen {
 		
 		if(isPlayBtnArea(cursorXpos, cursorYpos)) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
 	
-		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			
+		if(Gdx.input.isButtonPressed(Buttons.LEFT) && !difficultyMenu){
 			if(isPlayBtnArea()){		
-				game.startGame(Difficulty.EASY);
+				//game.startGame(Difficulty.EASY);
+				difficultyMenu = true;
 			}
 			else if(isQuitBtnArea()){
 				game.exitGame();
 			}
+		}
+		else if(Gdx.input.isButtonPressed(Buttons.LEFT) && difficultyMenu){
+			
 		}
 	}
 	
@@ -162,6 +179,9 @@ public class MenuScreen implements Screen {
 		return false;
 	}
 	
+	/**
+	 * Handle inputs of the difficulty-choosing menu.
+	 */
 	private void handleDifficultyInputs(){
 		
 		
