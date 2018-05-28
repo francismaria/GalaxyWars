@@ -10,13 +10,21 @@ import com.mygdx.model.entities.ExplosionModel;
 public class ExplosionView {
 	
 	private float stateTime;
+	
 	private GalaxyWars game;
+	
 	private TextureRegion[] explosionFrames = new TextureRegion[5];
+	
 	private ExplosionModel model;
+	
+	private boolean finish;
+	
+	private static final float TOTAL_DURATION = 2f;
 	
 	public ExplosionView(GalaxyWars game, ExplosionModel model){
 		this.game = game;
 		this.model = model;
+		this.finish = false;
 		stateTime = 0;
 		setTextureRegions();
 	}
@@ -24,6 +32,10 @@ public class ExplosionView {
 	private void setTextureRegions(){
 		Texture explosionTxt = game.getAssetManager().get("explosion-steps.png");
 		
+	}
+	
+	public boolean isFinished(){
+		return finish;
 	}
 	
 	public void draw(SpriteBatch batch){

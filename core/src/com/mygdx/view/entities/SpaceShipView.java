@@ -18,8 +18,6 @@ public class SpaceShipView {
 		//addVertexes()
 	}
 	
-	
-	
 	public void draw(SpriteBatch batch){
 		batch.draw(sprite, model.getXCoord()*GalaxyWars.PIXEL_TO_METER, model.getYCoord()*GalaxyWars.PIXEL_TO_METER);
 	}

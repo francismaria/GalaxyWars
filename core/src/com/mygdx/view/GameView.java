@@ -1,6 +1,7 @@
 package com.mygdx.view;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -103,11 +104,19 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Draws the explosions
+	 * Draws the explosions and deletes the ones that are over
 	 * @param delta
 	 */
 	private void drawExplosions(float delta){
-		// DESENHAR 
+		
+		for(Iterator<ExplosionView> iterator = explosions.iterator(); iterator.hasNext(); ){
+			ExplosionView explosion = iterator.next();
+			if(!explosion.isFinished()){
+				explosion.draw(game.getSpriteBatch());
+			}else{
+				iterator.remove();
+			}
+		}
 	}
 	
 	/**

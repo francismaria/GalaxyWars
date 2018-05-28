@@ -164,7 +164,7 @@ public class GameController implements ContactListener{
 		checkBodiesPositionWindow(bodies);
 		checkLimitPositions(spaceshipBody);
 		
-		//updateBodies(bodies);
+		updateBodies(bodies);
 		spaceshipBody.update();
 		createRandomEnemy(delta);
 

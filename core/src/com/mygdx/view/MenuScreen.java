@@ -16,8 +16,18 @@ public class MenuScreen implements Screen {
 	 */
 	private GalaxyWars game;
 	
-	//private static final 
+	private boolean difficultyMenu;
 	
+	// -----------------------> [ xmin, xmax, ymin, ymax ]
+	
+	private static final int XMIN = 0;
+	private static final int XMAX = 1;
+	private static final int YMIN = 2;
+	private static final int YMAX = 3;
+	
+	private static final int[] playBtnLimits = new int[]{260, 565, GalaxyWars.HEIGHT-315, GalaxyWars.HEIGHT-200};
+	
+	private static final int[] quitBtnLimits = new int[]{260, 565, GalaxyWars.HEIGHT-167, GalaxyWars.HEIGHT-50};
 	
 	/**
 	 * Creates the menu screen
@@ -25,6 +35,7 @@ public class MenuScreen implements Screen {
 	 */
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
+		this.difficultyMenu = false;
 	}
 	
 	@Override
@@ -42,9 +53,18 @@ public class MenuScreen implements Screen {
         game.getSpriteBatch().begin();
         
         drawBackground();
-        drawButtons();
+        
+        if(difficultyMenu){
+        	drawDifficultyButtons();
+        } else {
+        	drawMainButtons();
+        }
         
         game.getSpriteBatch().end();
+		
+	}
+	
+	private void drawDifficultyButtons(){
 		
 	}
 
@@ -55,26 +75,81 @@ public class MenuScreen implements Screen {
 		game.getSpriteBatch().draw(gameTitle, 100, 300);
 	}
 	
-	private void drawButtons(){
-		Texture playButton = game.getAssetManager().get("play-button.png", Texture.class);
-		Texture quitButton = game.getAssetManager().get("quit-button.png", Texture.class);
+	private void drawMainButtons(){
+		Texture playButton, quitButton;
+		
+		if(isPlayBtnArea()){
+			playButton = game.getAssetManager().get("play-button-hover.png", Texture.class);
+		} else{
+			playButton = game.getAssetManager().get("play-button.png", Texture.class);
+		}
+		
+		if(isQuitBtnArea()){
+			quitButton = game.getAssetManager().get("quit-button-hover.png", Texture.class);
+		} else{
+			quitButton = game.getAssetManager().get("quit-button.png", Texture.class);
+		}
+		
 		game.getSpriteBatch().draw(playButton, 260, 200);
 		game.getSpriteBatch().draw(quitButton, 260, 50);
 	}
 	
 	private void handleInputs(){
 		
-		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			game.startGame(Difficulty.EASY);
-		/*	if(isPlayBtnPressed()){
-				
-			}*/
+		if(!difficultyMenu){
+			handleMainInputs();
+		} else {
+			handleDifficultyInputs();
 		}
 	}
 	
-	private boolean isPlayBtnPressed(){
+	private void handleMainInputs(){
+		
+		/*DEBUGGGGG
+		 * int cursorXpos = Gdx.input.getX(), cursorYpos = Gdx.input.getY();
+		
+		if(isPlayBtnArea(cursorXpos, cursorYpos)) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
+	
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
+			
+			if(isPlayBtnArea()){		
+				game.startGame(Difficulty.EASY);
+			}
+			else if(isQuitBtnArea()){
+				game.exitGame();
+			}
+		}
+	}
+	
+	/**
+	 * Checks if cursor is inside the play button area.
+	 * @return true or false depending if the cursor is or not inside the button area.
+	 */
+	private boolean isPlayBtnArea(){
+		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+		
+		if(xPos > playBtnLimits[XMIN] && xPos < playBtnLimits[XMAX] &&
+				yPos > playBtnLimits[YMIN] && yPos < playBtnLimits[YMAX])
+			return true;
 		return false;
-		//if()
+	}
+	
+	/**
+	 * Checks if cursor is inside the quit button area.
+	 * @return true or false depending if the cursor is or not inside the button area.
+	 */
+	private boolean isQuitBtnArea(){
+		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+		
+		if(xPos > quitBtnLimits[XMIN] && xPos < quitBtnLimits[XMAX] &&
+				yPos > quitBtnLimits[YMIN] && yPos < quitBtnLimits[YMAX])
+			return true;
+		return false;
+	}
+	
+	private void handleDifficultyInputs(){
+		
+		
 	}
 
 	@Override
@@ -106,7 +181,4 @@ public class MenuScreen implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
-	
 }
