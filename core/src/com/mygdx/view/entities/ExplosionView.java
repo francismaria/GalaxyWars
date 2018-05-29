@@ -17,14 +17,14 @@ public class ExplosionView {
 	
 	private ExplosionModel model;
 	
-	private boolean finish;
+	private boolean finished;
 	
-	private static final float TOTAL_DURATION = 2f;
+	private Animation anim = null;
 	
 	public ExplosionView(GalaxyWars game, ExplosionModel model){
 		this.game = game;
 		this.model = model;
-		this.finish = false;
+		this.finished = false;
 		stateTime = 0;
 		setTextureRegions();
 	}
@@ -32,16 +32,35 @@ public class ExplosionView {
 	private void setTextureRegions(){
 		Texture explosionTxt = game.getAssetManager().get("explosion-steps.png");
 		
+		TextureRegion[][] tmpFrames = TextureRegion.split(explosionTxt, 120, 169);
+		
+		int index = 0;
+		
+		for(int i = 0; i < 5; i++){
+			explosionFrames[index++] = tmpFrames[0][i];
+		}
+		
+		anim = new Animation(1f/5f, explosionFrames);
 	}
 	
 	public boolean isFinished(){
-		return finish;
+		return finished;
+	}
+	
+	public void update(float delta){
+		stateTime += delta;
+		if(anim.isAnimationFinished(stateTime)){
+			finished = true;
+		}
 	}
 	
 	public void draw(SpriteBatch batch){
 		//x e y têm de ser multiplicados por GalaxyWars.PIXEL_TO_METER
 		//batch.draw(x, y, originX, originY, width, height, scaleX, scaleY, rotation);
 		//batch.draw()
-	}
+		
+		batch.draw((TextureRegion)anim.getKeyFrame(stateTime), model.getXCoord()*GalaxyWars.PIXEL_TO_METER, model.getYCoord()*GalaxyWars.PIXEL_TO_METER);
+	
+	 }
 
 }

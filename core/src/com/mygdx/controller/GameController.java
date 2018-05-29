@@ -47,16 +47,6 @@ public class GameController implements ContactListener{
 	private final SpaceShipBody spaceshipBody;
 	
 	/**
-	 * All of the bodies representing the enemies
-	 */
-	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
-	
-	/**
-	 * Represents all of the bodies that upon collision have to be removed in the next step.
-	 */
-	private List<EntityBody> removeBodies = new ArrayList<EntityBody>();
-	
-	/**
 	 * List of all explosions occurring at an exact time
 	 */
 	private List<ExplosionModel> explosions = new ArrayList<ExplosionModel>();
@@ -143,7 +133,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * @brief Returns the world of the game
+	 * Returns the world of the game.
 	 * @return world
 	 */
 	public World getWorld(){
@@ -151,7 +141,7 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * @brief Updates world and its bodies
+	 * Updates world and its bodies.
 	 * @param delta
 	 */
 	public void update(float delta){
@@ -247,6 +237,11 @@ public class GameController implements ContactListener{
 			((EnemyModel)body.getUserData()).setToRemove();
 	}
 	
+	/**
+	 * Checks if the bullet is inside the game window.
+	 * @param body the bullet body
+	 * @param model the bullet model
+	 */
 	private void checkBulletPosition(Body body, BulletModel model){
 		
 		if(body.getPosition().x > GameModel.WIDTH_LIMIT){
@@ -375,7 +370,7 @@ public class GameController implements ContactListener{
 	/**
 	 * Clears out explosions.
 	 */
-	public void removeExplosions(){
+	public void clearExplosions(){
 		explosions.clear();
 	}
 }

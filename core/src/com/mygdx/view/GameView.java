@@ -111,6 +111,7 @@ public class GameView extends ScreenAdapter {
 		
 		for(Iterator<ExplosionView> iterator = explosions.iterator(); iterator.hasNext(); ){
 			ExplosionView explosion = iterator.next();
+			explosion.update(delta);
 			if(!explosion.isFinished()){
 				explosion.draw(game.getSpriteBatch());
 			}else{
@@ -131,7 +132,7 @@ public class GameView extends ScreenAdapter {
 			System.out.println( "EXPLOSION" + model.getXCoord());
 		}
 		
-		//GameController.getInstance().clearExplosions();
+		GameController.getInstance().clearExplosions();
 	}
 	
 	/**
