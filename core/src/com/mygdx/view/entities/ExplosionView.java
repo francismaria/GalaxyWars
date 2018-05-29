@@ -9,18 +9,41 @@ import com.mygdx.model.entities.ExplosionModel;
 
 public class ExplosionView {
 	
-	private float stateTime;
-	
+	/**
+	 * The game itself (to access the batch).
+	 */
 	private GalaxyWars game;
 	
+	/**
+	 * Time passed since the beginning of the explosion. 
+	 */
+	private float stateTime;
+	
+	/**
+	 * The frames of the explosion image (divided).
+	 */
 	private TextureRegion[] explosionFrames = new TextureRegion[5];
 	
+	/**
+	 * The explosion model.
+	 */
 	private ExplosionModel model;
 	
+	/**
+	 * Indicates whether the explosion has finished or not (controlled by the stateTime).
+	 */
 	private boolean finished;
 	
+	/**
+	 * The animation itself.
+	 */
 	private Animation anim = null;
 	
+	/**
+	 * Constructor which initializes all the variables and calls _setTextureRegions.
+	 * @param game the game itself
+	 * @param model the explosion model
+	 */
 	public ExplosionView(GalaxyWars game, ExplosionModel model){
 		this.game = game;
 		this.model = model;
@@ -29,6 +52,9 @@ public class ExplosionView {
 		setTextureRegions();
 	}
 	
+	/**
+	 * Parses the texture frames of the explosion image and initializes the annimation.
+	 */
 	private void setTextureRegions(){
 		Texture explosionTxt = game.getAssetManager().get("explosion-steps.png");
 		
@@ -43,10 +69,18 @@ public class ExplosionView {
 		anim = new Animation(1f/10f, explosionFrames);
 	}
 	
+	/**
+	 * Returns if the explosion has finished or not.
+	 * @return finish control variable.
+	 */
 	public boolean isFinished(){
 		return finished;
 	}
 	
+	/**
+	 * Updates stateTime and checks if it is or not finished.
+	 * @param delta
+	 */
 	public void update(float delta){
 		stateTime += delta;
 		if(anim.isAnimationFinished(stateTime)){
@@ -54,6 +88,10 @@ public class ExplosionView {
 		}
 	}
 	
+	/**
+	 * Draws the correct animation frame.
+	 * @param batch
+	 */
 	public void draw(SpriteBatch batch){
 		batch.draw((TextureRegion)anim.getKeyFrame(stateTime), model.getXCoord()*GalaxyWars.PIXEL_TO_METER, model.getYCoord()*GalaxyWars.PIXEL_TO_METER);
 	
