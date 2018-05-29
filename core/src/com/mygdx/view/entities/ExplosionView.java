@@ -40,7 +40,7 @@ public class ExplosionView {
 			explosionFrames[index++] = tmpFrames[0][i];
 		}
 		
-		anim = new Animation(1f/5f, explosionFrames);
+		anim = new Animation(1f/15f, explosionFrames);
 	}
 	
 	public boolean isFinished(){

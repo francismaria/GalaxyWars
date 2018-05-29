@@ -104,13 +104,13 @@ public class MenuScreen implements Screen {
 		Texture playButton, quitButton;
 		Texture gameTitle = game.getAssetManager().get("title.png", Texture.class);
 		
-		if(isPlayBtnArea()){
+		if(isInBtnArea(playBtnLimits)){
 			playButton = game.getAssetManager().get("play-button-hover.png", Texture.class);
 		} else{
 			playButton = game.getAssetManager().get("play-button.png", Texture.class);
 		}
 		
-		if(isQuitBtnArea()){
+		if(isInBtnArea(quitBtnLimits)){
 			quitButton = game.getAssetManager().get("quit-button-hover.png", Texture.class);
 		} else{
 			quitButton = game.getAssetManager().get("quit-button.png", Texture.class);
@@ -156,68 +156,47 @@ public class MenuScreen implements Screen {
 	private void handleMainInputs(){
 	
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			if(isPlayBtnArea()){		
+			if(isInBtnArea(playBtnLimits)){
 				difficultyMenu = true;
 			}
-			else if(isQuitBtnArea()){
+			else if(isInBtnArea(quitBtnLimits)){
 				game.exitGame();
 			}
 		}
 	}
 	
 	/**
-	 * Checks if cursor is inside the play button area.
+	 * Checks if the cursor is inside a certain button area.
+	 * @param btnLimits array with the values of button.
 	 * @return true or false depending if the cursor is or not inside the button area.
 	 */
-	private boolean isPlayBtnArea(){
-		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
-		
-		if(xPos > playBtnLimits[XMIN] && xPos < playBtnLimits[XMAX] &&
-				yPos > playBtnLimits[YMIN] && yPos < playBtnLimits[YMAX])
+	private boolean isInBtnArea(int[] btnLimits){
+ 		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+	
+		if(xPos > btnLimits[XMIN] && xPos < btnLimits[XMAX] &&
+				yPos > btnLimits[YMIN] && yPos < btnLimits[YMAX])
 			return true;
 		return false;
 	}
-	
-	/**
-	 * Checks if cursor is inside the quit button area.
-	 * @return true or false depending if the cursor is or not inside the button area.
-	 */
-	private boolean isQuitBtnArea(){
-		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
-		
-		if(xPos > quitBtnLimits[XMIN] && xPos < quitBtnLimits[XMAX] &&
-				yPos > quitBtnLimits[YMIN] && yPos < quitBtnLimits[YMAX])
-			return true;
-		return false;
-	}
-	
+
 	/**
 	 * Handles inputs of the difficulty-choosing menu.
 	 */
 	private void handleDifficultyInputs(){
-		
+	/*	
 		//DEBUGGGGG
 		 int cursorXpos = Gdx.input.getX(), cursorYpos = Gdx.input.getY();
 		
-		if(isEasyBtnArea()) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);
+		if(isEasyBtnArea()) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
 		
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			if(isEasyBtnArea()) 
+			if(isInBtnArea(easyBtnLimits)) 
 				game.startGame(Difficulty.EASY);
 			else if(isMediumBtnArea())
 				game.startGame(Difficulty.MEDIUM);
 			else if(isHardBtnArea()) 
 				game.startGame(Difficulty.HARD);
 		}
-	}
-	
-	private boolean isEasyBtnArea(){
-		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
-		
-		if(xPos > easyBtnLimits[XMIN] && xPos < easyBtnLimits[XMAX] &&
-				yPos > easyBtnLimits[YMIN] && yPos < easyBtnLimits[YMAX])
-			return true;
-		return false;
 	}
 	
 	private boolean isMediumBtnArea(){
