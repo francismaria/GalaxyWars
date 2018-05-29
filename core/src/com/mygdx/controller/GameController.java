@@ -93,18 +93,14 @@ public class GameController implements ContactListener{
 		Body bodyA = contact.getFixtureA().getBody();
 		Body bodyB = contact.getFixtureB().getBody();
 		
-		if(bodyA.getUserData() instanceof SpaceShipModel &&
-				bodyB.getUserData() instanceof EnemyModel){
+		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
 			System.out.println("Enemies collision");
 		}
-		else if(bodyA.getUserData() instanceof EnemyModel &&
-				bodyB.getUserData() instanceof BulletModel){
+		else if(bodyA.getUserData() instanceof EnemyModel && bodyB.getUserData() instanceof BulletModel){
 			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
 		}
-		else if(bodyA.getUserData() instanceof BulletModel &&
-				bodyB.getUserData() instanceof EnemyModel){			//why????
-			((EntityModel) bodyA.getUserData()).setToRemove();
-			((EntityModel) bodyB.getUserData()).setToRemove();
+		else if(bodyA.getUserData() instanceof BulletModel && bodyB.getUserData() instanceof EnemyModel){		
+			enemyBulletCollision((EnemyModel)bodyB.getUserData(), (BulletModel)bodyA.getUserData());
 		}
 		
 	}
@@ -126,6 +122,11 @@ public class GameController implements ContactListener{
 		// TODO Auto-generated method stub
 	}
 	
+	/**
+	 * Flags both the enemy and the bullet to be removed and creates a new explosion model.
+	 * @param enemy enemy to be removed.
+	 * @param bullet bullet to be removed.
+	 */
 	private void enemyBulletCollision(EnemyModel enemy, BulletModel bullet){
 		enemy.setToRemove();
 		bullet.setToRemove();
