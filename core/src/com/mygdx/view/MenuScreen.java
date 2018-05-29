@@ -39,6 +39,21 @@ public class MenuScreen implements Screen {
 	private static final int[] quitBtnLimits = new int[]{260, 565, GalaxyWars.HEIGHT-167, GalaxyWars.HEIGHT-50};
 	
 	/**
+	 * Array which defines the limits of the easy button.
+	 */
+	private static final int[] easyBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-330, GalaxyWars.HEIGHT-200};
+	
+	/**
+	 * Array which defines the limits of the medium button.
+	 */
+	private static final int[] mediumBtnLimits = new int[]{};
+	
+	/**
+	 * Array which defines the limits of the hard button.
+	 */
+	private static final int[] hardBtnLimits = new int[]{};
+	
+	/**
 	 * Creates the menu screen
 	 * @param game the game class
 	 */
@@ -139,23 +154,14 @@ public class MenuScreen implements Screen {
 	 * Handles inputs of the main screen.
 	 */
 	private void handleMainInputs(){
-		
-		/*DEBUGGGGG
-		 * int cursorXpos = Gdx.input.getX(), cursorYpos = Gdx.input.getY();
-		
-		if(isPlayBtnArea(cursorXpos, cursorYpos)) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
 	
-		if(Gdx.input.isButtonPressed(Buttons.LEFT) && !difficultyMenu){
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isPlayBtnArea()){		
-				//game.startGame(Difficulty.EASY);
 				difficultyMenu = true;
 			}
 			else if(isQuitBtnArea()){
 				game.exitGame();
 			}
-		}
-		else if(Gdx.input.isButtonPressed(Buttons.LEFT) && difficultyMenu){
-			
 		}
 	}
 	
@@ -186,12 +192,43 @@ public class MenuScreen implements Screen {
 	}
 	
 	/**
-	 * Handle inputs of the difficulty-choosing menu.
+	 * Handles inputs of the difficulty-choosing menu.
 	 */
 	private void handleDifficultyInputs(){
 		
+		//DEBUGGGGG
+		 int cursorXpos = Gdx.input.getX(), cursorYpos = Gdx.input.getY();
 		
+		if(isEasyBtnArea()) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);
+		
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
+			if(isEasyBtnArea()) 
+				game.startGame(Difficulty.EASY);
+			else if(isMediumBtnArea())
+				game.startGame(Difficulty.MEDIUM);
+			else if(isHardBtnArea()) 
+				game.startGame(Difficulty.HARD);
+		}
 	}
+	
+	private boolean isEasyBtnArea(){
+		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+		
+		if(xPos > easyBtnLimits[XMIN] && xPos < easyBtnLimits[XMAX] &&
+				yPos > easyBtnLimits[YMIN] && yPos < easyBtnLimits[YMAX])
+			return true;
+		return false;
+	}
+	
+	private boolean isMediumBtnArea(){
+		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+		return false;
+	}
+	
+	private boolean isHardBtnArea(){
+		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+		return false;
+	}	
 
 	@Override
 	public void resize(int width, int height) {
