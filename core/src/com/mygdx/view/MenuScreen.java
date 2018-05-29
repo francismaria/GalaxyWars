@@ -107,14 +107,20 @@ public class MenuScreen implements Screen {
 	}
 	
 	/**
-	 * Draws the difficulty menu buttons.
+	 * Draws the difficulty menu buttons and the difficulty menu title.
 	 */
 	private void drawDifficultyButtons(){
 		Texture easyButton, mediumButton, hardButton;
 		Texture difficultyTitle = game.getAssetManager().get("difficulty-title.png", Texture.class);
 		
-		game.getSpriteBatch().draw(difficultyTitle, 180, 300);
+		easyButton = game.getAssetManager().get("easy-button.png", Texture.class);
+		mediumButton = game.getAssetManager().get("medium-button.png", Texture.class);
+		hardButton = game.getAssetManager().get("hard-button.png", Texture.class);
 		
+		game.getSpriteBatch().draw(difficultyTitle, 190, 330);
+		game.getSpriteBatch().draw(easyButton, 315, 230);
+		game.getSpriteBatch().draw(mediumButton, 275, 125);
+		game.getSpriteBatch().draw(hardButton, 315, 20);
 	}
 	
 	/**
