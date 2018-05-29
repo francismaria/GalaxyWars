@@ -1,0 +1,8 @@
+component_depth: 1
+languages:
+- java
+
+exclude:
+- /ios
+- /android
+- /desktop
