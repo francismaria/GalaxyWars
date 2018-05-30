@@ -192,13 +192,13 @@ public class GameController implements ContactListener{
 		EnemyModel model = GameModel.getInstance().createEnemy();
 		
 		if(model instanceof ZigZagModel){
-			ZigZagBody zigzag = new ZigZagBody(world, (ZigZagModel)model);
+			new ZigZagBody(world, (ZigZagModel)model);
 		}
 		else if(model instanceof KamikazeModel){
-			KamikazeBody kamikaze = new KamikazeBody(world, (KamikazeModel)model);
+			new KamikazeBody(world, (KamikazeModel)model);
 		}
 		else if(model instanceof ShooterModel){
-			ShooterBody shooter = new ShooterBody(world, (ShooterModel)model);
+			new ShooterBody(world, (ShooterModel)model);
 		}
 	}
 	
@@ -293,7 +293,6 @@ public class GameController implements ContactListener{
 		
 		BulletBody bullet = new BulletBody(world, model);
 		bullet.launch();
-		
 	}
 	
 	/**

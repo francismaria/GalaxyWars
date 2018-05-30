@@ -10,7 +10,7 @@ public class ShooterBody extends EnemyBody {
 	
 	public ShooterBody(World world, ShooterModel model){
 		super(world, model);
-		createFixture(body, new float[]{12,28, 15,28, 19,32, 19,42, 13,43}, 50, 50, 0);
+		createFixture(body, new float[]{2,21, 22,13, 55,13, 77,21, 60,26, 50,32, 27,32, 16,26}, 75, 42, 0);
 		body.setGravityScale(0);
 		body.setLinearVelocity(-1f, 0f);
 		this.model = model;

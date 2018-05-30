@@ -10,7 +10,8 @@ public class ZigZagBody extends EnemyBody{
 	
 	public ZigZagBody(World world, ZigZagModel model){
 		super(world, model);
-		createFixture(body, new float[]{12,28, 15,28, 19,32, 19,42, 13,43}, 50, 50, 0);
+		createFixture(body, new float[]{39,32, 50,25.5f, 68,25.5f, 81,32, 67,35, 63,40, 56,40, 52,35}, 120, 68, 0);
+		//createFixture(body, new float[]{12,28, 15,28, 19,32, 19,42, 13,43}, 50, 50, 0);
 		//body.setGravityScale(0);
 		body.setLinearVelocity(-0.8f, 0f);
 		this.model = model;

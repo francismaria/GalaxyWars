@@ -38,7 +38,6 @@ public abstract class EntityBody {
 		}
 		
         shape.set(vertices);
-		//shape.setAsBox(50 / GalaxyWars.PIXEL_TO_METER, 50 / GalaxyWars.PIXEL_TO_METER);
 		
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
