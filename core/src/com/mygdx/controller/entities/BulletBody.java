@@ -10,7 +10,7 @@ public class BulletBody extends EntityBody {
 	
 	public BulletBody(World world, BulletModel model){
 		super(world, model, "Kinematic");
-		createBoxFixture(body, 25, 25);
+		createFixture(body, new float[]{4,5, 4,2, 11,2, 11,5}, 15, 7, 0);
 		this.model = model;
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
