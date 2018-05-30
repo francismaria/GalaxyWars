@@ -153,7 +153,6 @@ public class GameController implements ContactListener{
 		world.getBodies(bodies);
 		
 		checkBodiesPositionWindow(bodies);
-		checkLimitPositions(spaceshipBody);
 		
 		updateBodies(bodies);
 		spaceshipBody.update();
@@ -214,6 +213,7 @@ public class GameController implements ContactListener{
 			EntityModel model = (EntityModel)body.getUserData();
 			
 			if(model instanceof SpaceShipModel){
+				checkSpaceshipPosition(body, (SpaceShipModel) model);
 			}
 			else if(model instanceof BulletModel){
 				checkBulletPosition(body, (BulletModel)model);
@@ -234,8 +234,9 @@ public class GameController implements ContactListener{
 	 */
 	private void checkEnemyPosition(Body body, EnemyModel model){
 		
-		if(body.getPosition().x < 0)
+		if(body.getPosition().x < 0 || body.getPosition().y < 0 || body.getPosition().y > GameModel.HEIGHT_LIMIT)
 			((EnemyModel)body.getUserData()).setToRemove();
+		
 	}
 	
 	/**
@@ -251,75 +252,26 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Redirects the given body to its specific treatment.
-	 * @param body 
+	 * Checks if spaceship is inside the game window.
+	 * If not it restores its position to the nearest position inside the game window.
+	 * @param body the spaceship body.
+	 * @param model the spaceship model.
 	 */
-	private void checkLimitPositions(EntityBody body){
-		
-		float x = body.getBody().getPosition().x;
-		float y = body.getBody().getPosition().y;
-		
-		if(body instanceof SpaceShipBody){
-			checkSpaceshipLimits((SpaceShipBody)body, x, y);
-		}
-		else if(body instanceof EnemyBody){
-			checkEnemyLimits((EnemyBody)body, x, y);
-		}
-		else if(body instanceof BulletBody){
-			//checkBulletLimits((BulletBody)body, x, y);
-		}
-	}
-	
-	/**
-	 * Checks if the given enemy body is inside the game window.
-	 * If not restores its position.
-	 * @param body
-	 * @param x width position of the body in the window
-	 * @param y height position of the body in the window
-	 */
-	private void checkEnemyLimits(EnemyBody body, float x, float y){
+	private void checkSpaceshipPosition(Body body, SpaceShipModel model){
 		
 		Vector2 restorePos = new Vector2();
-		float limitWidth = GameModel.WIDTH_LIMIT, limitHeight = GameModel.HEIGHT_LIMIT;
+		float xPos = body.getPosition().x, yPos = body.getPosition().y;
 		
-		if(x < 0){
-			restorePos.x = limitWidth; restorePos.y = y;
-			body.getBody().setTransform(restorePos, 0);
+		if(yPos > 4){
+			restorePos.x = xPos; restorePos.y = 4-0.01f;
+			body.setTransform(restorePos, 0);
+			body.applyLinearImpulse(new Vector2(0, -0.05f), body.getWorldCenter(), true);
 		}
-		else if(x > limitWidth){
-			restorePos.x = 0; restorePos.y = y;
-			body.getBody().setTransform(restorePos, 0);
+		else if(yPos < 0){
+			restorePos.x = xPos; restorePos.y = 0+0.01f;
+			body.setTransform(restorePos, 0);
+			body.applyLinearImpulse(new Vector2(0, 0.1f), body.getWorldCenter(), true);
 		}
-		else if(y < 0){
-			restorePos.x = x; restorePos.y = limitHeight;
-			body.getBody().setTransform(restorePos, 0);
-		}
-		else if(y > limitHeight){
-			restorePos.x = x; restorePos.y = 0;
-			body.getBody().setTransform(restorePos, 0);
-		}
-	}
-	
-	/**
-	 * Checks if the spaceship body is inside the game window. If not restores its position
-	 * @param body
-	 * @param x width position of the body in the window
-	 * @param y height position of the body in the window
-	 */
-	private void checkSpaceshipLimits(SpaceShipBody body, float x, float y){
-		
-		Vector2 restorePos = new Vector2();
-		
-		if(y < 0){
-			restorePos.x = x; restorePos.y = 0+0.01f;
-			body.getBody().setTransform(restorePos, 0);
-			body.getBody().applyLinearImpulse(new Vector2(0, 0.1f), body.getBody().getWorldCenter(), true);
-		}
-		else if(y > 4){
-			restorePos.x = x; restorePos.y = 4-0.01f;
-			body.getBody().setTransform(restorePos, 0);
-			body.getBody().applyLinearImpulse(new Vector2(0, -0.05f), body.getBody().getWorldCenter(), true);
-		} 
 	}
 	
 	/**
