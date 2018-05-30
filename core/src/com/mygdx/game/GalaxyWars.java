@@ -67,6 +67,10 @@ public class GalaxyWars extends Game {
 		assetManager.load("menu-title.png", Texture.class);
 		assetManager.load("difficulty-title.png", Texture.class);
 		assetManager.load("explosion-steps.png", Texture.class);
+		assetManager.load("bullet.png", Texture.class);
+		assetManager.load("zigzag.png", Texture.class);
+		assetManager.load("shooter.png", Texture.class);
+		assetManager.load("kamikaze.png", Texture.class);
 		
 		assetManager.finishLoading();
 	}
@@ -116,6 +120,12 @@ public class GalaxyWars extends Game {
 									//Interval of the enemies created in ms
 		if(this.difficulty.equals(Difficulty.EASY)){
 			GameModel.MAX_ENEMY_INTERVAL = 10000;
+		}
+		else if(this.difficulty.equals(Difficulty.MEDIUM)){
+			GameModel.MAX_ENEMY_INTERVAL = 7000;
+		}
+		else if(this.difficulty.equals(Difficulty.HARD)){
+			GameModel.MAX_ENEMY_INTERVAL = 3000;
 		}
 	}
 }
