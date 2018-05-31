@@ -9,5 +9,5 @@ public abstract class EnemyBody extends EntityBody{
 		super(world, model, "Dynamic");	
 	}
 	
-	public abstract void update();
+	public abstract void update(float delta);
 }	

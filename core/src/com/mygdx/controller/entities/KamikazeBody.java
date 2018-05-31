@@ -16,11 +16,17 @@ public class KamikazeBody extends EnemyBody {
 		this.model = model;
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
-	
+	/*
 	@Override
 	public void update(){
-		model.setYCoord(body.getPosition().y);
+		/*model.setYCoord(body.getPosition().y);
 		model.setXCoord(body.getPosition().x);
 	}
+*/
 
+	@Override
+	public void update(float delta) {
+		// TODO Auto-generated method stub
+		
+	}
 }

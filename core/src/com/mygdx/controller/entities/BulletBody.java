@@ -29,7 +29,6 @@ public class BulletBody extends EntityBody {
 		update();
 	}
 
-	@Override
 	public void update() {
 		model.setYCoord(body.getPosition().y);
 		model.setXCoord(body.getPosition().x);

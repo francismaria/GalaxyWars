@@ -16,16 +16,10 @@ public class ZigZagBody extends EnemyBody{
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
-	/*@Override					//Não é usado --- delete
-	public void update(){
-		model.setYCoord(body.getPosition().y);
-		model.setXCoord(body.getPosition().x);
-	}*/
-	
-	public void update(){
-		model.update();
+	public void update(float delta){
+		model.update(delta);
 		if(model.hasChangedDirection()){
-			body.applyLinearImpulse(new Vector2(0, 0.5f), body.getWorldCenter(), true);
+			body.applyLinearImpulse(new Vector2(0, 0.005f), body.getWorldCenter(), true);
 			model.resetChangedDirection();
 		}
 	}

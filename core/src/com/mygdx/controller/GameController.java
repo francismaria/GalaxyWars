@@ -46,7 +46,9 @@ public class GameController implements ContactListener{
 	 */
 	private final SpaceShipBody spaceshipBody;
 	
-	
+	/**
+	 * The list of active enemies bodies.
+	 */
 	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
 	
 	/**
@@ -157,16 +159,20 @@ public class GameController implements ContactListener{
 		
 		checkBodiesPositionWindow(bodies);
 		
-		updateBodies(bodies);
+		updateBodies(bodies, delta);
 		createRandomEnemy(delta);
 
 		removeBodies();	
 	}
 	
-	private void updateBodies(Array<Body> bodies){
-		
+	private void updateBodies(Array<Body> bodies, float delta){
+		/*
 		for(Body body : bodies){
 			
+		}*/
+		for(EnemyBody body : enemiesBodies){
+			if(body instanceof ZigZagBody)
+				body.update(delta);
 		}
 	}
 	
@@ -190,18 +196,19 @@ public class GameController implements ContactListener{
 	 * Creates the body of the enemy given the model that was randomly generated.
 	 */
 	private void createEnemyBody(){
-		
+		EnemyBody body = null;
 		EnemyModel model = GameModel.getInstance().createEnemy();
 		
 		if(model instanceof ZigZagModel){
-			new ZigZagBody(world, (ZigZagModel)model);
+			body = new ZigZagBody(world, (ZigZagModel)model);
 		}
 		else if(model instanceof KamikazeModel){
-			new KamikazeBody(world, (KamikazeModel)model);
+			body = new KamikazeBody(world, (KamikazeModel)model);
 		}
 		else if(model instanceof ShooterModel){
-			new ShooterBody(world, (ShooterModel)model);
+			body = new ShooterBody(world, (ShooterModel)model);
 		}
+		enemiesBodies.add(body);
 	}
 	
 	/**

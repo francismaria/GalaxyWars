@@ -65,5 +65,5 @@ public abstract class EntityBody {
 		return body;
 	}
 	
-	public abstract void update();
+	//public abstract void update();
 }

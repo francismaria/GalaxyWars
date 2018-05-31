@@ -8,6 +8,10 @@ public class ZigZagModel extends EnemyModel{
 	
 	private boolean changeDirection;
 	
+	private float timePassedChangedDirection;
+	
+	private static final float MIN_TIME_BETWEEN_CHANGE = 0.2f;
+	
 	private static final float OFFSET_LIMIT = 0.2f;
 	
 	/**
@@ -16,12 +20,19 @@ public class ZigZagModel extends EnemyModel{
 	public ZigZagModel(){
 		super(EnemyType.ZIGZAG);
 		this.changeDirection = false;
+		timePassedChangedDirection = 0;
 	}
 	
-	public void update(){			//Deals with AI
-		int controlNumber = controller.nextInt(10) + 1;
+	public void update(float delta){			//Deals with AI
+		timePassedChangedDirection += delta;
+		System.out.println("asa"+delta);
+		int controlNumber = controller.nextInt(1000) + 1;
 		
-		if(controlNumber % 5 == 0){
+		if((controlNumber % 17 == 0) && (getYCoord() < 3) && (timePassedChangedDirection >= MIN_TIME_BETWEEN_CHANGE)){
+			changeDirection = true;
+			timePassedChangedDirection = 0;
+		}
+		else if(getYCoord() < 1 && (timePassedChangedDirection >= MIN_TIME_BETWEEN_CHANGE)){
 			changeDirection = true;
 		}
 	}
