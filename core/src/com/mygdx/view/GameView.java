@@ -93,7 +93,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Displays the correct screen when the game is paused
+	 * Displays the correct screen when the game is paused.
 	 */
 	private void showPausedScreen(){
 		Texture menuTitle = game.getAssetManager().get("menu-title.png", Texture.class);
@@ -101,7 +101,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Draws the game elements
+	 * Draws the game elements.
 	 * @param delta
 	 */
 	private void showRunningGame(float delta){
@@ -114,7 +114,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Draws the explosions and deletes the ones that are over
+	 * Draws the explosions and deletes the ones that are over.
 	 * @param delta
 	 */
 	private void drawExplosions(float delta){
@@ -131,7 +131,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Gets the explosions from the controller and creates a new view for each one of them
+	 * Gets the explosions from the controller and creates a new view for each one of them.
 	 */
 	private void getExplosions(){
 		
@@ -139,14 +139,13 @@ public class GameView extends ScreenAdapter {
 		
 		for(ExplosionModel model : explosionsModel){
 			explosions.add(new ExplosionView(game, model));
-			System.out.println( "EXPLOSION" + model.getXCoord());
 		}
 		
 		GameController.getInstance().clearExplosions();
 	}
 	
 	/**
-	 * Draws the enemies
+	 * Draws the enemies.
 	 * @param delta
 	 */
 	private void drawEnemies(float delta){
@@ -193,6 +192,10 @@ public class GameView extends ScreenAdapter {
 		zigzag.draw(game.getSpriteBatch());
 	}
 	
+	/**
+	 * Draws all the active bullets.
+	 * @param delta
+	 */
 	private void drawBullets(float delta){
 		List<BulletModel> models = GameController.getInstance().getBullets();
 		
@@ -203,7 +206,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Draws the spaceship
+	 * Draws the spaceship.
 	 * @param delta
 	 */
 	private void drawSpaceShip(float delta){
@@ -215,7 +218,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Draws the game background
+	 * Draws the game background.
 	 */
 	private void drawBackground(){
 		Texture background = game.getAssetManager().get("space-background.png", Texture.class);
@@ -223,7 +226,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Responsible for all keyboard and mouse inputs in the game
+	 * Responsible for all keyboard and mouse inputs in the game.
 	 */
 	private void handleInputs(){
 		
@@ -236,7 +239,7 @@ public class GameView extends ScreenAdapter {
 	}	
 	
 	/**
-	 * Handles the user inputs while the game is running
+	 * Handles the user inputs while the game is running.
 	 */
 	private void handleRunningGameInputs(){
 		
@@ -248,12 +251,11 @@ public class GameView extends ScreenAdapter {
 		}
 		else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			GameController.getInstance().shootSpaceShipBullet();
-			System.out.println("SHOOOT");
 		}
 	}
 	
 	/**
-	 * Handles the user inputs while the game is paused
+	 * Handles the user inputs while the game is paused.
 	 */
 	private void handlePausedGameInputs(){
 		

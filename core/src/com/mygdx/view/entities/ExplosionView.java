@@ -40,6 +40,11 @@ public class ExplosionView {
 	private Animation anim = null;
 	
 	/**
+	 * Offset value to correctly draw the explosion in the position of the collision.
+	 */
+	private static final float OFFSET_POS = 20 / GalaxyWars.PIXEL_TO_METER;
+	
+	/**
 	 * Constructor which initializes all the variables and calls _setTextureRegions.
 	 * @param game the game itself
 	 * @param model the explosion model
@@ -93,7 +98,7 @@ public class ExplosionView {
 	 * @param batch
 	 */
 	public void draw(SpriteBatch batch){
-		batch.draw((TextureRegion)anim.getKeyFrame(stateTime), model.getXCoord()*GalaxyWars.PIXEL_TO_METER, model.getYCoord()*GalaxyWars.PIXEL_TO_METER);
+		batch.draw((TextureRegion)anim.getKeyFrame(stateTime), (model.getXCoord()*GalaxyWars.PIXEL_TO_METER)-OFFSET_POS, (model.getYCoord()*GalaxyWars.PIXEL_TO_METER)-OFFSET_POS);
 	
 	 }
 
