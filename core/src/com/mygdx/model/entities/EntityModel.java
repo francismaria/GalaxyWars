@@ -1,9 +1,10 @@
 package com.mygdx.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
+
 public abstract class EntityModel {
 	
-	private float xCoord;
-	private float yCoord;
+	private Vector2 position = new Vector2();
 	private boolean toRemove;
 	
 	public EntityModel(){
@@ -11,24 +12,25 @@ public abstract class EntityModel {
 	}
 	
 	public EntityModel(float xCoord, float yCoord){
-		this.xCoord = xCoord; this.yCoord = yCoord;
+		position.x = xCoord;
+		position.y = yCoord;
 		toRemove = false;
 	}
 	
 	public float getXCoord(){
-		return xCoord;
+		return position.x;
 	}
 	
 	public float getYCoord(){
-		return yCoord;
+		return position.y;
 	}
 	
 	public void setXCoord(float xCoord){
-		this.xCoord = xCoord;
+		position.x = xCoord;
 	}
 	
 	public void setYCoord(float yCoord){
-		this.yCoord = yCoord;
+		position.y = yCoord;
 	}
 	
 	public boolean isToRemove(){

@@ -9,18 +9,13 @@ public class SpaceShipBody extends EntityBody{
 	private SpaceShipModel model;
 	
 	public SpaceShipBody(World world, SpaceShipModel model){
-		super(world, model, "Dynamic");				
-		
-		// down pipe
-		createFixture(body, new float[]{5,38, 5,42, 22,44.5f, 23.5f,36.5f}, 50, 50, 1f);
-		// up pipe
-		createFixture(body, new float[]{5,61, 5,66, 23.5f,66, 22,60}, 50, 50, 1f);
-		// main body
-		createFixture(body, new float[]{22,44.5f, 22,60, 75.5f,60, 75.5f,44.5f}, 50, 50, 1f);
-		// down winglet
-		createFixture(body, new float[]{23.5f,36.5f, 23.5f,34, 17,33.3f, 30.5f,33.3f, 40,40.5f}, 50, 50, 1f);
-		
-		/*createFixture(body, new float[]{32,12, 31,46, 34,51, 40,51, 43,46, 41,12}, 50, 50, 1f);*/
+		super(world, model, "Dynamic");
+		//up
+		createFixture(body, new float[]{6,60, 76,56, 92,57, 81,63, 60,63, 28,79}, 100, 100, 1f);
+		//middle
+		createFixture(body, new float[]{6,60, 6,36, 76,41, 76,56}, 100, 100, 1f);
+		//bottom
+		createFixture(body, new float[]{6,36, 28,18, 60,33, 82,33, 92,39, 76,41}, 100, 100, 1f);
 		this.model = model;
 	}
 	

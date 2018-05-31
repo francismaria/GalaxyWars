@@ -32,32 +32,35 @@ import com.mygdx.model.entities.ZigZagModel;
 public class GameController implements ContactListener{
 	
 	/**
-	 * Singleton instance for the class
+	 * Singleton instance for the class.
 	 */
 	private static GameController instance;
 	
 	/**
-	 * The world of the game
+	 * The world of the game.
 	 */
 	private final World world;
 	
 	/**
-	 * The body representing the spaceship (user)
+	 * The body representing the spaceship (user).
 	 */
 	private final SpaceShipBody spaceshipBody;
 	
+	
+	private List<EnemyBody> enemiesBodies = new ArrayList<EnemyBody>();
+	
 	/**
-	 * List of all explosions occurring at an exact time
+	 * List of all explosions occurring at an exact time.
 	 */
 	private List<ExplosionModel> explosions = new ArrayList<ExplosionModel>();
 	
 	/**
-	 * The time of the next enemy body creation
+	 * The time of the next enemy body creation.
 	 */
 	private float nextEnemyCreation;
 	
 	/**
-	 * Time passed since the last enemy creation (diff time)
+	 * Time passed since the last enemy creation (diff time).
 	 */
 	private float timePassedEnemyCreation;
 	
@@ -68,7 +71,7 @@ public class GameController implements ContactListener{
 	 */
 	private GameController(){
 		
-		world = new World(new Vector2(0, -1f), true);
+		world = new World(new Vector2(0, -0.2f), true);
 		
 		spaceshipBody = new SpaceShipBody(world, GameModel.getInstance().getSpaceShipModel());
 		timePassedEnemyCreation = 0;
@@ -78,8 +81,8 @@ public class GameController implements ContactListener{
 	}
 	
 	/**
-	 * Singleton implementation of the class
-	 * @return the singleton model
+	 * Singleton implementation of the class.
+	 * @return the singleton model.
 	 */
 	public static GameController getInstance(){
 		if(instance == null)
@@ -94,7 +97,7 @@ public class GameController implements ContactListener{
 		Body bodyB = contact.getFixtureB().getBody();
 		
 		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
-			System.out.println("Enemies collision");
+			// GAME OVER!!!
 		}
 		else if(bodyA.getUserData() instanceof EnemyModel && bodyB.getUserData() instanceof BulletModel){
 			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
@@ -155,7 +158,6 @@ public class GameController implements ContactListener{
 		checkBodiesPositionWindow(bodies);
 		
 		updateBodies(bodies);
-		//spaceshipBody.update();
 		createRandomEnemy(delta);
 
 		removeBodies();	
@@ -236,7 +238,6 @@ public class GameController implements ContactListener{
 		
 		if(body.getPosition().x < 0 || body.getPosition().y < 0 || body.getPosition().y > GameModel.HEIGHT_LIMIT)
 			((EnemyModel)body.getUserData()).setToRemove();
-		
 	}
 	
 	/**
