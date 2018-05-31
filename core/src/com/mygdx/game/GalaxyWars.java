@@ -50,7 +50,7 @@ public class GalaxyWars extends Game {
 	}
 	
 	public void exitGame(){
-		
+		Gdx.app.exit();
 	}
 	
 	private void loadAssets(){

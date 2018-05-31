@@ -10,6 +10,7 @@ public class DesktopLauncher {
 		config.width = GalaxyWars.WIDTH;
 		config.height = GalaxyWars.HEIGHT;
 		config.resizable = false;
+		config.forceExit = true;
 		new LwjglApplication(new GalaxyWars(), config);
 	}
 }
