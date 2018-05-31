@@ -338,11 +338,39 @@ public class GameController implements ContactListener{
 		
 		for(Body body : bodies){
 			EntityModel model = (EntityModel)body.getUserData();
-			
 			if(model instanceof EnemyModel){
 				models.add((EnemyModel)model);
 			}
 		}
 		return models;
 	}
+
+	public List<BulletModel> getBullets() {
+		
+		List<BulletModel> models = new ArrayList<BulletModel>();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		for(Body body : bodies){
+			EntityModel model = (EntityModel)body.getUserData();
+			if(model instanceof BulletModel){
+				models.add((BulletModel)model);
+			}
+		}
+		return models;
+	}
+	/*
+	private void getTypeBodies(EntityModel modelType){
+		List<modelType> models = new ArrayList<BulletModel>();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		for(Body body : bodies){
+			EntityModel model = (EntityModel)body.getUserData();
+			if(model instanceof modelType){
+				models.add((EnemyModel)model);
+			}
+		}
+		return models;
+	}*/
 }

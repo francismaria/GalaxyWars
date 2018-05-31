@@ -14,12 +14,14 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.mygdx.controller.GameController;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
+import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.ExplosionModel;
 import com.mygdx.model.entities.KamikazeModel;
 import com.mygdx.model.entities.ShooterModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
+import com.mygdx.view.entities.BulletView;
 import com.mygdx.view.entities.ExplosionView;
 import com.mygdx.view.entities.KamikazeView;
 import com.mygdx.view.entities.ShooterView;
@@ -106,6 +108,7 @@ public class GameView extends ScreenAdapter {
 		
 		drawSpaceShip(delta);
 		drawEnemies(delta);
+		drawBullets(delta);
 		getExplosions();
 		drawExplosions(delta);
 	}
@@ -188,6 +191,15 @@ public class GameView extends ScreenAdapter {
 	private void drawKamikaze(KamikazeModel model){
 		KamikazeView zigzag = new KamikazeView(game, model);
 		zigzag.draw(game.getSpriteBatch());
+	}
+	
+	private void drawBullets(float delta){
+		List<BulletModel> models = GameController.getInstance().getBullets();
+		
+		for(BulletModel model : models){
+			BulletView bullet = new BulletView(game, model);
+			bullet.draw(game.getSpriteBatch());
+		}
 	}
 	
 	/**
