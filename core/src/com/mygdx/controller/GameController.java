@@ -155,7 +155,7 @@ public class GameController implements ContactListener{
 		checkBodiesPositionWindow(bodies);
 		
 		updateBodies(bodies);
-		spaceshipBody.update();
+		//spaceshipBody.update();
 		createRandomEnemy(delta);
 
 		removeBodies();	
@@ -205,7 +205,7 @@ public class GameController implements ContactListener{
 	/**
 	 * Goes through all the bodies in the world and checks if they are inside the game window.
 	 * If not flags them to be removed.
-	 * @param bodies all of the bodies in th world
+	 * @param bodies all of the bodies in the world
 	 */
 	private void checkBodiesPositionWindow(Array<Body> bodies){
 		
@@ -324,5 +324,25 @@ public class GameController implements ContactListener{
 	 */
 	public void clearExplosions(){
 		explosions.clear();
+	}
+	
+	/**
+	 * Returns all of the enemies models present in the game.
+	 * @return list of all active enemies models.
+	 */
+	public List<EnemyModel> getEnemies(){
+		
+		List<EnemyModel> models = new ArrayList<EnemyModel>();
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		for(Body body : bodies){
+			EntityModel model = (EntityModel)body.getUserData();
+			
+			if(model instanceof EnemyModel){
+				models.add((EnemyModel)model);
+			}
+		}
+		return models;
 	}
 }

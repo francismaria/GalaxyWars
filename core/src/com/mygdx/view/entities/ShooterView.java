@@ -4,16 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.GalaxyWars;
-import com.mygdx.model.entities.ZigZagModel;
+import com.mygdx.model.entities.ShooterModel;
 
-public class ZigZagView {
-	
+public class ShooterView {
+
 	private Sprite sprite;
-	private ZigZagModel model;
+	private ShooterModel model;
 	
-	public ZigZagView(GalaxyWars game, ZigZagModel model){
+	public ShooterView(GalaxyWars game, ShooterModel model){
 		this.model = model;
-		Texture zigzagTxt = game.getAssetManager().get("zigzag.png");
+		Texture zigzagTxt = game.getAssetManager().get("shooter.png");
 		sprite = new Sprite(zigzagTxt);
 	}
 	

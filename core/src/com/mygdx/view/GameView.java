@@ -14,10 +14,17 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.mygdx.controller.GameController;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
+import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.ExplosionModel;
+import com.mygdx.model.entities.KamikazeModel;
+import com.mygdx.model.entities.ShooterModel;
 import com.mygdx.model.entities.SpaceShipModel;
+import com.mygdx.model.entities.ZigZagModel;
 import com.mygdx.view.entities.ExplosionView;
+import com.mygdx.view.entities.KamikazeView;
+import com.mygdx.view.entities.ShooterView;
 import com.mygdx.view.entities.SpaceShipView;
+import com.mygdx.view.entities.ZigZagView;
 
 public class GameView extends ScreenAdapter {
 	
@@ -141,7 +148,46 @@ public class GameView extends ScreenAdapter {
 	 */
 	private void drawEnemies(float delta){
 		
+		List<EnemyModel> models = GameController.getInstance().getEnemies();
 		
+		for(EnemyModel model : models){
+			if(model instanceof ZigZagModel){
+				drawZigZag((ZigZagModel)model);
+			}
+			else if(model instanceof ShooterModel){
+				drawShooter((ShooterModel)model);
+			}
+			else if(model instanceof KamikazeModel){
+				drawKamikaze((KamikazeModel)model);
+			}
+		}
+	}
+	
+	/**
+	 * Draws the enemy of type "zig-zag".
+	 * @param model ziz-zag enemy model.
+	 */
+	private void drawZigZag(ZigZagModel model){
+		ZigZagView zigzag = new ZigZagView(game, (ZigZagModel)model);
+		zigzag.draw(game.getSpriteBatch());
+	}
+	
+	/**
+	 * Draws the enemy of type "shooter".
+	 * @param model shooter enemy model.
+	 */
+	private void drawShooter(ShooterModel model){
+		ShooterView shooter = new ShooterView(game, model);
+		shooter.draw(game.getSpriteBatch());
+	}
+	
+	/**
+	 * Draws the enemy of type "kamikaze".
+	 * @param model kamikaze enemy model.
+	 */
+	private void drawKamikaze(KamikazeModel model){
+		KamikazeView zigzag = new KamikazeView(game, model);
+		zigzag.draw(game.getSpriteBatch());
 	}
 	
 	/**
