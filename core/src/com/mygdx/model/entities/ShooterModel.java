@@ -1,5 +1,6 @@
 package com.mygdx.model.entities;
 
+import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.game.GalaxyWars.Difficulty;
 import com.mygdx.model.GameModel;
@@ -75,6 +76,20 @@ public class ShooterModel extends EnemyModel {
 	public void resetShooting(){
 		shoot = false;
 		timePassedLastShot = 0;
+	}
+	
+	public Vector2 getForce(SpaceShipModel spaceship){
+		Vector2 force = new Vector2();
+		float yTmp = (Math.abs((getYCoord()-spaceship.getYCoord())))/2f;
+		
+		force.x = 0-(getXCoord()-spaceship.getXCoord())/2f;
+		
+		if(getYCoord() > spaceship.getYCoord()){
+			force.y = -yTmp;
+		} else {
+			force.y = yTmp;
+		}
+		return force;
 	}
 	
 	/**

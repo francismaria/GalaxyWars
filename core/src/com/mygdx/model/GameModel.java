@@ -145,7 +145,7 @@ public class GameModel {
 				break;
 			case 3:
 				System.out.println("SHOOTER");
-				enemy = shooterPool.obtain();
+				enemy = shooterPool.obtain();  
 				break;
 			default:
 				return null;

@@ -91,6 +91,33 @@ public class GameController implements ContactListener{
 			instance = new GameController();
 		return instance;
 	}
+	
+	/**
+	 * Returns the world of the game.
+	 * @return world
+	 */
+	public World getWorld(){
+		return world;
+	}
+	
+	/**
+	 * Updates world and its bodies.
+	 * @param delta
+	 */
+	public void update(float delta){
+		
+		world.step(1f/60f, 6, 2);
+		
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		checkBodiesPositionWindow(bodies);
+		
+		updateBodies(bodies, delta);
+		createRandomEnemy(delta);
+
+		removeBodies();	
+	}
 	 
 	@Override
 	public void beginContact(Contact contact) {
@@ -138,33 +165,6 @@ public class GameController implements ContactListener{
 		explosions.add(new ExplosionModel(enemy.getXCoord(), enemy.getYCoord()));
 	}
 	
-	/**
-	 * Returns the world of the game.
-	 * @return world
-	 */
-	public World getWorld(){
-		return world;
-	}
-	
-	/**
-	 * Updates world and its bodies.
-	 * @param delta
-	 */
-	public void update(float delta){
-		
-		world.step(1f/60f, 6, 2);
-		
-		Array<Body> bodies = new Array<Body>();
-		world.getBodies(bodies);
-		
-		checkBodiesPositionWindow(bodies);
-		
-		updateBodies(bodies, delta);
-		createRandomEnemy(delta);
-
-		removeBodies();	
-	}
-	
 	private void updateBodies(Array<Body> bodies, float delta){
 
 		for(EnemyBody body : enemiesBodies){
@@ -182,16 +182,13 @@ public class GameController implements ContactListener{
 	
 	private void shootEnemyBullet(SpaceShipModel spaceship, ShooterModel enemy){
 		
+		if(enemy.isToRemove()) return;
+		
 		BulletModel model = GameModel.getInstance().createBullet(new Vector2
 				(enemy.getXCoord()-0.18f, enemy.getYCoord()+0.2f));
 		
 		BulletBody bullet = new BulletBody(world, model);
-		float xForce = (enemy.getXCoord()-spaceship.getXCoord())/2f;
-		float yForce = (Math.abs((enemy.getYCoord()-spaceship.getYCoord())))/2f;
-		if(enemy.getYCoord() > spaceship.getYCoord())
-			bullet.launch(new Vector2(-xForce, -yForce));
-		else
-			bullet.launch(new Vector2(-xForce, yForce));
+		bullet.launch(enemy.getForce(spaceship));
 	}
 	
 	/**
@@ -288,8 +285,8 @@ public class GameController implements ContactListener{
 		Vector2 restorePos = new Vector2();
 		float xPos = body.getPosition().x, yPos = body.getPosition().y;
 		
-		if(yPos > 4){
-			restorePos.x = xPos; restorePos.y = 4-0.01f;
+		if(yPos > 4.2f){
+			restorePos.x = xPos; restorePos.y = 4.20f-0.01f;
 			body.setTransform(restorePos, 0);
 			body.applyLinearImpulse(new Vector2(0, -0.05f), body.getWorldCenter(), true);
 		}
