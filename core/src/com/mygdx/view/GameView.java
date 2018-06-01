@@ -31,28 +31,28 @@ import com.mygdx.view.entities.ZigZagView;
 public class GameView extends ScreenAdapter {
 	
 	/**
-	 * The game itself
+	 * The game itself.
 	 */
 	private GalaxyWars game;
 	
 	/**
-	 * Camera declaration
+	 * Camera declaration.
 	 */
 	private OrthographicCamera box2DCamera;
 	
 	/**
-	 * Debug camera renderer (only used for debug purposes in the development phase)
+	 * Debug camera renderer (only used for debug purposes in the development phase).
 	 */
 	private Box2DDebugRenderer debugRenderer;
 	
 	/**
-	 * All explosions views
+	 * All explosions views.
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 
 	/**
-	 * Class constructor which calls the camera initializer
-	 * @param game the game itself
+	 * Class constructor which calls the camera initializer.
+	 * @param game the game itself.
 	 */
 	public GameView(GalaxyWars game){
 		this.game = game;
@@ -60,7 +60,7 @@ public class GameView extends ScreenAdapter {
 	}
 	
 	/**
-	 * Initializes the camera settings
+	 * Initializes the camera settings.
 	 */
 	private void initCamera(){
 		box2DCamera = new OrthographicCamera(GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER, GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));

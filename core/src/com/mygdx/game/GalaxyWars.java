@@ -122,7 +122,7 @@ public class GalaxyWars extends Game {
 	public void setRunning(){
 		this.running = true;
 		this.paused = false;
-									//Interval of the enemies created in ms
+													//Interval of the enemies created in ms
 		if(difficulty.equals(Difficulty.EASY)){
 			GameModel.MAX_ENEMY_INTERVAL = 10000;
 		}

@@ -4,7 +4,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.game.GalaxyWars.Difficulty;
 import com.mygdx.model.entities.KamikazeModel;
-import com.mygdx.model.entities.ZigZagModel;
 
 public class KamikazeBody extends EnemyBody {
 	
