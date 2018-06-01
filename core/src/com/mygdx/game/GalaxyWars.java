@@ -61,6 +61,9 @@ public class GalaxyWars extends Game {
 		assetManager.load("easy-button.png", Texture.class);
 		assetManager.load("medium-button.png", Texture.class);
 		assetManager.load("hard-button.png", Texture.class);
+		assetManager.load("easy-button-hover.png", Texture.class);
+		assetManager.load("medium-button-hover.png", Texture.class);
+		assetManager.load("hard-button-hover.png", Texture.class);
 		assetManager.load("space-background.png", Texture.class);
 		assetManager.load("space-ship.png", Texture.class);
 		assetManager.load("title.png", Texture.class);
@@ -71,6 +74,8 @@ public class GalaxyWars extends Game {
 		assetManager.load("zigzag.png", Texture.class);
 		assetManager.load("shooter.png", Texture.class);
 		assetManager.load("kamikaze.png", Texture.class);
+		
+		assetManager.load("quit-game-button.png", Texture.class);
 		
 		assetManager.finishLoading();
 	}

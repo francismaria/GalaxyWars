@@ -3,6 +3,7 @@ package com.mygdx.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -41,17 +42,22 @@ public class MenuScreen implements Screen {
 	/**
 	 * Array which defines the limits of the easy button.
 	 */
-	private static final int[] easyBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-330, GalaxyWars.HEIGHT-200};
+	private static final int[] easyBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-230-130, GalaxyWars.HEIGHT-230};
 	
 	/**
 	 * Array which defines the limits of the medium button.
 	 */
-	private static final int[] mediumBtnLimits = new int[]{};
+	private static final int[] mediumBtnLimits = new int[]{275, 545, GalaxyWars.HEIGHT-125-130, GalaxyWars.HEIGHT-125};
 	
 	/**
 	 * Array which defines the limits of the hard button.
 	 */
-	private static final int[] hardBtnLimits = new int[]{};
+	private static final int[] hardBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-125-20, GalaxyWars.HEIGHT-20};
+	
+	/**
+	 * Sound of the menu background music.
+	 */
+	private static Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sounds/Cyber-Dream-Loop.mp3"));
 	
 	/**
 	 * Creates the menu screen
@@ -60,6 +66,7 @@ public class MenuScreen implements Screen {
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
 		this.difficultyMenu = false;
+		backgroundMusic.loop();
 	}
 	
 	@Override
@@ -128,9 +135,23 @@ public class MenuScreen implements Screen {
 		Texture easyButton, mediumButton, hardButton;
 		Texture difficultyTitle = game.getAssetManager().get("difficulty-title.png", Texture.class);
 		
-		easyButton = game.getAssetManager().get("easy-button.png", Texture.class);
-		mediumButton = game.getAssetManager().get("medium-button.png", Texture.class);
-		hardButton = game.getAssetManager().get("hard-button.png", Texture.class);
+		if(isInBtnArea(easyBtnLimits)){
+			easyButton = game.getAssetManager().get("easy-button-hover.png", Texture.class);
+		} else{
+			easyButton = game.getAssetManager().get("easy-button.png", Texture.class);
+		}
+		
+		if(isInBtnArea(mediumBtnLimits)){
+			mediumButton = game.getAssetManager().get("medium-button-hover.png", Texture.class);
+		} else {
+			mediumButton = game.getAssetManager().get("medium-button.png", Texture.class);
+		}
+		
+		if(isInBtnArea(hardBtnLimits)){
+			hardButton = game.getAssetManager().get("hard-button-hover.png", Texture.class);
+		} else{
+			hardButton = game.getAssetManager().get("hard-button.png", Texture.class);	
+		}
 		
 		game.getSpriteBatch().draw(difficultyTitle, 190, 330);
 		game.getSpriteBatch().draw(easyButton, 315, 230);
@@ -190,24 +211,20 @@ public class MenuScreen implements Screen {
 		if(isEasyBtnArea()) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
 		
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
-			if(isInBtnArea(easyBtnLimits)) 
+			if(isInBtnArea(easyBtnLimits)) {
+				backgroundMusic.stop();
 				game.startGame(Difficulty.EASY);
-			else if(isMediumBtnArea())
+			}
+			else if(isInBtnArea(mediumBtnLimits)){
+				backgroundMusic.stop();
 				game.startGame(Difficulty.MEDIUM);
-			else if(isHardBtnArea()) 
+			}
+			else if(isInBtnArea(hardBtnLimits)) {
+				backgroundMusic.stop();
 				game.startGame(Difficulty.HARD);
+			}
 		}
 	}
-	
-	private boolean isMediumBtnArea(){
-		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
-		return false;
-	}
-	
-	private boolean isHardBtnArea(){
-		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
-		return false;
-	}	
 
 	@Override
 	public void resize(int width, int height) {

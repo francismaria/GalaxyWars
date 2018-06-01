@@ -97,7 +97,12 @@ public class GameView extends ScreenAdapter {
 	 */
 	private void showPausedScreen(){
 		Texture menuTitle = game.getAssetManager().get("menu-title.png", Texture.class);
-		game.getSpriteBatch().draw(menuTitle, 290, 300);
+		Texture quitButton = game.getAssetManager().get("quit-game-button.png", Texture.class);
+		Texture resumeButton = game.getAssetManager().get("resumbe-button.png", Texture.class);
+		
+		game.getSpriteBatch().draw(menuTitle, 290, 320);
+		game.getSpriteBatch().draw(resumeButton, 252, 20);
+		game.getSpriteBatch().draw(quitButton, 252, 20);
 	}
 	
 	/**

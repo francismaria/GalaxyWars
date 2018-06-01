@@ -42,12 +42,13 @@ public abstract class EntityBody {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1;
+		//fixtureDef.filter = 
 		fixtureDef.restitution = restitution;
 		
 		Fixture fixture = body.createFixture(fixtureDef);
 		shape.dispose();
 	}
-	
+	/*
 	public final void createBoxFixture(Body body, int width, int height){
 		
 		PolygonShape shape = new PolygonShape();
@@ -59,7 +60,7 @@ public abstract class EntityBody {
 		
 		Fixture fixture = body.createFixture(fixtureDef);
 		shape.dispose();
-	}
+	}*/
 	
 	public Body getBody(){
 		return body;

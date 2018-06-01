@@ -10,4 +10,8 @@ public abstract class EnemyBody extends EntityBody{
 	}
 	
 	public abstract void update(float delta);
+	
+	public void reset(){
+		
+	}
 }	
