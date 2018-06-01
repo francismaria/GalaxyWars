@@ -57,7 +57,7 @@ public class MenuScreen implements Screen {
 	/**
 	 * Sound of the menu background music.
 	 */
-	private static Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sounds/Cyber-Dream-Loop.mp3"));
+	private static final Sound backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sounds/Cyber-Dream-Loop.mp3"));
 	
 	/**
 	 * Creates the menu screen

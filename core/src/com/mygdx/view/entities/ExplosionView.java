@@ -1,5 +1,7 @@
 package com.mygdx.view.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -39,6 +41,8 @@ public class ExplosionView {
 	 */
 	private Animation anim = null;
 	
+	private static final Sound soundFX =  Gdx.audio.newSound(Gdx.files.internal("sounds/explosion-sound.mp3"));
+			
 	/**
 	 * Offset value to correctly draw the explosion in the position of the collision.
 	 */
@@ -54,6 +58,7 @@ public class ExplosionView {
 		this.model = model;
 		this.finished = false;
 		stateTime = 0;
+		soundFX.play(0.4f);
 		setTextureRegions();
 	}
 	

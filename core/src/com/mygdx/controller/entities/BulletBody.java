@@ -1,5 +1,7 @@
 package com.mygdx.controller.entities;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.model.entities.BulletModel;
@@ -7,6 +9,8 @@ import com.mygdx.model.entities.BulletModel;
 public class BulletBody extends EntityBody {
 
 	private BulletModel model;
+
+	private static final Sound shootingFX = Gdx.audio.newSound(Gdx.files.internal("sounds/shooting-sound.mp3"));
 	
 	public BulletBody(World world, BulletModel model){
 		super(world, model, "Kinematic");
@@ -15,18 +19,9 @@ public class BulletBody extends EntityBody {
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
-	public void launch(Vector2 initialPos){
-		moveToSpaceshipPos(initialPos); 
-		body.setLinearVelocity(new Vector2(4f, 0));
-	}
-	
 	public void launch(){
+		shootingFX.play(0.4f);
 		body.setLinearVelocity(new Vector2(4f, 0));
-	}
-	
-	private void moveToSpaceshipPos(Vector2 spaceshipPos){
-		body.setTransform(spaceshipPos, 0);
-		update();
 	}
 
 	public void update() {

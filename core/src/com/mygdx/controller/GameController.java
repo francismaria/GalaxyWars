@@ -166,10 +166,7 @@ public class GameController implements ContactListener{
 	}
 	
 	private void updateBodies(Array<Body> bodies, float delta){
-		/*
-		for(Body body : bodies){
-			
-		}*/
+
 		for(EnemyBody body : enemiesBodies){
 			if(body instanceof ZigZagBody)
 				body.update(delta);
