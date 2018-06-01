@@ -25,7 +25,7 @@ public class GalaxyWars extends Game {
 	private boolean over;
 	private boolean win;
 	
-	private Difficulty difficulty;
+	public static Difficulty difficulty;
 	
 	public static final int WIDTH = 850;
 	public static final int HEIGHT = 500;
@@ -123,13 +123,13 @@ public class GalaxyWars extends Game {
 		this.running = true;
 		this.paused = false;
 									//Interval of the enemies created in ms
-		if(this.difficulty.equals(Difficulty.EASY)){
+		if(difficulty.equals(Difficulty.EASY)){
 			GameModel.MAX_ENEMY_INTERVAL = 10000;
 		}
-		else if(this.difficulty.equals(Difficulty.MEDIUM)){
+		else if(difficulty.equals(Difficulty.MEDIUM)){
 			GameModel.MAX_ENEMY_INTERVAL = 7000;
 		}
-		else if(this.difficulty.equals(Difficulty.HARD)){
+		else if(difficulty.equals(Difficulty.HARD)){
 			GameModel.MAX_ENEMY_INTERVAL = 3000;
 		}
 	}

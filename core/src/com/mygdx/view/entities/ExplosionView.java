@@ -41,6 +41,9 @@ public class ExplosionView {
 	 */
 	private Animation anim = null;
 	
+	/**
+	 * Sound effect for explosions.
+	 */
 	private static final Sound soundFX =  Gdx.audio.newSound(Gdx.files.internal("sounds/explosion-sound.mp3"));
 			
 	/**
@@ -49,7 +52,7 @@ public class ExplosionView {
 	private static final float OFFSET_POS = 20 / GalaxyWars.PIXEL_TO_METER;
 	
 	/**
-	 * Constructor which initializes all the variables and calls _setTextureRegions.
+	 * Constructor which initializes all the variables and starts explosion sound aswell as it calls _setTextureRegions.
 	 * @param game the game itself
 	 * @param model the explosion model
 	 */
@@ -58,7 +61,7 @@ public class ExplosionView {
 		this.model = model;
 		this.finished = false;
 		stateTime = 0;
-		soundFX.play(0.4f);
+		soundFX.play(0.3f);
 		setTextureRegions();
 	}
 	
