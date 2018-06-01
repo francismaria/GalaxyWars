@@ -75,6 +75,7 @@ public class GalaxyWars extends Game {
 		assetManager.load("shooter.png", Texture.class);
 		assetManager.load("kamikaze.png", Texture.class);
 		
+		//assetManager.load("resume-button.png", Texture.class);
 		assetManager.load("quit-game-button.png", Texture.class);
 		
 		assetManager.finishLoading();

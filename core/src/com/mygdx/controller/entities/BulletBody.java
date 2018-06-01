@@ -19,9 +19,9 @@ public class BulletBody extends EntityBody {
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
-	public void launch(){
+	public void launch(Vector2 velocity){
 		shootingFX.play(0.4f);
-		body.setLinearVelocity(new Vector2(4f, 0));
+		body.setLinearVelocity(velocity);
 	}
 
 	public void update() {

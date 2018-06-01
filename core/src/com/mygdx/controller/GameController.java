@@ -169,8 +169,29 @@ public class GameController implements ContactListener{
 
 		for(EnemyBody body : enemiesBodies){
 			if(body instanceof ZigZagBody)
-				body.update(delta);
+				((ZigZagBody)body).update(delta);
+			else if(body instanceof ShooterBody){
+				ShooterBody shooter = (ShooterBody)body;
+				if(shooter.update(delta, spaceshipBody.getModel())){
+					shootEnemyBullet(spaceshipBody.getModel(), shooter.getModel());
+					shooter.getModel().resetShooting();
+				}
+			}
 		}
+	}
+	
+	private void shootEnemyBullet(SpaceShipModel spaceship, ShooterModel enemy){
+		
+		BulletModel model = GameModel.getInstance().createBullet(new Vector2
+				(enemy.getXCoord()-0.18f, enemy.getYCoord()+0.2f));
+		
+		BulletBody bullet = new BulletBody(world, model);
+		float xForce = (enemy.getXCoord()-spaceship.getXCoord())/2f;
+		float yForce = (Math.abs((enemy.getYCoord()-spaceship.getYCoord())))/2f;
+		if(enemy.getYCoord() > spaceship.getYCoord())
+			bullet.launch(new Vector2(-xForce, -yForce));
+		else
+			bullet.launch(new Vector2(-xForce, yForce));
 	}
 	
 	/**
@@ -297,7 +318,7 @@ public class GameController implements ContactListener{
 				spaceshipBody.getBody().getPosition().y+0.5f));
 		
 		BulletBody bullet = new BulletBody(world, model);
-		bullet.launch();
+		bullet.launch(new Vector2(4f, 0));
 	}
 	
 	/**

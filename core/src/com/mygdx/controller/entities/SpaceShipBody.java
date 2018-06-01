@@ -18,16 +18,13 @@ public class SpaceShipBody extends EntityBody{
 		createFixture(body, new float[]{6,36, 28,18, 60,33, 82,33, 92,39, 76,41}, 100, 100, 1f);
 		this.model = model;
 	}
-	/*
-	@Override
-	public void update(){
-		model.setYCoord(body.getPosition().y);
-		model.setXCoord(body.getPosition().x);
-	}*/
 	
-	public void jump(){
-		
+	public void jump(){	
 		body.applyLinearImpulse(new Vector2(0, 0.05f), body.getWorldCenter(), true);
+	}
+	
+	public SpaceShipModel getModel(){
+		return model;
 	}
 
 }

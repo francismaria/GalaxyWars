@@ -1,7 +1,5 @@
 package com.mygdx.model.entities;
 
-import java.util.Random;
-
 import com.mygdx.model.GameModel;
 
 public class ZigZagModel extends EnemyModel{

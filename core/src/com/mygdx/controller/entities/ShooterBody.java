@@ -2,6 +2,7 @@ package com.mygdx.controller.entities;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.model.entities.ShooterModel;
+import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
 
 public class ShooterBody extends EnemyBody {
@@ -16,17 +17,18 @@ public class ShooterBody extends EnemyBody {
 		this.model = model;
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
-	/*
-	@Override
-	public void update(){
-	/*	model.setYCoord(body.getPosition().y);
-		model.setXCoord(body.getPosition().x);
-	}
-*/
 
+	public boolean update(float delta, SpaceShipModel spaceship) {
+		model.update(delta, spaceship);
+		boolean shoot = model.isToShoot();
+		System.out.println("BODY:  " + body.getPosition().y + "  " + model.getYCoord()); 
+		return shoot;
+	}
+	
 	@Override
-	public void update(float delta) {
-		// TODO Auto-generated method stub
-		
+	public void update(float delta){}
+	
+	public ShooterModel getModel(){
+		return model;
 	}
 }
