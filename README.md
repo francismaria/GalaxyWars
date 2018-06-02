@@ -57,3 +57,37 @@ This last image is the representation of the last "level" of the game.
   * Galaxy loses health when bullet hits it
   * Galaxy "dies" when enemy collides with it
   * Galaxy "dies" when plasma ball collides with it
+
+
+
+## User Manual
+
+* **Main Menu**
+Once the game is launched, the user can select:
+	* New Game
+	Witch starts the game
+
+	* Quit Game
+	Witch exits the game
+
+* **Controls**
+	* Space
+	Gives the player's spaceship an impulse (must be pressed repeatedly)
+
+	* Enter
+	Fires a projectile to the right
+
+
+* **Game cicle**
+	At the start of the game, the user must keep his spaceship from falling down, hitting the ground will cause the player's death.
+	There are 3 different tipes of enemies:
+	* ZigZag
+	Bounces up and down unpredictably while moving left towards the player
+	* Shooter
+	Fires projectiles while trying to aim at the player
+	* Kamikaze
+	Tries to lock the player's altitude and then quickly launches itself towards him.
+
+	
+
+	If any of the enemyes collide with the player, the game is over. 
