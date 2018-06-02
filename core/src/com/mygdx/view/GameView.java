@@ -109,6 +109,7 @@ public class GameView extends ScreenAdapter {
         
         if(game.isOver()){
         	//showFinishedGameScreen();
+        	System.out.println("FINISHED!");
         }
         else if(!game.isPaused()){
         	showRunningGame(delta);
@@ -121,6 +122,10 @@ public class GameView extends ScreenAdapter {
         debugRenderer.render(GameController.getInstance().getWorld(), box2DCamera.combined);
 	}
 	
+	/**
+	 * Updates the game timer and draws it on the game window.
+	 * @param delta the delta time.
+	 */
 	private void updateTimer(float delta){
 		timeState += delta;
 		if(timeState > 1){

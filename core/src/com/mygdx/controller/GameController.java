@@ -17,6 +17,7 @@ import com.mygdx.controller.entities.KamikazeBody;
 import com.mygdx.controller.entities.ShooterBody;
 import com.mygdx.controller.entities.SpaceShipBody;
 import com.mygdx.controller.entities.ZigZagBody;
+import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
@@ -124,7 +125,11 @@ public class GameController implements ContactListener{
 		Body bodyB = contact.getFixtureB().getBody();
 		
 		if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof EnemyModel){
-			// GAME OVER!!!
+			GalaxyWars.setGameOver();
+		}
+		else if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof BulletModel){
+			GalaxyWars.setGameOver();
+			//não devia tirar vida antes de morrer??
 		}
 		else if(bodyA.getUserData() instanceof EnemyModel && bodyB.getUserData() instanceof BulletModel){
 			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
