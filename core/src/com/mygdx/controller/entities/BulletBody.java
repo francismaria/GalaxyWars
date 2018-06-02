@@ -14,7 +14,7 @@ public class BulletBody extends EntityBody {
 	
 	public BulletBody(World world, BulletModel model){
 		super(world, model, "Kinematic");
-		createFixture(body, new float[]{4,5, 4,2, 11,2, 11,5}, 15, 7, 0);
+		createFixture(body, new float[]{4,5, 4,2, 11,2, 11,5}, 15, 7, 0, BULLET_BODY, (short) (SPACESHIP_BODY | ENEMY_BODY));
 		this.model = model;
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}

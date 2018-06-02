@@ -36,7 +36,7 @@ public class KamikazeBody extends EnemyBody {
 	public KamikazeBody(World world, KamikazeModel model){
 		super(world, model);
 		this.model = model;
-		createFixture(body, new float[]{1,31, 20,22, 41,22, 59,31, 44,36, 35,42, 27,42, 18,36}, 60, 60, 0);
+		createFixture(body, new float[]{1,31, 20,22, 41,22, 59,31, 44,36, 35,42, 27,42, 18,36}, 60, 60, 0, (ENEMY_BODY), (short) (SPACESHIP_BODY | BULLET_BODY));
 		initMovement();
 	}
 	

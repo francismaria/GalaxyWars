@@ -14,6 +14,12 @@ public abstract class EntityBody {
 
 	final Body body;
 	
+	protected static final short SPACESHIP_BODY = 0x0001;
+	
+	protected static final short ENEMY_BODY = 0x0002;
+	
+	protected static final short BULLET_BODY = 0x0002;
+	
 	public EntityBody(World world, EntityModel model, String bodyType){
 		BodyDef bodyDef = new BodyDef();
 		
@@ -30,7 +36,7 @@ public abstract class EntityBody {
 		body.setUserData(model);
 	}
 	
-	public final void createFixture(Body body, float[] vertices, int width,  int height, float restitution){
+	public final void createFixture(Body body, float[] vertices, int width,  int height, float restitution, short category, short mask){
 		PolygonShape shape = new PolygonShape();
 		
 		for(int i = 0; i < vertices.length; i++){
@@ -42,29 +48,15 @@ public abstract class EntityBody {
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = shape;
 		fixtureDef.density = 1;
-		//fixtureDef.filter = 
+		fixtureDef.filter.categoryBits = category;
+		fixtureDef.filter.maskBits = mask;
 		fixtureDef.restitution = restitution;
 		
 		Fixture fixture = body.createFixture(fixtureDef);
 		shape.dispose();
 	}
-	/*
-	public final void createBoxFixture(Body body, int width, int height){
-		
-		PolygonShape shape = new PolygonShape();
-		shape.setAsBox(width / GalaxyWars.PIXEL_TO_METER, height / GalaxyWars.PIXEL_TO_METER);
-		
-		FixtureDef fixtureDef = new FixtureDef();
-		fixtureDef.shape = shape;
-		fixtureDef.density = 1;
-		
-		Fixture fixture = body.createFixture(fixtureDef);
-		shape.dispose();
-	}*/
 	
 	public Body getBody(){
 		return body;
 	}
-	
-	//public abstract void update();
 }

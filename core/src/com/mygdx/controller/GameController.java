@@ -27,6 +27,7 @@ import com.mygdx.model.entities.KamikazeModel;
 import com.mygdx.model.entities.ShooterModel;
 import com.mygdx.model.entities.SpaceShipModel;
 import com.mygdx.model.entities.ZigZagModel;
+import com.mygdx.view.GameView.Movement;
 
 public class GameController implements ContactListener{
 	
@@ -64,6 +65,10 @@ public class GameController implements ContactListener{
 	 * Time passed since the last enemy creation (diff time).
 	 */
 	private float timePassedEnemyCreation;
+	
+	private final int OFFSET_REMOVE_X = 1;
+	
+	private final int OFFSET_REMOVE_Y = 1;
 	
 	/**
 	 * Constructor of the class.
@@ -129,7 +134,6 @@ public class GameController implements ContactListener{
 		}
 		else if(bodyA.getUserData() instanceof SpaceShipModel && bodyB.getUserData() instanceof BulletModel){
 			GalaxyWars.setGameOver();
-			//não devia tirar vida antes de morrer??
 		}
 		else if(bodyA.getUserData() instanceof EnemyModel && bodyB.getUserData() instanceof BulletModel){
 			enemyBulletCollision((EnemyModel)bodyA.getUserData(),(BulletModel)bodyB.getUserData());
@@ -261,7 +265,8 @@ public class GameController implements ContactListener{
 	 */
 	private void checkEnemyPosition(Body body, EnemyModel model){
 		
-		if(body.getPosition().x < 0 || body.getPosition().y < 0 || body.getPosition().y > GameModel.HEIGHT_LIMIT)
+		if(body.getPosition().x < (0-OFFSET_REMOVE_X) || body.getPosition().y < (0-OFFSET_REMOVE_Y)
+				|| body.getPosition().y > GameModel.HEIGHT_LIMIT)
 			((EnemyModel)body.getUserData()).setToRemove();
 	}
 	
@@ -303,8 +308,8 @@ public class GameController implements ContactListener{
 	/**
 	 * Calls the _jump function of the spaceship body
 	 */
-	public void jumpSpaceShip(){
-		spaceshipBody.jump();
+	public void jumpSpaceShip(Movement move){
+		spaceshipBody.jump(move);
 	}
 	
 	/**

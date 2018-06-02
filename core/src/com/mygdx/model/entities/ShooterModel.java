@@ -23,6 +23,16 @@ public class ShooterModel extends EnemyModel {
 	private boolean shoot;
 	
 	/**
+	 * Variable that checks if the entity can still shoot according to its position.
+	 */
+	private boolean canShoot;
+	
+	/**
+	 * Variable that sets the distance between the spaceship and the entity where the latter shall stop shooting.
+	 */
+	private static final float STOP_SHOOTING_DISTANCE = 1f;
+	
+	/**
 	 * Physics time variable.
 	 * Represents for how much time should the bullet be flying.
 	 */
@@ -46,17 +56,17 @@ public class ShooterModel extends EnemyModel {
 	/**
 	 * Time for the bullet fly through the air in easy difficulty.
 	 */
-	private static final float BULLET_FLY_TIME_EASY = 5f;
+	private static final float BULLET_FLY_TIME_EASY = 3f;
 	
 	/**
 	 * Time for the bullet fly through the air in medium difficulty.
 	 */
-	private static final float BULLET_FLY_TIME_MEDIUM = 3f;
+	private static final float BULLET_FLY_TIME_MEDIUM = 2f;
 	
 	/**
 	 * Time for the bullet fly through the air in hard difficulty.
 	 */
-	private static final float BULLET_FLY_TIME_HARD = 2f;
+	private static final float BULLET_FLY_TIME_HARD = 1f;
 	
 	/**
 	 * Constructor for the class.
@@ -65,6 +75,7 @@ public class ShooterModel extends EnemyModel {
 	public ShooterModel(){
 		super(EnemyType.SHOOTER);
 		shoot = false;
+		canShoot = true;
 		initVelocity();
 		initTimeBetweenShots(GalaxyWars.difficulty);
 	}
@@ -146,11 +157,27 @@ public class ShooterModel extends EnemyModel {
 	 */
 	public void update(float delta, SpaceShipModel model){
 		timePassedLastShot += delta;
-		if(timePassedLastShot >= minTimeToShoot){
+		checkPosition(model);
+		if(timePassedLastShot >= minTimeToShoot && canShoot){
 			int controlNumber = GameModel.getRandomNumberInt(1000);
 			if((controlNumber % 21 == 0)){
 				shoot = true;
 			}
+		}
+	}
+	
+	/**
+	 * Compares the position of the entity and the spaceship.
+	 * If the shooter is above or below the spaceship it must not shoot as the spaceship isn't able
+	 * to move left or right. This way, this entity must only shoot if its x coordinate is bigger
+	 * than the x coordinate of the spaceship.
+	 */
+	private void checkPosition(SpaceShipModel spaceship){
+		
+		float spaceshipXCoord = spaceship.getXCoord();
+		
+		if(Math.abs(spaceshipXCoord - getXCoord()) < STOP_SHOOTING_DISTANCE){
+			canShoot = false;
 		}
 	}
 }

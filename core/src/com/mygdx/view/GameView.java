@@ -69,6 +69,10 @@ public class GameView extends ScreenAdapter {
 	 * All explosions views.
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
+	
+	public enum Movement{
+		UP, DOWN
+	}
 
 	/**
 	 * Class constructor which calls the camera initializer.
@@ -107,7 +111,7 @@ public class GameView extends ScreenAdapter {
         handleInputs();
         drawBackground();
         
-        if(game.isOver()){
+        if(GalaxyWars.isOver()){
         	//showFinishedGameScreen();
         	System.out.println("FINISHED!");
         }
@@ -295,11 +299,11 @@ public class GameView extends ScreenAdapter {
 		
 		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			game.setPaused();
-		}
-		else if(Gdx.input.isKeyJustPressed(Keys.SPACE)){
-			GameController.getInstance().jumpSpaceShip();
-		}
-		else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
+		} else if(Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.W)){
+			GameController.getInstance().jumpSpaceShip(Movement.UP);
+		} else if(Gdx.input.isKeyJustPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.S)){
+			GameController.getInstance().jumpSpaceShip(Movement.DOWN);
+		} else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
 			GameController.getInstance().shootSpaceShipBullet();
 		}
 	}
