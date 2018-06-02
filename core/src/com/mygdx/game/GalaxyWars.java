@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.model.GameModel;
+import com.mygdx.utils.Scoreboard;
+import com.mygdx.view.FinishedGameScreen;
 import com.mygdx.view.GameView;
 import com.mygdx.view.MenuScreen;
 
@@ -19,6 +21,8 @@ public class GalaxyWars extends Game {
 	
 	private SpriteBatch batch;
 	private AssetManager assetManager;
+	
+	private Scoreboard score;
 	
 	private boolean running;
 	private boolean paused;
@@ -35,19 +39,24 @@ public class GalaxyWars extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
-		running = false;
-		paused = false;
-		over = false;
 		loadAssets();
 		drawMenu();
 	}
 	
 	public void drawMenu(){
+		running = false;
+		paused = false;
+		over = false;
 		setScreen(new MenuScreen(this));
+	}
+	
+	public void finishedGame(){
+		setScreen(new FinishedGameScreen(this));
 	}
 	
 	public void startGame(Difficulty difficulty){
 		this.difficulty = difficulty;
+		score = new Scoreboard();
 		setRunning();
 		setScreen(new GameView(this));
 	}
@@ -80,8 +89,13 @@ public class GalaxyWars extends Game {
 		
 		//assetManager.load("resume-button.png", Texture.class);
 		assetManager.load("quit-game-button.png", Texture.class);
+		loadFinishedGameScreenElements();
 		
 		assetManager.finishLoading();
+	}
+	
+	private void loadFinishedGameScreenElements(){
+		assetManager.load("game-over.png", Texture.class);
 	}
 	
 	@Override
@@ -100,6 +114,10 @@ public class GalaxyWars extends Game {
 	
 	public Difficulty getDifficulty(){
 		return difficulty;
+	}
+	
+	public Scoreboard getScoreboard(){
+		return score;
 	}
 	
 	public boolean isRunning(){

@@ -70,6 +70,11 @@ public class GameView extends ScreenAdapter {
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 	
+	/**
+	 * Recognizes the two available movement inputs.
+	 * @author Francisco / Dinis
+	 *
+	 */
 	public enum Movement{
 		UP, DOWN
 	}
@@ -84,6 +89,9 @@ public class GameView extends ScreenAdapter {
 		initTimer();
 	}
 	
+	/**
+	 * Initializes the timer.
+	 */
 	private void initTimer(){
 		timer = 0;
 		timerFont = new BitmapFont();
@@ -112,8 +120,9 @@ public class GameView extends ScreenAdapter {
         drawBackground();
         
         if(GalaxyWars.isOver()){
-        	//showFinishedGameScreen();
-        	System.out.println("FINISHED!");
+        	//removeAll();
+        	game.getScoreboard().set(timer,  0);
+        	game.finishedGame();
         }
         else if(!game.isPaused()){
         	showRunningGame(delta);
@@ -136,7 +145,7 @@ public class GameView extends ScreenAdapter {
 			timer++;
 			timeState = 0;
 		}
-		timerFont.draw(game.getSpriteBatch(), Integer.toString(timer), GalaxyWars.WIDTH-50, GalaxyWars.HEIGHT-50);
+		timerFont.draw(game.getSpriteBatch(), "TIMER\n"+Integer.toString(timer), GalaxyWars.WIDTH-80, GalaxyWars.HEIGHT-40);
 	}
 	
 	/**
