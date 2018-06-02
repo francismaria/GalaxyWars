@@ -8,10 +8,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.mygdx.controller.GameController;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.model.GameModel;
@@ -37,6 +40,22 @@ public class GameView extends ScreenAdapter {
 	private GalaxyWars game;
 	
 	/**
+	 * The game timer in seconds.
+	 */
+	private int timer;
+	
+	/**
+	 * Variable to keep track if it has or not passed one second.
+	 * It updates the timer.
+	 */
+	private float timeState;
+	
+	/**
+	 * Bitmap font to represent time in the game window.
+	 */
+	private BitmapFont timerFont;
+	
+	/**
 	 * Camera declaration.
 	 */
 	private OrthographicCamera box2DCamera;
@@ -58,6 +77,13 @@ public class GameView extends ScreenAdapter {
 	public GameView(GalaxyWars game){
 		this.game = game;
 		initCamera();
+		initTimer();
+	}
+	
+	private void initTimer(){
+		timer = 0;
+		timerFont = new BitmapFont();
+		timerFont.setColor(Color.WHITE);
 	}
 	
 	/**
@@ -84,13 +110,24 @@ public class GameView extends ScreenAdapter {
         if(game.isOver()){
         	//showFinishedGameScreen();
         }
-        else if(!game.isPaused())
+        else if(!game.isPaused()){
         	showRunningGame(delta);
+        	updateTimer(delta);
+        }
         else
         	showPausedScreen();	     
        
         game.getSpriteBatch().end();
         debugRenderer.render(GameController.getInstance().getWorld(), box2DCamera.combined);
+	}
+	
+	private void updateTimer(float delta){
+		timeState += delta;
+		if(timeState > 1){
+			timer++;
+			timeState = 0;
+		}
+		timerFont.draw(game.getSpriteBatch(), Integer.toString(timer), GalaxyWars.WIDTH-50, GalaxyWars.HEIGHT-50);
 	}
 	
 	/**
