@@ -2,7 +2,6 @@ package com.mygdx.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.controller.entities.BulletBody;
 import com.mygdx.controller.entities.EnemyBody;
-import com.mygdx.controller.entities.EntityBody;
 import com.mygdx.controller.entities.KamikazeBody;
 import com.mygdx.controller.entities.ShooterBody;
 import com.mygdx.controller.entities.SpaceShipBody;

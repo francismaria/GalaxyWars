@@ -40,6 +40,10 @@ public class GalaxyWars extends Game {
 		over = false;
 		win = false;
 		loadAssets();
+		drawMenu();
+	}
+	
+	public void drawMenu(){
 		setScreen(new MenuScreen(this));
 	}
 	

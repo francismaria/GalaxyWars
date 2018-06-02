@@ -204,11 +204,6 @@ public class MenuScreen implements Screen {
 	 * Handles inputs of the difficulty-choosing menu.
 	 */
 	private void handleDifficultyInputs(){
-	/*	
-		//DEBUGGGGG
-		 int cursorXpos = Gdx.input.getX(), cursorYpos = Gdx.input.getY();
-		
-		if(isEasyBtnArea()) System.out.println("PLAY BUTTON" + cursorXpos + " " + cursorYpos);*/
 		
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isInBtnArea(easyBtnLimits)) {

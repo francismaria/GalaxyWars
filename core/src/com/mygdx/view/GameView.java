@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
@@ -103,6 +104,9 @@ public class GameView extends ScreenAdapter {
 		game.getSpriteBatch().draw(menuTitle, 290, 320);
 		//game.getSpriteBatch().draw(resumeButton, 252, 20);
 		game.getSpriteBatch().draw(quitButton, 252, 20);
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
+			game.drawMenu();
+		}
 	}
 	
 	/**
@@ -110,7 +114,6 @@ public class GameView extends ScreenAdapter {
 	 * @param delta
 	 */
 	private void showRunningGame(float delta){
-		
 		drawSpaceShip(delta);
 		drawEnemies(delta);
 		drawBullets(delta);
