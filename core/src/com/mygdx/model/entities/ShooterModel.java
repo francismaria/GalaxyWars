@@ -78,6 +78,14 @@ public class ShooterModel extends EnemyModel {
 		timePassedLastShot = 0;
 	}
 	
+	/**
+	 * Deals with AI.
+	 * Function to get the force the shooter enemy has to apply on the bullet to 
+	 * go in the direction of the spaceship position.
+	 * (Physics movement equations with g = 0N (null)). 
+	 * @param spaceship the spaceship model.
+	 * @return vector representing the force to be applied in the x and y axis.
+	 */
 	public Vector2 getForce(SpaceShipModel spaceship){
 		Vector2 force = new Vector2();
 		float yTmp = (Math.abs((getYCoord()-spaceship.getYCoord())))/2f;

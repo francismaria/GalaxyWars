@@ -7,8 +7,17 @@ import com.mygdx.model.entities.ZigZagModel;
 
 public class ShooterBody extends EnemyBody {
 	
+	/**
+	 * The body model.
+	 */
 	private ShooterModel model;
 	
+	/**
+	 * Constructor for the class.
+	 * Initializes the fixture and set its velocity;
+	 * @param world
+	 * @param model
+	 */
 	public ShooterBody(World world, ShooterModel model){
 		super(world, model);
 		createFixture(body, new float[]{2,21, 22,13, 55,13, 77,21, 60,26, 50,32, 27,32, 16,26}, 75, 42, 0);
@@ -21,7 +30,6 @@ public class ShooterBody extends EnemyBody {
 	public boolean update(float delta, SpaceShipModel spaceship) {
 		model.update(delta, spaceship);
 		boolean shoot = model.isToShoot();
-		System.out.println("BODY:  " + body.getPosition().y + "  " + model.getYCoord()); 
 		return shoot;
 	}
 	

@@ -216,11 +216,21 @@ public class GameModel {
 		return bullets;
 	}
 	
+	/**
+	 * Util function to get a random integer from 1 to the maxLimit parameter.
+	 * @param maxLimit max number.
+	 * @return random integer between 1 and maxLimit.
+	 */
 	public static int getRandomNumberInt(int maxLimit){
 		Random rand = new Random();
 		return rand.nextInt(maxLimit) + 1;
 	}
 	
+	/**
+	 * Util function to get a random float from 1 to the maxLimit parameter.
+	 * @param maxLimit max number.
+	 * @return random float between 1 and maxLimit.
+	 */
 	public static float getRandomNumberFloat(float maxLimit){
 		Random rand = new Random();
 		return 1 + rand.nextFloat() * (maxLimit - 1);
