@@ -23,6 +23,12 @@ public class ShooterModel extends EnemyModel {
 	private boolean shoot;
 	
 	/**
+	 * Physics time variable.
+	 * Represents for how much time should the bullet be flying.
+	 */
+	private float bulletFlyTime;
+	
+	/**
 	 * Minimum time interval between shots in easy difficulty.
 	 */
 	private static final float EASY_MIN_TIME = 1.5f;
@@ -38,13 +44,37 @@ public class ShooterModel extends EnemyModel {
 	private static final float HARD_MIN_TIME = 0.5f;
 	
 	/**
+	 * Time for the bullet fly through the air in easy difficulty.
+	 */
+	private static final float BULLET_FLY_TIME_EASY = 5f;
+	
+	/**
+	 * Time for the bullet fly through the air in medium difficulty.
+	 */
+	private static final float BULLET_FLY_TIME_MEDIUM = 3f;
+	
+	/**
+	 * Time for the bullet fly through the air in hard difficulty.
+	 */
+	private static final float BULLET_FLY_TIME_HARD = 2f;
+	
+	/**
 	 * Constructor for the class.
 	 * Calls _initTimeBetweenShots.
 	 */
 	public ShooterModel(){
 		super(EnemyType.SHOOTER);
 		shoot = false;
+		initVelocity();
 		initTimeBetweenShots(GalaxyWars.difficulty);
+	}
+	
+	/**
+	 * Initializes "base" velocity.
+	 */
+	private void initVelocity(){
+		velocity.x = -1f;
+		velocity.y = 0;
 	}
 	
 	/**
@@ -54,16 +84,22 @@ public class ShooterModel extends EnemyModel {
 	private void initTimeBetweenShots(Difficulty difficulty){
 		if(difficulty.equals(Difficulty.EASY)){
 			minTimeToShoot = EASY_MIN_TIME;
+			velocity.x *= VEL_FACTOR_EASY;
+			bulletFlyTime = BULLET_FLY_TIME_EASY;
 		} else if(difficulty.equals(Difficulty.MEDIUM)){
 			minTimeToShoot = MEDIUM_MIN_TIME;
+			velocity.x *= VEL_FACTOR_MEDIUM;
+			bulletFlyTime = BULLET_FLY_TIME_MEDIUM;
 		} else if(difficulty.equals(Difficulty.HARD)){
 			minTimeToShoot = HARD_MIN_TIME;
+			velocity.x *= VEL_FACTOR_HARD;
+			bulletFlyTime = BULLET_FLY_TIME_HARD;
 		}
 		timePassedLastShot = 0;
 	}
 	
 	/**
-	 * Checks if it is suppose to shoot.
+	 * Checks if it is suppose to shoot. 
 	 * @return if it is require to shoot.
 	 */
 	public boolean isToShoot(){
@@ -82,15 +118,16 @@ public class ShooterModel extends EnemyModel {
 	 * Deals with AI.
 	 * Function to get the force the shooter enemy has to apply on the bullet to 
 	 * go in the direction of the spaceship position.
-	 * (Physics movement equations with g = 0N (null)). 
+	 * (Physics movement equations with g = 0N (null) and the time the bullet takes
+	 * to reach the spaceship position is declared according to the game difficulty). 
 	 * @param spaceship the spaceship model.
 	 * @return vector representing the force to be applied in the x and y axis.
 	 */
 	public Vector2 getForce(SpaceShipModel spaceship){
 		Vector2 force = new Vector2();
-		float yTmp = (Math.abs((getYCoord()-spaceship.getYCoord())))/2f;
+		float yTmp = (Math.abs((getYCoord()-spaceship.getYCoord())))/bulletFlyTime;
 		
-		force.x = 0-(getXCoord()-spaceship.getXCoord())/2f;
+		force.x = 0-(getXCoord()-spaceship.getXCoord())/bulletFlyTime;
 		
 		if(getYCoord() > spaceship.getYCoord()){
 			force.y = -yTmp;

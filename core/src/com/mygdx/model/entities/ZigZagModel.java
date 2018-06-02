@@ -1,5 +1,7 @@
 package com.mygdx.model.entities;
 
+import com.mygdx.game.GalaxyWars;
+import com.mygdx.game.GalaxyWars.Difficulty;
 import com.mygdx.model.GameModel;
 
 public class ZigZagModel extends EnemyModel{
@@ -29,6 +31,22 @@ public class ZigZagModel extends EnemyModel{
 		super(EnemyType.ZIGZAG);
 		this.changeDirection = false;
 		timePassedChangedDirection = 0;
+		initVelocity();
+	}
+	
+	/**
+	 * Initializes the velocity of the entity depending on the game difficulty.
+	 */
+	private void initVelocity(){
+		velocity.x = -0.8f;
+		velocity.y = 0;
+		if(GalaxyWars.difficulty.equals(Difficulty.EASY)){
+			velocity.x *= VEL_FACTOR_EASY;
+		} else if(GalaxyWars.difficulty.equals(Difficulty.MEDIUM)) {
+			velocity.x *= VEL_FACTOR_MEDIUM;
+		} else if(GalaxyWars.difficulty.equals(Difficulty.HARD)) {
+			velocity.x *= VEL_FACTOR_HARD;
+		}
 	}
 	
 	/**
