@@ -83,11 +83,15 @@ Once the game is launched, the user can select:
 	There are 3 different tipes of enemies:
 	* ZigZag
 	Bounces up and down unpredictably while moving left towards the player
+	![alt text](android\assets\zigzag.png)
+
 	* Shooter
 	Fires projectiles while trying to aim at the player
+	![alt text](android\assets\shooter.png)
+
 	* Kamikaze
 	Tries to lock the player's altitude and then quickly launches itself towards him.
-
+	![alt text](android\assets\kamikaze.png)
 	
 
 	If any of the enemyes collide with the player, the game is over. 
