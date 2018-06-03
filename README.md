@@ -33,19 +33,19 @@ Once the game is launched, the user can select:
 	Gives the player's spaceship a downwards impulse (must be pressed repeatedly)
 
 
-* **Game cicle**
-	- At the start of the game, the user must keep his spaceship from falling down, hitting the ground will cause the player's death.
+* **Enemies**
+
 	There are 3 different tipes of enemies:
 	* ZigZag
-	Bounces up and down unpredictably while moving left towards the player
+	Bounces up and down unpredictably while moving left towards the player  
 	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/zigzag.png)
 
 	* Shooter
-	Fires projectiles while trying to aim at the player
+	Fires projectiles while trying to aim at the player  
 	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/shooter.png)
 
 	* Kamikaze
-	Tries to lock the player's altitude and then quickly launches itself towards him.
+	Tries to lock the player's altitude and then quickly launches itself towards him.  
 	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/kamikaze.png)
 	
 
@@ -54,7 +54,7 @@ Once the game is launched, the user can select:
 	The player can pause the game at any point by pressing "esc", entering the pause menu:
 	
 * **Pause menu**
-
+	![alt text](imgs/pausedMenu.JPG)
 
 
 ## Design Patterns
