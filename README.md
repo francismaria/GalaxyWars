@@ -2,8 +2,8 @@
 
 ## Introduction
 
-**Galaxy Wars** is a game that consists in a space ship that continuously tries to reach further distance until it reaches the ultimate BOSS who it shall fight and destroy it.
-Throughout the game the player will find himself surrounded by enemies which he has to kill to reach the final stage of the game.
+**Galaxy Wars** is a game that consists in a space ship that continuously tries to reach further distance until infinity. The main objective of the game is to last for the longest time possible. 
+The game consists in three different difficulties (easy, medium, hard) differing of the quantity of enemies being thrown at.
 
 ## Architecture Design
 
@@ -12,7 +12,9 @@ Below is a representation of the diagram representing our program structure.
 ![alt text](imgs/first-uml.JPG)
 
 ### Design Patterns
-* Singleton : for GameModel, GameController and GameView
+* Singleton: GameModel
+* Model-View-Controller : GameView / GameController / GameModel
+* Object Pool : This was used for the bullets and the three different type of enemies.
 
 ---
 
@@ -22,7 +24,6 @@ Below is a representation of the diagram representing our program structure.
   
   * Highest scores record
   * Game difficulty choice
-  * Volume mixer
 
 * **GUI mock-ups**
 
