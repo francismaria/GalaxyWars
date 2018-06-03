@@ -79,7 +79,7 @@ Once the game is launched, the user can select:
 
 
 * **Game cicle**
-	At the start of the game, the user must keep his spaceship from falling down, hitting the ground will cause the player's death.
+	- At the start of the game, the user must keep his spaceship from falling down, hitting the ground will cause the player's death.
 	There are 3 different tipes of enemies:
 	* ZigZag
 	Bounces up and down unpredictably while moving left towards the player
@@ -95,3 +95,22 @@ Once the game is launched, the user can select:
 	
 
 	If any of the enemyes collide with the player, the game is over. 
+	
+	The player can pause the game at any point by pressing "esc", entering the pause menu:
+	
+
+
+
+#Design Patterns
+	* **Model View Controller**
+
+	* **Object Pool**
+		This design pattern is used to save memory and improve the performance when firing the projectiles, as they exist in a limited amount and are contantly being created and destroyed
+
+	* **Singleton**
+
+
+#Major Difficulties
+
+#Lessons Learned
+
