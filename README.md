@@ -64,17 +64,23 @@ This last image is the representation of the last "level" of the game.
 
 * **Main Menu**
 Once the game is launched, the user can select:
-	* New Game
-	Witch starts the game
+	* **New Game**
+	Moves to a new menu where the player is asked to choose a difficulty:
+		*Easy
+		*Normal
+		*Hard
 
-	* Quit Game
-	Witch exits the game
+	Different dificulties have different times between the creation of the enemies, faster in hard mode, slower in easy mode.
+ 
+
+	* **Quit Game**
+	Exits the game
 
 * **Controls**
-	* Space
+	* **Space**
 	Gives the player's spaceship an impulse (must be pressed repeatedly)
 
-	* Enter
+	* **Enter**
 	Fires a projectile to the right
 
 
@@ -83,34 +89,38 @@ Once the game is launched, the user can select:
 	There are 3 different tipes of enemies:
 	* ZigZag
 	Bounces up and down unpredictably while moving left towards the player
-	![alt text](android\assets\zigzag.png)
+	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/zigzag.png)
 
 	* Shooter
 	Fires projectiles while trying to aim at the player
-	![alt text](android\assets\shooter.png)
+	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/shooter.png)
 
 	* Kamikaze
 	Tries to lock the player's altitude and then quickly launches itself towards him.
-	![alt text](android\assets\kamikaze.png)
+	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/kamikaze.png)
 	
 
 	If any of the enemyes collide with the player, the game is over. 
 	
 	The player can pause the game at any point by pressing "esc", entering the pause menu:
 	
+* **Pause menu**
 
 
 
-#Design Patterns
+## Design Patterns
+
 	* **Model View Controller**
+		To make testing easier and the code more organized.
 
 	* **Object Pool**
 		This design pattern is used to save memory and improve the performance when firing the projectiles, as they exist in a limited amount and are contantly being created and destroyed
 
 	* **Singleton**
+		It's implemented in the GameModel and GameController classes
 
 
-#Major Difficulties
+## Major Difficulties
 
-#Lessons Learned
+## Lessons Learned
 
