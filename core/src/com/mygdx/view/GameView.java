@@ -72,8 +72,8 @@ public class GameView extends ScreenAdapter {
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 	
-	private static final Sound actionBackgroundMusic = Gdx.audio.newSound((Gdx.files.internal("sounds/action-music.ogg")));
-	
+	//private static final Sound actionBackgroundMusic = Gdx.audio.newSound((Gdx.files.internal("sounds/action-music.ogg")));
+	private static Sound actionBackgroundMusic;
 	/**
 	 * Recognizes the two available movement inputs.
 	 * @author Francisco / Dinis
@@ -89,6 +89,7 @@ public class GameView extends ScreenAdapter {
 	 */
 	public GameView(GalaxyWars game){
 		this.game = game;
+		actionBackgroundMusic = game.getAssetManager().get("sounds/action-music.ogg", Sound.class);
 		actionBackgroundMusic.loop(0.2f);
 		initCamera();
 		initTimer();

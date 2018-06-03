@@ -21,8 +21,6 @@ public class ZigZagModel extends EnemyModel{
 	 */
 	private static final float MIN_TIME_BETWEEN_CHANGE = 0.2f;
 	
-	private static final float OFFSET_LIMIT = 0.2f;
-	
 	/**
 	 * Constructor of the class.
 	 * Initializes the time since the last changed direction (up/down).
@@ -31,20 +29,19 @@ public class ZigZagModel extends EnemyModel{
 		super(EnemyType.ZIGZAG);
 		this.changeDirection = false;
 		timePassedChangedDirection = 0;
-		initVelocity();
+		initVelocity(GameModel.difficulty);
 	}
 	
 	/**
 	 * Initializes the velocity of the entity depending on the game difficulty.
 	 */
-	private void initVelocity(){
-		velocity.x = -0.8f;
-		velocity.y = 0;
-		if(GalaxyWars.difficulty.equals(Difficulty.EASY)){
+	private void initVelocity(Difficulty difficulty){
+		velocity.x = -0.8f; velocity.y = 0;
+		if(difficulty.equals(Difficulty.EASY)){
 			velocity.x *= VEL_FACTOR_EASY;
-		} else if(GalaxyWars.difficulty.equals(Difficulty.MEDIUM)) {
+		} else if(difficulty.equals(Difficulty.MEDIUM)) {
 			velocity.x *= VEL_FACTOR_MEDIUM;
-		} else if(GalaxyWars.difficulty.equals(Difficulty.HARD)) {
+		} else if(difficulty.equals(Difficulty.HARD)) {
 			velocity.x *= VEL_FACTOR_HARD;
 		}
 	}

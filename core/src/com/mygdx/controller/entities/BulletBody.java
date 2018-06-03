@@ -10,7 +10,7 @@ public class BulletBody extends EntityBody {
 
 	private BulletModel model;
 
-	private static final Sound shootingFX = Gdx.audio.newSound(Gdx.files.internal("sounds/shooting-sound.mp3"));
+	private static Sound shootingFX = Gdx.audio.newSound(Gdx.files.internal("sounds/shooting-sound.mp3"));
 	
 	public BulletBody(World world, BulletModel model){
 		super(world, model, "Kinematic");
