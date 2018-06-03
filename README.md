@@ -5,62 +5,6 @@
 **Galaxy Wars** is a game that consists in a space ship that continuously tries to reach further distance until infinity. The main objective of the game is to last for the longest time possible. 
 The game consists in three different difficulties (easy, medium, hard) differing of the quantity of enemies being thrown at.
 
-## Architecture Design
-
-Below is a representation of the diagram representing our program structure.
-
-![alt text](imgs/first-uml.JPG)
-
-### Design Patterns
-* Singleton: GameModel
-* Model-View-Controller : GameView / GameController / GameModel
-* Object Pool : This was used for the bullets and the three different type of enemies.
-
----
-
-## GUI Design
-
-* **Main functionalities**
-  
-  * Highest scores record
-  * Game difficulty choice
-
-* **GUI mock-ups**
-
-The next images are just a sketch of what the game interface should be as we haven't defined a gui that we find appropriate. 
-
-![alt text](imgs/StandardGame.png)
-
-This first image is a representation of the first "level" of the game.
-
-![alt text](imgs/Cave.png)
-
-This image represents the obstacles in the game.
-
-![alt text](imgs/Boss.png)
-
-This last image is the representation of the last "level" of the game.
-
----
-
-## Test Designs
-
-* **Button testing**
-  * Galaxy "jumps" when space bar is pressed
-  * Galaxy "fires" bullet when right button is clicked
-  
-* **Enemy testing**
-  * "Boss" enemy dies when its health is "0"
-  * Galaxy wins game when "BOSS" enemy is defeated
-  
-* **Collision testing**
-  * Galaxy "dies" when it colides with the floor
-  * Galaxy loses health when bullet hits it
-  * Galaxy "dies" when enemy collides with it
-  * Galaxy "dies" when plasma ball collides with it
-
-
-
 ## User Manual
 
 * **Main Menu**
@@ -70,13 +14,8 @@ Once the game is launched, the user can select:
 		*Easy
 		*Normal
 		*Hard
-
-	Different dificulties have different times between the creation of the enemies, faster in hard mode, slower in easy mode.
- 
-
-	* **Quit Game**
-	Exits the game
-
+![alt text](imgs/menu.jpeg)
+	
 * **Controls**
 	* **Space**
 	Gives the player's spaceship an impulse (must be pressed repeatedly)
