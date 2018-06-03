@@ -174,7 +174,7 @@ public class MenuScreen implements Screen {
 	 * Handles inputs of the main screen.
 	 */
 	private void handleMainInputs(){
-	
+		Utils.waitClick();
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isInBtnArea(playBtnLimits)){
 				Utils.buttonClickSound.play(0.1f);
@@ -205,7 +205,7 @@ public class MenuScreen implements Screen {
 	 * Handles inputs of the difficulty-choosing menu.
 	 */
 	private void handleDifficultyInputs(){
-		
+		Utils.waitClick();
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isInBtnArea(easyBtnLimits)) {
 				backgroundMusic.stop();

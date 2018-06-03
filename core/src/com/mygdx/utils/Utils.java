@@ -4,11 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
 
 public class Utils {
-	
-	/**
-	 * Variable to wait 1s to click.
-	 */
-	public static final float MIN_TIME_TO_CLICK = 1f;
 
 	/**
 	 * Variable to represent the button minimun x coordinate limit.
@@ -42,6 +37,14 @@ public class Utils {
 				yPos > btnLimits[Utils.YMIN] && yPos < btnLimits[Utils.YMAX])
 			return true;
 		return false;
+	}
+	
+	public static void waitClick(){
+		float counter = 0, totalWait = 4f;
+		
+		while(counter < totalWait){
+			counter += 0.167f;
+		}
 	}
 	
 	public static final Sound buttonClickSound = Gdx.audio.newSound(Gdx.files.internal("sounds/beep-button.mp3"));

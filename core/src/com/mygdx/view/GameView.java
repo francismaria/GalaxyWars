@@ -72,8 +72,13 @@ public class GameView extends ScreenAdapter {
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 	
-	//private static final Sound actionBackgroundMusic = Gdx.audio.newSound((Gdx.files.internal("sounds/action-music.ogg")));
-	private static Sound actionBackgroundMusic;
+	/**
+	 * Background music for the action.
+	 */
+	public static Sound actionBackgroundMusic;
+	
+	private GameController controller;
+	
 	/**
 	 * Recognizes the two available movement inputs.
 	 * @author Francisco / Dinis
@@ -93,6 +98,7 @@ public class GameView extends ScreenAdapter {
 		actionBackgroundMusic.loop(0.2f);
 		initCamera();
 		initTimer();
+		controller = new GameController();
 	}
 	
 	/**
@@ -111,7 +117,7 @@ public class GameView extends ScreenAdapter {
 		box2DCamera = new OrthographicCamera(GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER, GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER * ((float) Gdx.graphics.getHeight() / (float)Gdx.graphics.getWidth()));
 		box2DCamera.position.set(box2DCamera.viewportWidth / 2f, box2DCamera.viewportHeight / 2f, 0);
 		box2DCamera.update();
-		debugRenderer = new Box2DDebugRenderer();
+		//debugRenderer = new Box2DDebugRenderer();
 	}
 	
 	@Override
@@ -126,7 +132,7 @@ public class GameView extends ScreenAdapter {
         drawBackground();
         
         if(GalaxyWars.isOver()){
-        	//removeAll();
+        	removeAll();
         	game.getScoreboard().set(timer,  0);
         	game.finishedGame();
         }
@@ -138,7 +144,11 @@ public class GameView extends ScreenAdapter {
         	showPausedScreen();	     
        
         game.getSpriteBatch().end();
-        debugRenderer.render(GameController.getInstance().getWorld(), box2DCamera.combined);
+        //debugRenderer.render(GameController.getInstance().getWorld(), box2DCamera.combined);
+	}
+	
+	private void removeAll(){
+		controller.removeAllBodies();
 	}
 	
 	/**
@@ -204,13 +214,13 @@ public class GameView extends ScreenAdapter {
 	 */
 	private void getExplosions(){
 		
-		List<ExplosionModel> explosionsModel = GameController.getInstance().getExplosions();
+		List<ExplosionModel> explosionsModel = controller.getExplosions();// GameController.getInstance().getExplosions();
 		
 		for(ExplosionModel model : explosionsModel){
 			explosions.add(new ExplosionView(game, model));
 		}
 		
-		GameController.getInstance().clearExplosions();
+		controller.clearExplosions();
 	}
 	
 	/**
@@ -219,7 +229,7 @@ public class GameView extends ScreenAdapter {
 	 */
 	private void drawEnemies(float delta){
 		
-		List<EnemyModel> models = GameController.getInstance().getEnemies();
+		List<EnemyModel> models = controller.getEnemies();
 		
 		for(EnemyModel model : models){
 			if(model instanceof ZigZagModel){
@@ -266,7 +276,7 @@ public class GameView extends ScreenAdapter {
 	 * @param delta
 	 */
 	private void drawBullets(float delta){
-		List<BulletModel> models = GameController.getInstance().getBullets();
+		List<BulletModel> models = controller.getBullets();
 		
 		for(BulletModel model : models){
 			BulletView bullet = new BulletView(game, model);
@@ -280,7 +290,7 @@ public class GameView extends ScreenAdapter {
 	 */
 	private void drawSpaceShip(float delta){
 		SpaceShipModel model = GameModel.getInstance().getSpaceShipModel();
-		GameController.getInstance().update(delta);
+		controller.update(delta);
 		
 		SpaceShipView ship = new SpaceShipView(game, model);
 		ship.draw(game.getSpriteBatch());
@@ -315,11 +325,11 @@ public class GameView extends ScreenAdapter {
 		if(Gdx.input.isKeyJustPressed(Keys.ESCAPE)){
 			game.setPaused();
 		} else if(Gdx.input.isKeyJustPressed(Keys.W) || Gdx.input.isKeyPressed(Keys.W)){
-			GameController.getInstance().jumpSpaceShip(Movement.UP);
+			controller.jumpSpaceShip(Movement.UP);
 		} else if(Gdx.input.isKeyJustPressed(Keys.S) || Gdx.input.isKeyPressed(Keys.S)){
-			GameController.getInstance().jumpSpaceShip(Movement.DOWN);
+			controller.jumpSpaceShip(Movement.DOWN);
 		} else if(Gdx.input.isKeyJustPressed(Keys.ENTER)){
-			GameController.getInstance().shootSpaceShipBullet();
+			controller.shootSpaceShipBullet();
 		}
 	}
 	

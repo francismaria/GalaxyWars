@@ -8,11 +8,6 @@ public class Scoreboard {
 	private int time;
 	
 	/**
-	 * Number of enemies shot.
-	 */
-	private int enemiesShot;
-	
-	/**
 	 * Constructor of the class.
 	 */
 	public Scoreboard(){
@@ -26,7 +21,14 @@ public class Scoreboard {
 	 */
 	public void set(int time, int enemiesShot){
 		this.time = time;
-		this.enemiesShot = enemiesShot;
+	}
+	
+	/**
+	 * Returns time integer.
+	 * @return
+	 */
+	public int getTimeInt(){
+		return time;
 	}
 	
 	/**
@@ -37,11 +39,4 @@ public class Scoreboard {
 		return Integer.toString(time);
 	}
 	
-	/**
-	 * Gets the enemies shot.
-	 * @return
-	 */
-	public String getEnemiesShot(){
-		return Integer.toString(enemiesShot);
-	}
 }

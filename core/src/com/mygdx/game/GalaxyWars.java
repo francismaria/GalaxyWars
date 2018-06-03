@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
@@ -10,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.model.GameModel;
 import com.mygdx.utils.Scoreboard;
+import com.mygdx.utils.Utils;
 import com.mygdx.view.FinishedGameScreen;
 import com.mygdx.view.GameView;
 import com.mygdx.view.MenuScreen;
@@ -61,6 +63,11 @@ public class GalaxyWars extends Game {
 	public static Difficulty difficulty;
 	
 	/**
+	 * Saves the highscores.
+	 */
+	public static Preferences prefs;
+	
+	/**
 	 * The width of the window.
 	 */
 	public static final int WIDTH = 850;
@@ -79,8 +86,39 @@ public class GalaxyWars extends Game {
 	public void create () {
 		batch = new SpriteBatch();
 		assetManager = new AssetManager();
+		prefs = Gdx.app.getPreferences("GalaxyWars");
+		initPreferences();
 		loadAssets();
 		drawMenu();
+	}
+	
+	/**
+	 * Initializes the preferences.
+	 */
+	private void initPreferences(){
+		if(!prefs.contains("highScore")) {
+		    prefs.putInteger("highScore", 0);
+		}
+		if(!prefs.contains("username")){
+			prefs.putString("username", "");
+		}
+	}
+	
+	/**
+	 * Sets the new highscore of the game.
+	 */
+	public void setHighScore(int time, String username){
+		prefs.putInteger("time", time);
+		prefs.putString("username", username);
+		prefs.flush();
+	}
+	
+	public int getHighScoreTime(){
+		return prefs.getInteger("time");
+	}
+	
+	public String getHighScoreUsername(){
+		return prefs.getString("username");
 	}
 	
 	/**
@@ -101,7 +139,7 @@ public class GalaxyWars extends Game {
 	}
 	
 	/**
-	 * Initializes scoreboard and sets the game screen.
+	 * Initializes score board and sets the game screen.
 	 * @param difficulty
 	 */
 	public void startGame(Difficulty difficulty){

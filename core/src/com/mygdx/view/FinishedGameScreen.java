@@ -29,12 +29,17 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 	/**
 	 * The enemies counter font.
 	 */
-	private BitmapFont enemiesFont;
+	private BitmapFont highscoreFont;
 	
 	/**
 	 * The user username.
 	 */
 	private String username;
+	
+	/**
+	 * Checks if the user result was or not a highscore.
+	 */
+	private boolean isHighscore;
 	
 	/**
 	 * The return button coordinates limits.
@@ -52,7 +57,14 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 	 */
 	public FinishedGameScreen(GalaxyWars game){
 		this.game = game;
+		checkHighscore();
 		initFonts();
+	}
+	
+	private void checkHighscore(){
+		if(game.getScoreboard().getTimeInt() > game.getHighScoreTime()){
+			isHighscore = true;
+		}
 	}
 	
 	/**
@@ -60,8 +72,8 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 	 */
 	private void initFonts(){
 		timerFont = new BitmapFont();
-		enemiesFont = new BitmapFont();
-		enemiesFont.setColor(Color.WHITE);
+		highscoreFont = new BitmapFont();
+		highscoreFont.setColor(Color.WHITE);
 		timerFont.setColor(Color.WHITE);
 	}
 
@@ -94,9 +106,12 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 		
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(Utils.isInBtnArea(RETURN_BUTTON_LIMITS)){
+				GameView.actionBackgroundMusic.stop();
 				game.drawMenu();
-			} else if(Utils.isInBtnArea(SAVESCORE_BUTTON_LIMITS)){
-				Gdx.input.getTextInput(this, "Save your score!", "", "Insert your username");
+			} else if(isHighscore){ 
+				if(Utils.isInBtnArea(SAVESCORE_BUTTON_LIMITS)){
+						Gdx.input.getTextInput(this, "Save your score!", "", "Insert your username");
+				}
 			}
 		}
 		
@@ -106,8 +121,11 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 	 * Draws the game scoreboard.
 	 */
 	private void drawScoreboard(){
-		enemiesFont.draw(game.getSpriteBatch(), "ENEMIES SHOT\n"+game.getScoreboard().getEnemiesShot(), GalaxyWars.WIDTH-400, GalaxyWars.HEIGHT-200);
-		timerFont.draw(game.getSpriteBatch(), "TIME ELAPSED\n"+game.getScoreboard().getTime(), GalaxyWars.WIDTH-575, GalaxyWars.HEIGHT-200);
+		if(isHighscore){
+			highscoreFont.draw(game.getSpriteBatch(), "YOU HAVE SET A NEW RECORD", GalaxyWars.WIDTH-580, GalaxyWars.HEIGHT-150);
+		}
+		timerFont.draw(game.getSpriteBatch(), "TIME ELAPSED      "+game.getScoreboard().getTime(), GalaxyWars.WIDTH-600, GalaxyWars.HEIGHT-200);
+		timerFont.draw(game.getSpriteBatch(), "TIME ELAPSED      "+game.getHighScoreTime()+"\nPLAYER      "+game.getHighScoreUsername(), GalaxyWars.WIDTH-300, GalaxyWars.HEIGHT-200);
 	}
 	
 	/**
@@ -121,13 +139,16 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 		else
 			returnButton = game.getAssetManager().get("return-button.png", Texture.class);
 		
-		if(Utils.isInBtnArea(SAVESCORE_BUTTON_LIMITS))
-			savescoreButton = game.getAssetManager().get("savescore-button-hover.png", Texture.class);
-		else
-			savescoreButton = game.getAssetManager().get("savescore-button.png", Texture.class);
+		if(isHighscore){
+			if(Utils.isInBtnArea(SAVESCORE_BUTTON_LIMITS))
+				savescoreButton = game.getAssetManager().get("savescore-button-hover.png", Texture.class);
+			else
+				savescoreButton = game.getAssetManager().get("savescore-button.png", Texture.class);
+			game.getSpriteBatch().draw(savescoreButton, 280, 155);
+		}
 			
 		game.getSpriteBatch().draw(returnButton, 315, 50);
-		game.getSpriteBatch().draw(savescoreButton, 280, 155);
+		
 	}
 	
 	/**
@@ -174,8 +195,9 @@ public class FinishedGameScreen implements Screen, TextInputListener {
 	@Override
 	public void input(String text) {
 		this.username = text;
-		//save in server
-		
+		game.setHighScore(game.getHighScoreTime(), username);
+		GameView.actionBackgroundMusic.stop();;
+		game.drawMenu();
 	}
 
 	@Override

@@ -81,7 +81,7 @@ public class GameController implements ContactListener{
 	 * Initializes the world with gravity.
 	 * It also creates all the bodies present in the game.
 	 */
-	private GameController(){
+	public GameController(){
 		
 		world = new World(new Vector2(0, -0.2f), true);
 		
@@ -359,6 +359,19 @@ public class GameController implements ContactListener{
 				world.destroyBody(body);
 			}
 		}		
+	}
+	
+	/**
+	 * Removes all bodies of the world.
+	 */
+	public void removeAllBodies(){
+		Array<Body> bodies = new Array<Body>();
+		world.getBodies(bodies);
+		
+		for(Body body : bodies){
+			GameModel.getInstance().removeEntity((EntityModel) body.getUserData());
+			world.destroyBody(body);
+		}
 	}
 	
 	/**

@@ -278,4 +278,9 @@ public class GameModel {
 	public static void setTestingOption(){
 		TESTING = true;
 	}
+	
+	public void removeAll(){
+		enemies.clear();
+		bullets.clear();
+	}
 }
