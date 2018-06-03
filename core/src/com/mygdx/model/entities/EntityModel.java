@@ -84,22 +84,40 @@ public abstract class EntityModel {
 		return velocity.y;
 	}
 	
+	/**
+	 * Sets the entity x coordinate.
+	 * @param xCoord
+	 */
 	public void setXCoord(float xCoord){
 		position.x = xCoord;
 	}
 	
+	/**
+	 * Sets the entity y coordinate.
+	 * @param yCoord
+	 */
 	public void setYCoord(float yCoord){
 		position.y = yCoord;
 	}
 	
+	/**
+	 * Checks if the entity is or not to be removed.
+	 * @return
+	 */
 	public boolean isToRemove(){
 		return toRemove;
 	}
 	
+	/**
+	 * Sets the entity to be removed.
+	 */
 	public void setToRemove(){
 		toRemove = true;
 	}
 	
+	/**
+	 * Sets the entity to not be removed.
+	 */
 	public void setToNotRemove(){
 		toRemove = false;
 	}

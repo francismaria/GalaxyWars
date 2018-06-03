@@ -171,7 +171,7 @@ public class GameModel {
 	
 	/**
 	 * Removes a given entity object from its belonging pool.
-	 * @param model representing the entity
+	 * @param model representing the entity.
 	 */
 	public void removeEntity(EntityModel model){
 		
@@ -183,6 +183,10 @@ public class GameModel {
 		}
 	}
 	
+	/**
+	 * Removes a given enemy from its belonging pool.
+	 * @param enemy the enemy to be removed.
+	 */
 	private void removeEnemy(EnemyModel enemy){
 		enemies.remove(enemy);
 		
@@ -197,6 +201,10 @@ public class GameModel {
 		}
 	}
 	
+	/**
+	 * Removes a given bullet from its belonging pool.
+	 * @param bullet the bullet to be removed.
+	 */
 	private void removeBullet(BulletModel bullet){
 		bullets.remove(bullet);
 		bulletPool.free(bullet);
@@ -264,6 +272,9 @@ public class GameModel {
 		return 1 + rand.nextFloat() * (maxLimit - 1);
 	}
 	
+	/**
+	 * FOR TESTING PURPOSES ONLY. Necessary due to libgdx constraints on dependencies.
+	 */
 	public static void setTestingOption(){
 		TESTING = true;
 	}
