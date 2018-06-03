@@ -5,5 +5,5 @@ languages:
 exclude:
 - /ios/*
 - /android/*
-- /desktop/*
+- /desktop/build/*
 - /html/*
