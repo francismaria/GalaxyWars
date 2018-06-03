@@ -83,7 +83,7 @@ Once the game is launched, the user can select:
 	There are 3 different tipes of enemies:
 	* ZigZag
 	Bounces up and down unpredictably while moving left towards the player
-	![alt text](android\assets\zigzag.png)
+	![alt text](https://github.com/francismaria/GalaxyWars/blob/master/android/assets/zigzag.png)
 
 	* Shooter
 	Fires projectiles while trying to aim at the player
