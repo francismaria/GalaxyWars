@@ -26,17 +26,31 @@ public class TestSpaceship {
             delta+=0.2;
         }
     }
+    
+    @Test
+    public void testDifficulty(){
+    	GameModel.setMaxEnemyInterval(Difficulty.EASY);
+    	assertEquals(Difficulty.EASY, GameModel.difficulty);
+    	GameModel.setMaxEnemyInterval(Difficulty.MEDIUM);
+    	assertEquals(Difficulty.MEDIUM, GameModel.difficulty);
+    	GameModel.setMaxEnemyInterval(Difficulty.HARD);
+    	assertEquals(Difficulty.HARD, GameModel.difficulty);
+    }
 	
 	@Test
 	public void testMoveUp() {
 		GameModel.setMaxEnemyInterval(Difficulty.EASY);
 		controller = GameController.getInstance(); model = GameModel.getInstance();
+		model.setTestingOption();
 		SpaceShipModel spaceship = model.getSpaceShipModel();
 		updateWorld(1f);
+		System.out.println("X: " + spaceship.getXCoord() +"Y:"+ spaceship.getYCoord());
 		Vector2 initPos = new Vector2(spaceship.getXCoord(), spaceship.getYCoord());
-		controller.jumpSpaceShip(Movement.UP);
-		updateWorld(2f);
+		System.out.println("X: " + initPos.x +"Y:"+ initPos.y);
+		controller.jumpSpaceShip(Movement.UP); controller.jumpSpaceShip(Movement.UP);
+		updateWorld(0.1f);
 		Vector2 lastPos = new Vector2(spaceship.getXCoord(), spaceship.getYCoord());
+		System.out.println("X: " + lastPos.x +"Y:"+ lastPos.y);
 		assertTrue(initPos.y < lastPos.y);
 	}
 	
@@ -44,6 +58,7 @@ public class TestSpaceship {
 	public void testMoveDown(){
 		GameModel.setMaxEnemyInterval(Difficulty.EASY);
 		controller = GameController.getInstance(); model = GameModel.getInstance();
+		model.setTestingOption();
 		SpaceShipModel spaceship = model.getSpaceShipModel();
 		updateWorld(1f);
 		Vector2 initPos = new Vector2(spaceship.getXCoord(), spaceship.getYCoord());
@@ -54,9 +69,22 @@ public class TestSpaceship {
 	}
 	
 	@Test
+	public void testSpaceshipShooting(){
+		GameModel.setMaxEnemyInterval(Difficulty.EASY);
+		controller = GameController.getInstance(); model = GameModel.getInstance();
+		model.setTestingOption();
+		SpaceShipModel spaceship = model.getSpaceShipModel();
+		updateWorld(1f);
+		controller.shootSpaceShipBullet();
+		updateWorld(0.1f);
+		assertTrue(controller.getBullets().size() > 0);
+	}
+	
+	@Test
 	public void testGravity(){
 		GameModel.setMaxEnemyInterval(Difficulty.EASY);
 		controller = GameController.getInstance(); model = GameModel.getInstance();
+		model.setTestingOption();
 		SpaceShipModel spaceship = model.getSpaceShipModel();
 		updateWorld(1f);
 		Vector2 initPos = new Vector2(spaceship.getXCoord(), spaceship.getYCoord());
@@ -64,5 +92,19 @@ public class TestSpaceship {
 		Vector2 lastPos = new Vector2(spaceship.getXCoord(), spaceship.getYCoord());
 		assertTrue(initPos.y > lastPos.y);
 	}
+	
+    @Test
+    public void testEnemyCreation(){
+		GameModel.setMaxEnemyInterval(Difficulty.EASY);
+		controller = GameController.getInstance(); model = GameModel.getInstance();
+		model.setTestingOption();
+		SpaceShipModel spaceship = model.getSpaceShipModel();
+		updateWorld(10f);
+		assertTrue(controller.getEnemies().size() > 0);
+    }
+    
+    
+    
+    
 
 }

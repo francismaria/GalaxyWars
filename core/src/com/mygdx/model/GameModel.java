@@ -28,6 +28,9 @@ public class GameModel {
 	 */
 	private static int LEVEL_INTERVAL;
 	
+	/**
+	 * The game difficulty.
+	 */
 	public static Difficulty difficulty;
 	
 	/**
@@ -99,6 +102,11 @@ public class GameModel {
 	 * Game window in meters
 	 */
 	public static final float WIDTH_LIMIT = GalaxyWars.WIDTH / GalaxyWars.PIXEL_TO_METER;
+	
+	/**
+	 * Controls the testing option. Necessary for libgdx dependencies mock-ups.
+	 */
+	public static boolean TESTING = false;
 	
 	/**
 	 * Class constructor
@@ -254,5 +262,9 @@ public class GameModel {
 	public static float getRandomNumberFloat(float maxLimit){
 		Random rand = new Random();
 		return 1 + rand.nextFloat() * (maxLimit - 1);
+	}
+	
+	public static void setTestingOption(){
+		TESTING = true;
 	}
 }
