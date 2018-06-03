@@ -102,12 +102,15 @@ Once the game is launched, the user can select:
 
 
 #Design Patterns
+
 	* **Model View Controller**
+		To make testing easier and the code more organized.
 
 	* **Object Pool**
 		This design pattern is used to save memory and improve the performance when firing the projectiles, as they exist in a limited amount and are contantly being created and destroyed
 
 	* **Singleton**
+		It's implemented in the GameModel and GameController classes
 
 
 #Major Difficulties
