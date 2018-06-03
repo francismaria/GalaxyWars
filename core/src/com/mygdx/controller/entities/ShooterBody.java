@@ -26,7 +26,14 @@ public class ShooterBody extends EnemyBody {
 		this.model = model;
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
-
+	
+	/**
+	 * Updates the spaceship model depending on the spaceship model.
+	 * Checks if it has to shoot.
+	 * @param delta
+	 * @param spaceship the spaceship model.
+	 * @return if it has or not to shoot.
+	 */
 	public boolean update(float delta, SpaceShipModel spaceship) {
 		model.update(delta, spaceship);
 		boolean shoot = model.isToShoot();
@@ -36,6 +43,10 @@ public class ShooterBody extends EnemyBody {
 	@Override
 	public void update(float delta){}
 	
+	/**
+	 * Gets the shooter body model.
+	 * @return the shooter model.
+	 */
 	public ShooterModel getModel(){
 		return model;
 	}

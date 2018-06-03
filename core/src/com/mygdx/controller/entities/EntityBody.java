@@ -12,14 +12,32 @@ import com.mygdx.model.entities.EntityModel;
 
 public abstract class EntityBody {
 
+	/**
+	 * The body itself.
+	 */
 	final Body body;
 	
+	/**
+	 * Category bits for the spaceship body.
+	 */
 	protected static final short SPACESHIP_BODY = 0x0001;
 	
+	/**
+	 * Category bits for the enemies bodies.
+	 */
 	protected static final short ENEMY_BODY = 0x0002;
 	
+	/**
+	 * Category bits for the bullets bodies.
+	 */
 	protected static final short BULLET_BODY = 0x0002;
 	
+	/**
+	 * Constructor of the class.
+	 * @param world the game world.
+	 * @param model the body model.
+	 * @param bodyType the body type.
+	 */
 	public EntityBody(World world, EntityModel model, String bodyType){
 		BodyDef bodyDef = new BodyDef();
 		
@@ -36,6 +54,17 @@ public abstract class EntityBody {
 		body.setUserData(model);
 	}
 	
+	/**
+	 * Creates a fixture. 
+	 * Credits to arestivo.
+	 * @param body
+	 * @param vertices
+	 * @param width
+	 * @param height
+	 * @param restitution
+	 * @param category
+	 * @param mask
+	 */
 	public final void createFixture(Body body, float[] vertices, int width,  int height, float restitution, short category, short mask){
 		PolygonShape shape = new PolygonShape();
 		
@@ -56,6 +85,10 @@ public abstract class EntityBody {
 		shape.dispose();
 	}
 	
+	/**
+	 * Returns the body itself.
+	 * @return the body.
+	 */
 	public Body getBody(){
 		return body;
 	}

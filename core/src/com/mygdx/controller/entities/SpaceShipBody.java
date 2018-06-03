@@ -7,8 +7,17 @@ import com.mygdx.view.GameView.Movement;
 
 public class SpaceShipBody extends EntityBody{
 	
+	/**
+	 * The spaceship model.
+	 */
 	private SpaceShipModel model;
 	
+	/**
+	 * Constructor of the class.
+	 * Initializes the spaceship body fixtures.
+	 * @param world the game world.
+	 * @param model the spaceship model.
+	 */
 	public SpaceShipBody(World world, SpaceShipModel model){
 		super(world, model, "Dynamic");
 		//up
@@ -20,6 +29,10 @@ public class SpaceShipBody extends EntityBody{
 		this.model = model;
 	}
 	
+	/**
+	 * Applies a force caracterizing the jump depending on its direction.
+	 * @param move jump direction (up/down).
+	 */
 	public void jump(Movement move){
 		if(move.equals(Movement.UP))
 			body.applyLinearImpulse(new Vector2(0, 0.1f), body.getWorldCenter(), true);
@@ -27,6 +40,10 @@ public class SpaceShipBody extends EntityBody{
 			body.applyLinearImpulse(new Vector2(0, -0.05f), body.getWorldCenter(), true);
 	}
 	
+	/**
+	 * Gets the spaceship model.
+	 * @return the spaceship model.
+	 */
 	public SpaceShipModel getModel(){
 		return model;
 	}

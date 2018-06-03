@@ -66,8 +66,14 @@ public class GameController implements ContactListener{
 	 */
 	private float timePassedEnemyCreation;
 	
+	/**
+	 * Offset of the x-coordinate to remove the enemies when exiting the game window.
+	 */
 	private final int OFFSET_REMOVE_X = 1;
 	
+	/**
+	 * Offset of the y-coordinate to remove the enemies when exiting the game window.
+	 */
 	private final int OFFSET_REMOVE_Y = 1;
 	
 	/**
@@ -117,7 +123,7 @@ public class GameController implements ContactListener{
 		
 		checkBodiesPositionWindow(bodies);
 		
-		updateBodies(bodies, delta);
+		updateBodies(delta);
 		createRandomEnemy(delta);
 
 		removeBodies();	
@@ -172,7 +178,13 @@ public class GameController implements ContactListener{
 		explosions.add(new ExplosionModel(enemy.getXCoord(), enemy.getYCoord()));
 	}
 	
-	private void updateBodies(Array<Body> bodies, float delta){
+	/**
+	 * Updates the enemies bodies. 
+	 * Checks if any of them has a pendent action (shoot, etc.). 
+	 * @param bodies
+	 * @param delta
+	 */
+	private void updateBodies(float delta){
 
 		for(EnemyBody body : enemiesBodies){
 			if(body instanceof ZigZagBody)
@@ -187,6 +199,13 @@ public class GameController implements ContactListener{
 		}
 	}
 	
+	/**
+	 * Shoots an enemy coming from the enemy ( of the "SHOOTER" type).
+	 * This launches from the enemy position and goes in the direction of the spaceship
+	 * position when the bullet was launched (AI).
+	 * @param spaceship the spaceship model.
+	 * @param enemy the enemy (shooter) model.
+	 */
 	private void shootEnemyBullet(SpaceShipModel spaceship, ShooterModel enemy){
 		
 		if(enemy.isToRemove()) return;
