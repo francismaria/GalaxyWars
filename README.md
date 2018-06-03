@@ -9,24 +9,28 @@ The game consists in three different difficulties (easy, medium, hard) differing
 
 * **Main Menu**
 Once the game is launched, the user can select:
-	* **New Game**
+	* **New Game**  
 	Initializes the screen with two options. Play game or quit game. If play game option is chosen it redirects to difficulty choice menu.
 ![alt text](imgs/menu.JPG)
 
-	* **Difficulty choice Menu**
+	* **Difficulty Choice Menu**  
 		Gives the user three options of difficulty:
 		* Easy
 		* Medium
 		* Hard
+![alt text](imgs/difficulty.JPG)
+
+	* Action  
+	After the user choice of the game difficulty the game will start being the user the spaceship in the left and the enemies are all of the bodies coming from the right.
 	
-	
+![alt text](imgs/example1.JPG)
 	
 * **Controls**
-	* **Space**
-	Gives the player's spaceship an impulse (must be pressed repeatedly)
+	* **"W"**  
+	Gives the player's spaceship an upwards impulse (must be pressed repeatedly)
 
-	* **Enter**
-	Fires a projectile to the right
+	* **"S"**  
+	Gives the player's spaceship a downwards impulse (must be pressed repeatedly)
 
 
 * **Game cicle**
