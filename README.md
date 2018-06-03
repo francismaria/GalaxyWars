@@ -10,13 +10,15 @@ The game consists in three different difficulties (easy, medium, hard) differing
 * **Main Menu**
 Once the game is launched, the user can select:
 	* **New Game**
-	Moves to a new menu where the player is asked to choose a difficulty:
-		* Easy
-		* Normal
-		* Hard
+	Initializes the screen with two options. Play game or quit game. If play game option is chosen it redirects to difficulty choice menu.
 ![alt text](imgs/menu.JPG)
 
-	* **Difficulty choice Menu **
+	* **Difficulty choice Menu**
+		Gives the user three options of difficulty:
+		* Easy
+		* Medium
+		* Hard
+	
 	
 	
 * **Controls**
