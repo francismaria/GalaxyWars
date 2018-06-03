@@ -60,16 +60,18 @@ Once the game is launched, the user can select:
 ## Design Patterns
 
 	* **Model View Controller**
-		To make testing easier and the code more organized.
+		To make testing easier and the code more organized. 
 
 	* **Object Pool**
-		This design pattern is used to save memory and improve the performance when firing the projectiles, as they exist in a limited amount and are contantly being created and destroyed
+		This design pattern is used to save memory and improve the performance when firing the projectiles, as they exist in a limited amount and are contantly being created and destroyed. It was also used in the creation of the different enemies.
 
 	* **Singleton**
-		It's implemented in the GameModel and GameController classes
+		It's implemented in the GameModel class.
 
 
 ## Major Difficulties
-
+The major difficulties we encountered during the development of the project was the making of of the explosions animation due to the fact that we couldn't keep the correct time between the changing of the frames of the animation.  
+We also had a difficult time dealing with the buttons interface because they were all "handmade" which means we had to keep scaling and changing the images.  
+The last major difficulty we have faced was the implementation of the singleton design pattern as there were times that we had to access to variables in a non-static way forcing us to change the implementation.  
 ## Lessons Learned
-
+We have learned that the design patterns are essential for a good, organized project. They help to maintain the sustainability of the code aswell as adding new modifications or even refactoring the code. This was something that we had valued since the beginning of the project allowing us to organize and create a better project.
