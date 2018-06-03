@@ -1,8 +1,9 @@
-component_depth: 1
+component_depth: 4
 languages:
 - java
 
 exclude:
-- /ios
-- /android
-- /desktop
+- /ios/*
+- /android/*
+- /desktop/build/*
+- /html/*
