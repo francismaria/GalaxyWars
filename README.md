@@ -70,9 +70,8 @@ Once the game is launched, the user can select:
 		*Normal
 		*Hard
 
-	
-
-	The game then starts with the 
+	Different dificulties have different times between the creation of the enemies, faster in hard mode, slower in easy mode.
+ 
 
 	* **Quit Game**
 	Exits the game
