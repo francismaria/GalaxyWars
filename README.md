@@ -101,7 +101,7 @@ Once the game is launched, the user can select:
 
 
 
-#Design Patterns
+## Design Patterns
 
 	* **Model View Controller**
 		To make testing easier and the code more organized.
@@ -113,7 +113,7 @@ Once the game is launched, the user can select:
 		It's implemented in the GameModel and GameController classes
 
 
-#Major Difficulties
+## Major Difficulties
 
-#Lessons Learned
+## Lessons Learned
 
