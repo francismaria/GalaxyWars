@@ -11,10 +11,13 @@ The game consists in three different difficulties (easy, medium, hard) differing
 Once the game is launched, the user can select:
 	* **New Game**
 	Moves to a new menu where the player is asked to choose a difficulty:
-		*Easy
-		*Normal
-		*Hard
+		* Easy
+		* Normal
+		* Hard
 ![alt text](imgs/menu.JPG)
+
+	* **Difficulty choice Menu **
+	
 	
 * **Controls**
 	* **Space**
