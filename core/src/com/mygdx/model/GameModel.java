@@ -7,6 +7,7 @@ import java.util.Random;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.mygdx.game.GalaxyWars;
+import com.mygdx.game.GalaxyWars.Difficulty;
 import com.mygdx.model.entities.BulletModel;
 import com.mygdx.model.entities.EnemyModel;
 import com.mygdx.model.entities.EntityModel;
@@ -26,6 +27,8 @@ public class GameModel {
 	 * Duration of each level of the game. 
 	 */
 	private static int LEVEL_INTERVAL;
+	
+	public static Difficulty difficulty;
 	
 	/**
 	 * Maximum interval of time between the creation of enemies
@@ -214,6 +217,23 @@ public class GameModel {
 	 */
 	public List<BulletModel> getBullets(){
 		return bullets;
+	}
+	
+	/**
+	 * Sets the maximum enemy creation interval depending on its difficulty.
+	 * @param difficulty the game difficulty.
+	 */
+	public static void setMaxEnemyInterval(Difficulty gameDifficulty){
+		difficulty = gameDifficulty;
+		if(difficulty.equals(Difficulty.EASY)){
+			MAX_ENEMY_INTERVAL = 10000;
+		}
+		else if(difficulty.equals(Difficulty.MEDIUM)){
+			MAX_ENEMY_INTERVAL = 7000;
+		}
+		else if(difficulty.equals(Difficulty.HARD)){
+			MAX_ENEMY_INTERVAL = 3000;
+		}
 	}
 	
 	/**

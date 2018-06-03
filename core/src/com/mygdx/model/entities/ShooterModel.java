@@ -77,7 +77,7 @@ public class ShooterModel extends EnemyModel {
 		shoot = false;
 		canShoot = true;
 		initVelocity();
-		initTimeBetweenShots(GalaxyWars.difficulty);
+		initTimeBetweenShots(GameModel.difficulty);
 	}
 	
 	/**

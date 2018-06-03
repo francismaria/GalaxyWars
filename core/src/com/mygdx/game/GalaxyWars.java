@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -90,6 +91,7 @@ public class GalaxyWars extends Game {
 		//assetManager.load("resume-button.png", Texture.class);
 		assetManager.load("quit-game-button.png", Texture.class);
 		loadFinishedGameScreenElements();
+		loadSounds();
 		
 		assetManager.finishLoading();
 	}
@@ -102,6 +104,9 @@ public class GalaxyWars extends Game {
 		assetManager.load("return-button-hover.png", Texture.class);
 	}
 	
+	private void loadSounds(){
+		assetManager.load("sounds/action-music.ogg", Sound.class);
+	}
 	@Override
 	public void dispose () {
 		batch.dispose();
@@ -116,7 +121,7 @@ public class GalaxyWars extends Game {
 		return batch;
 	}
 	
-	public Difficulty getDifficulty(){
+	public static Difficulty getDifficulty(){
 		return difficulty;
 	}
 	
@@ -144,19 +149,11 @@ public class GalaxyWars extends Game {
 	public static void setGameOver(){
 		over = true;
 	}
-	
+	 
 	public void setRunning(){
 		this.running = true;
 		this.paused = false;
-													//Interval of the enemies created in ms
-		if(difficulty.equals(Difficulty.EASY)){
-			GameModel.MAX_ENEMY_INTERVAL = 10000;
-		}
-		else if(difficulty.equals(Difficulty.MEDIUM)){
-			GameModel.MAX_ENEMY_INTERVAL = 7000;
-		}
-		else if(difficulty.equals(Difficulty.HARD)){
-			GameModel.MAX_ENEMY_INTERVAL = 3000;
-		}
+		GameModel.setMaxEnemyInterval(difficulty);	//Interval of the enemies created in ms
+
 	}
 }

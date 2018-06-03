@@ -1,7 +1,7 @@
 package com.mygdx.controller.entities;
 
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.game.GalaxyWars;
+import com.mygdx.model.*;
 import com.mygdx.game.GalaxyWars.Difficulty;
 import com.mygdx.model.entities.KamikazeModel;
 
@@ -45,7 +45,7 @@ public class KamikazeBody extends EnemyBody {
 	 */
 	private void initMovement(){
 		body.setGravityScale(0);
-		setVelocity(GalaxyWars.difficulty);
+		setVelocity(GameModel.difficulty);
 		body.setTransform(model.getXCoord(), model.getYCoord(), 0);
 	}
 	
@@ -53,7 +53,7 @@ public class KamikazeBody extends EnemyBody {
 	 * Sets the body velocity according to the game difficulty.
 	 * @param difficulty the difficulty of the game.
 	 */
-	private void setVelocity(Difficulty difficulty){
+	private void setVelocity(Difficulty difficulty){ 
 		if(difficulty.equals(Difficulty.EASY)){
 			body.setLinearVelocity(EASY_SPEED, 0f);
 		} else if(difficulty.equals(Difficulty.MEDIUM)){
