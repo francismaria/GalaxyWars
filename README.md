@@ -14,7 +14,7 @@ Once the game is launched, the user can select:
 		*Easy
 		*Normal
 		*Hard
-![alt text](imgs/menu.jpeg)
+![alt text](imgs/menu.JPG)
 	
 * **Controls**
 	* **Space**
