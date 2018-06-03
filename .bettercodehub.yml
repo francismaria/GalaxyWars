@@ -3,6 +3,7 @@ languages:
 - java
 
 exclude:
-- /ios
-- /android
-- /desktop
+- /ios/*
+- /android/*
+- /desktop/*
+- /html/*
