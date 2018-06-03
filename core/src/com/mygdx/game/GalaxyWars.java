@@ -96,6 +96,8 @@ public class GalaxyWars extends Game {
 	
 	private void loadFinishedGameScreenElements(){
 		assetManager.load("game-over.png", Texture.class);
+		assetManager.load("return-button.png", Texture.class);
+		assetManager.load("return-button-hover.png", Texture.class);
 	}
 	
 	@Override

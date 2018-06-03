@@ -2,6 +2,7 @@ package com.mygdx.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,16 @@ public class FinishedGameScreen implements Screen {
 	private BitmapFont timerFont;
 	
 	private BitmapFont enemiesFont;
+	
+	
+	// -----------------------> [ xmin, xmax, ymin, ymax ]
+	
+	private static final int XMIN = 0;
+	private static final int XMAX = 1;
+	private static final int YMIN = 2;
+	private static final int YMAX = 3;
+	
+	private static final int[] RETURN_BUTTON_LIMITS = new int[]{330, 530, GalaxyWars.HEIGHT-146, GalaxyWars.HEIGHT-50};
 	
 	public FinishedGameScreen(GalaxyWars game){
 		this.game = game;
@@ -39,7 +50,7 @@ public class FinishedGameScreen implements Screen {
         Gdx.gl.glClearColor( 1, 1, 1, 1 );
         Gdx.gl.glClear( GL20.GL_COLOR_BUFFER_BIT | GL20.GL_DEPTH_BUFFER_BIT );
         
-        //handleInputs();
+        handleInputs();
         
         game.getSpriteBatch().begin();
         
@@ -48,6 +59,15 @@ public class FinishedGameScreen implements Screen {
         drawButtons();
         
         game.getSpriteBatch().end();
+	}
+	
+	private void handleInputs(){
+		
+		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
+			if(isInBtnArea(RETURN_BUTTON_LIMITS)){
+				game.drawMenu();
+			}
+		}
 		
 	}
 	
@@ -57,7 +77,14 @@ public class FinishedGameScreen implements Screen {
 	}
 	
 	private void drawButtons(){
+		Texture returnButton = null;
 		
+		if(isInBtnArea(RETURN_BUTTON_LIMITS))
+			returnButton = game.getAssetManager().get("return-button-hover.png", Texture.class);
+		else
+			returnButton = game.getAssetManager().get("return-button.png", Texture.class);
+		
+		game.getSpriteBatch().draw(returnButton, 330, 50);
 	}
 	
 	/**
@@ -69,6 +96,20 @@ public class FinishedGameScreen implements Screen {
 
 		game.getSpriteBatch().draw(background, 0, 0, 0, 0, GalaxyWars.WIDTH, GalaxyWars.HEIGHT);
 		game.getSpriteBatch().draw(gameOver, 240, 350);
+	}
+	
+	/**
+	 * Checks if the cursor is inside a certain button area.
+	 * @param btnLimits array with the values of button.
+	 * @return true or false depending if the cursor is or not inside the button area.
+	 */
+	private boolean isInBtnArea(int[] btnLimits){
+ 		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
+	
+		if(xPos > btnLimits[XMIN] && xPos < btnLimits[XMAX] &&
+				yPos > btnLimits[YMIN] && yPos < btnLimits[YMAX])
+			return true;
+		return false;
 	}
 
 	@Override
