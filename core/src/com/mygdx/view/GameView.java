@@ -8,6 +8,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -70,6 +72,8 @@ public class GameView extends ScreenAdapter {
 	 */
 	private List<ExplosionView> explosions = new ArrayList<ExplosionView>();
 	
+	private static final Sound actionBackgroundMusic = Gdx.audio.newSound((Gdx.files.internal("sounds/action-music.ogg")));
+	
 	/**
 	 * Recognizes the two available movement inputs.
 	 * @author Francisco / Dinis
@@ -85,6 +89,7 @@ public class GameView extends ScreenAdapter {
 	 */
 	public GameView(GalaxyWars game){
 		this.game = game;
+		actionBackgroundMusic.loop(0.2f);
 		initCamera();
 		initTimer();
 	}

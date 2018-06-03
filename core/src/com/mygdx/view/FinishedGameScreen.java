@@ -3,13 +3,17 @@ package com.mygdx.view;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.TextInputListener;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.mygdx.game.GalaxyWars;
 
-public class FinishedGameScreen implements Screen {
+public class FinishedGameScreen implements Screen, TextInputListener {
 	
 	private GalaxyWars game;
 	
@@ -17,6 +21,7 @@ public class FinishedGameScreen implements Screen {
 	
 	private BitmapFont enemiesFont;
 	
+	private String username;
 	
 	// -----------------------> [ xmin, xmax, ymin, ymax ]
 	
@@ -25,7 +30,9 @@ public class FinishedGameScreen implements Screen {
 	private static final int YMIN = 2;
 	private static final int YMAX = 3;
 	
-	private static final int[] RETURN_BUTTON_LIMITS = new int[]{330, 530, GalaxyWars.HEIGHT-146, GalaxyWars.HEIGHT-50};
+	private static final int[] RETURN_BUTTON_LIMITS = new int[]{315, 515, GalaxyWars.HEIGHT-146, GalaxyWars.HEIGHT-50};
+	
+	private static final int[] SAVESCORE_BUTTON_LIMITS = new int[]{280, 515, GalaxyWars.HEIGHT-251, GalaxyWars.HEIGHT-155};
 	
 	public FinishedGameScreen(GalaxyWars game){
 		this.game = game;
@@ -66,6 +73,8 @@ public class FinishedGameScreen implements Screen {
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isInBtnArea(RETURN_BUTTON_LIMITS)){
 				game.drawMenu();
+			} else if(isInBtnArea(SAVESCORE_BUTTON_LIMITS)){
+				Gdx.input.getTextInput(this, "Save your score!", "", "Insert your username");
 			}
 		}
 		
@@ -77,14 +86,20 @@ public class FinishedGameScreen implements Screen {
 	}
 	
 	private void drawButtons(){
-		Texture returnButton = null;
+		Texture savescoreButton = null, returnButton = null;
 		
 		if(isInBtnArea(RETURN_BUTTON_LIMITS))
 			returnButton = game.getAssetManager().get("return-button-hover.png", Texture.class);
 		else
 			returnButton = game.getAssetManager().get("return-button.png", Texture.class);
 		
-		game.getSpriteBatch().draw(returnButton, 330, 50);
+		if(isInBtnArea(SAVESCORE_BUTTON_LIMITS))
+			savescoreButton = game.getAssetManager().get("savescore-button-hover.png", Texture.class);
+		else
+			savescoreButton = game.getAssetManager().get("savescore-button.png", Texture.class);
+			
+		game.getSpriteBatch().draw(returnButton, 315, 50);
+		game.getSpriteBatch().draw(savescoreButton, 280, 155);
 	}
 	
 	/**
@@ -138,6 +153,19 @@ public class FinishedGameScreen implements Screen {
 
 	@Override
 	public void dispose() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void input(String text) {
+		this.username = text;
+		//save in server
+		
+	}
+
+	@Override
+	public void canceled() {
 		// TODO Auto-generated method stub
 		
 	}

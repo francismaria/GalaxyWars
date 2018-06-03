@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.mygdx.game.GalaxyWars;
 import com.mygdx.game.GalaxyWars.Difficulty;
+import com.mygdx.utils.Utils;
 
 public class MenuScreen implements Screen {
 	
@@ -22,12 +23,10 @@ public class MenuScreen implements Screen {
 	 */
 	private boolean difficultyMenu;
 	
-	// -----------------------> [ xmin, xmax, ymin, ymax ]
-	
-	private static final int XMIN = 0;
-	private static final int XMAX = 1;
-	private static final int YMIN = 2;
-	private static final int YMAX = 3;
+	/**
+	 * Time control variable to a button be clicked only once.
+	 */
+	private float timeElapsedtoClick;
 	
 	/**
 	 * Array which defines the limits of the play button.
@@ -42,17 +41,17 @@ public class MenuScreen implements Screen {
 	/**
 	 * Array which defines the limits of the easy button.
 	 */
-	private static final int[] easyBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-230-130, GalaxyWars.HEIGHT-230};
+	private static final int[] easyBtnLimits = new int[]{55, 255, GalaxyWars.HEIGHT-260, GalaxyWars.HEIGHT-150};
 	
 	/**
 	 * Array which defines the limits of the medium button.
 	 */
-	private static final int[] mediumBtnLimits = new int[]{275, 545, GalaxyWars.HEIGHT-125-130, GalaxyWars.HEIGHT-125};
+	private static final int[] mediumBtnLimits = new int[]{275, 545, GalaxyWars.HEIGHT-260, GalaxyWars.HEIGHT-150};
 	
 	/**
 	 * Array which defines the limits of the hard button.
 	 */
-	private static final int[] hardBtnLimits = new int[]{315, 515, GalaxyWars.HEIGHT-125-20, GalaxyWars.HEIGHT-20};
+	private static final int[] hardBtnLimits = new int[]{595, 795, GalaxyWars.HEIGHT-260, GalaxyWars.HEIGHT-150};
 	
 	/**
 	 * Sound of the menu background music.
@@ -66,6 +65,7 @@ public class MenuScreen implements Screen {
 	public MenuScreen(GalaxyWars game){
 		this.game = game;
 		this.difficultyMenu = false;
+		timeElapsedtoClick = 0;
 		backgroundMusic.loop();
 	}
 	
@@ -153,9 +153,9 @@ public class MenuScreen implements Screen {
 		}
 		
 		game.getSpriteBatch().draw(difficultyTitle, 190, 330);
-		game.getSpriteBatch().draw(easyButton, 315, 230);
-		game.getSpriteBatch().draw(mediumButton, 275, 125);
-		game.getSpriteBatch().draw(hardButton, 315, 20);
+		game.getSpriteBatch().draw(easyButton, 55, 150);
+		game.getSpriteBatch().draw(mediumButton, 275, 150);
+		game.getSpriteBatch().draw(hardButton, 595, 150);
 	}
 	
 	/**
@@ -177,9 +177,11 @@ public class MenuScreen implements Screen {
 	
 		if(Gdx.input.isButtonPressed(Buttons.LEFT)){
 			if(isInBtnArea(playBtnLimits)){
+				Utils.buttonClickSound.play(0.1f);
 				difficultyMenu = true;
 			}
 			else if(isInBtnArea(quitBtnLimits)){
+				Utils.buttonClickSound.play(0.1f);
 				game.exitGame();
 			}
 		}
@@ -193,8 +195,8 @@ public class MenuScreen implements Screen {
 	private boolean isInBtnArea(int[] btnLimits){
  		int xPos = Gdx.input.getX(), yPos = Gdx.input.getY();
 	
-		if(xPos > btnLimits[XMIN] && xPos < btnLimits[XMAX] &&
-				yPos > btnLimits[YMIN] && yPos < btnLimits[YMAX])
+		if(xPos > btnLimits[Utils.XMIN] && xPos < btnLimits[Utils.XMAX] &&
+				yPos > btnLimits[Utils.YMIN] && yPos < btnLimits[Utils.YMAX])
 			return true;
 		return false;
 	}
