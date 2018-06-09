@@ -68,6 +68,9 @@ Once the game is launched, the user can select:
 	* **Singleton**
 		It's implemented in the GameModel class.
 
+## UML
+
+      ![alt text](imgs/umlrealsize.JPG)
 
 ## Major Difficulties
 The major difficulties we encountered during the development of the project was the making of of the explosions animation due to the fact that we couldn't keep the correct time between the changing of the frames of the animation.  
